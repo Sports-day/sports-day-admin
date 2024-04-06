@@ -1,8 +1,14 @@
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import {Noto_Sans_JP} from 'next/font/google'
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter';
+import {CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
+import {theme} from "@/components/theme/theme"
 
-const inter = Inter({subsets: ['latin']})
+const noto = Noto_Sans_JP({
+    weight: ['400', '500', '600', '700'],
+    subsets: ['latin'],
+    variable: '--font-noto-sans-jp',
+});
 
 export const metadata: Metadata = {
     title: 'Sports-day Admin',
@@ -14,10 +20,13 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
-        <body className={inter.className}>
+        <html lang="ja">
+        <body className={noto.className}>
         <AppRouterCacheProvider>
-            {children}
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                {children}
+            </ThemeProvider>
         </AppRouterCacheProvider>
         </body>
         </html>

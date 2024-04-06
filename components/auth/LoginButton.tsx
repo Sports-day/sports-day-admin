@@ -32,13 +32,15 @@ export default function LoginButton() {
     }, [])
 
     //  display name
-    const buttonDisplayName = process.env.NEXT_PUBLIC_OIDC_DISPLAY_NAME ?? "Login"
+    const buttonDisplayName = process.env.NEXT_PUBLIC_OIDC_DISPLAY_NAME ?? "ログイン権限がありません"
 
     return (
         <Button
             variant="contained"
             color="primary"
             href={authorizationUrl}
+            sx={{borderRadius: "10px", py:1.5, width:"100%"}}
+            disableElevation
         >
             {buttonDisplayName}
         </Button>
