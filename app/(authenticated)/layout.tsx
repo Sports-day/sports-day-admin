@@ -4,6 +4,7 @@ import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter';
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {theme} from "@/components/theme/theme"
 import {Navigation} from "@/components/layout/navigation";
+import {Box} from "@mui/material";
 
 const noto = Noto_Sans_JP({
     weight: ['400', '500', '600', '700'],
@@ -26,7 +27,10 @@ export default function RootLayout({
         <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                {children}
+                <Box sx={{ display: 'flex' }}>
+                    <Navigation/>
+                    {children}
+                </Box>
             </ThemeProvider>
         </AppRouterCacheProvider>
         </body>

@@ -3,7 +3,6 @@ import {Noto_Sans_JP} from 'next/font/google'
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter';
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {theme} from "@/components/theme/theme"
-import {Navigation} from "@/components/layout/navigation";
 
 const noto = Noto_Sans_JP({
     weight: ['400', '500', '600', '700'],
