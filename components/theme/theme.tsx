@@ -2,7 +2,7 @@
 import {createTheme} from "@mui/material";
 import {createShadows} from "@/components/theme/create-shadows";
 
-const shadows: any = createShadows();
+const shadows = createShadows();
 
 export const theme = createTheme({
     breakpoints: {
