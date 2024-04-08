@@ -7,6 +7,7 @@ import WiderLogo from "@/components/svg/wider";
 
 export const Navigation = () => {
     const drawerWidth = 303;
+
     return (
         <>
             <AppBar

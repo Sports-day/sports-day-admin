@@ -8,8 +8,8 @@ export const theme = createTheme({
     breakpoints: {
         values: {
             xs: 0,
-            sm: 360,
-            md: 900,
+            sm: 790,
+            md: 1000,
             lg: 1200,
             xl: 1440
         }
