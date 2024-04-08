@@ -1,11 +1,12 @@
 'use client'
 import * as React from 'react'
-import {AppBar, Box, Button, Drawer, Toolbar} from "@mui/material";
+import {AppBar, Box, Button, Drawer, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
 import Image from "next/image";
+import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy} from "react-icons/hi2";
+import WiderLogo from "@/components/svg/wider";
 
 export const Navigation = () => {
-    const drawerWidth = 280;
-
+    const drawerWidth = 303;
     return (
         <>
             <AppBar
@@ -15,7 +16,7 @@ export const Navigation = () => {
                     background:"radial-gradient(ellipse at left, #4A5ABB, #3E4EB3)"
             }}>
                 <Toolbar>
-                    <Image src={"/logo/logo_admin.png"} height={"18"} width={"227"} alt={"SPORTSDAY Admin"}/>
+                    <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"} alt={"SPORTSDAY Admin"}/>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -23,7 +24,7 @@ export const Navigation = () => {
                 PaperProps={{
                     sx: {
                         backgroundColor: "#7F8CD6",
-                        color: "red",
+                        color: "#fff",
                     }
                 }}
                 sx={{
@@ -33,12 +34,117 @@ export const Navigation = () => {
                 }}
             >
                 <Toolbar />
-                <Box mx={1} my={3} sx={{ overflow: 'auto' }}>
-                    <Button
-                        variant={"contained"}
-                        sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                    >ホーム
-                    </Button>
+                <Box mx={2} sx={{ overflow: 'auto' }}>
+
+                    <Stack spacing={1} py={3}>
+                        <Typography sx={{pl:2.5}}>全体</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiHome/>
+                                </SvgIcon>
+                                <Typography>ホーム</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            disabled={true}
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiMegaphone/>
+                                </SvgIcon>
+                                <Typography>お知らせを配信</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            disabled={true}
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiMiniNewspaper/>
+                                </SvgIcon>
+                                <Typography>予定とルールを管理</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+
+                    <Stack spacing={1} pb={3}>
+                        <Typography sx={{pl:2.5}}>ユーザー</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiUser/>
+                                </SvgIcon>
+                                <Typography>すべてのユーザーを管理</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiUserGroup/>
+                                </SvgIcon>
+                                <Typography>チームを管理</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+
+                    <Stack spacing={1} pb={3}>
+                        <Typography sx={{pl:2.5}}>競技</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiTrophy/>
+                                </SvgIcon>
+                                <Typography>競技を作成・編集</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+
+                    <Stack spacing={1}　pb={3}>
+                        <Typography sx={{pl:2.5}}>編成</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiTableCells/>
+                                </SvgIcon>
+                                <Typography>リーグを編成・管理</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiRectangleGroup/>
+                                </SvgIcon>
+                                <Typography>トーナメントを編成・管理</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+                    <Stack width={"100%"} justifyContent="center" alignItems="center" direction={"row"} spacing={0.5}>
+                        <Typography fontWeight={"600"} color={"#9aa6e5"}>(C)2024</Typography>
+                        <WiderLogo/>
+                    </Stack>
                 </Box>
             </Drawer>
         </>

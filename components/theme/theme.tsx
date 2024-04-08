@@ -1,6 +1,6 @@
 'use client'
 import {createTheme} from "@mui/material";
-import {createShadows} from "@/components/theme/create-shadows";
+import {createShadows} from "@/components/theme/createShadows";
 
 const shadows = createShadows();
 
@@ -37,6 +37,50 @@ export const theme = createTheme({
         },
     },
     components: {
+        MuiCssBaseline: {
+            styleOverrides: {
+                '*': {
+                    boxSizing: 'border-box'
+                },
+                html: {
+                    MozOsxFontSmoothing: 'grayscale',
+                    WebkitFontSmoothing: 'antialiased',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100%',
+                    width: '100%'
+                },
+                body: {
+                    display: 'flex',
+                    flex: '1 1 auto',
+                    flexDirection: 'column',
+                    minHeight: '100%',
+                    width: '100%'
+                },
+                '#__next': {
+                    display: 'flex',
+                    flex: '1 1 auto',
+                    flexDirection: 'column',
+                    height: '100%',
+                    width: '100%'
+                },
+                'body::-webkit-scrollbar': {
+                    width: '8px',
+                    height: '8px'
+                },
+                '::-webkit-scrollbar': {
+                    width: '8px',
+                    height: '8px'
+                },
+                '::-webkit-scrollbar-track': {
+                    background: "#7f8cd6",
+                },
+                '::-webkit-scrollbar-thumb': {
+                    background: "#5f6dc2",
+                    borderRadius: '5px'
+                }
+            }
+        },
         MuiSwitch: {
             styleOverrides: {
                 root: {
@@ -77,7 +121,7 @@ export const theme = createTheme({
 
     },
     shape: {
-        borderRadius: 8,
+        borderRadius: 12,
     },
     shadows,
 });

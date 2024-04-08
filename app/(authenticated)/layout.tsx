@@ -1,10 +1,9 @@
 import type {Metadata} from 'next'
 import {Noto_Sans_JP} from 'next/font/google'
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter';
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {CssBaseline, ThemeProvider, Box, Stack} from "@mui/material";
 import {theme} from "@/components/theme/theme"
 import {Navigation} from "@/components/layout/navigation";
-import {Box} from "@mui/material";
 
 const noto = Noto_Sans_JP({
     weight: ['400', '500', '600', '700'],
@@ -29,7 +28,9 @@ export default function RootLayout({
                 <CssBaseline/>
                 <Box sx={{ display: 'flex' }}>
                     <Navigation/>
-                    {children}
+                    <Stack minHeight="100lvh-8" width="100%" mt={8}>
+                        {children}
+                    </Stack>
                 </Box>
             </ThemeProvider>
         </AppRouterCacheProvider>

@@ -2,6 +2,7 @@ import {Button, Stack, Typography} from "@mui/material";
 import LoginButton from "@/components/auth/LoginButton";
 import Image from "next/image";
 import WiderLogo from "@/components/svg/wider";
+
 export default function Login() {
     return (
         <Stack height="100vh" width="100vw" justifyContent="center" alignItems="center" sx={{background:"radial-gradient(ellipse at left, #5F6DC2, #3E4EB3)"}}>
@@ -17,11 +18,13 @@ export default function Login() {
                 >
                     プライバシーポリシー
                 </Button>
-                <Typography fontSize={"13px"} fontWeight={"400"} color={"#99a5d6"}>SPORTSDAYを使うにはCookieが必要です</Typography>
-                <Stack direction={"row"} spacing={0.5}>
-                    <Typography fontWeight={"600"} color={"#99a5d6"}>(C)2024</Typography>
-                    <WiderLogo/>
-                </Stack>
+                <Typography fontSize={"13px"} fontWeight={"400"} color={"#9aa6e5"}>SPORTSDAYを使うにはCookieが必要です</Typography>
+                <Button>
+                    <Stack direction={"row"} spacing={0.5}>
+                        <Typography fontWeight={"600"} color={"#99a5d6"}>(C)2024</Typography>
+                        <WiderLogo/>
+                    </Stack>
+                </Button>
             </Stack>
         </Stack>
     );
