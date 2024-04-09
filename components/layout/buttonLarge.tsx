@@ -1,7 +1,7 @@
 import {Avatar, Button, Stack, Grid} from "@mui/material";
 import React, {ReactNode} from "react";
 
-interface ButtonLargeProps {
+type ButtonLargeProps = {
     img?: string;
     children?: ReactNode;
 }

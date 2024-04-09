@@ -81,7 +81,7 @@ export default function Home() {
                         sport={"バスケットボール"}
                         league={"Aリーグ"}
                         judge={"M5-a"}
-                        left={"M1-a"}
+                        left={"M2-a"}
                         right={"エコ1"}
                         time={"10:00"}
                         location={"第二体育館"}

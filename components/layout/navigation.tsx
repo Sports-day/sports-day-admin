@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react'
-import {AppBar, Box, Button, Drawer, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Drawer, Link, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
 import Image from "next/image";
 import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy} from "react-icons/hi2";
 import WiderLogo from "@/components/svg/wider";
@@ -17,7 +17,9 @@ export const Navigation = () => {
                     background:"radial-gradient(ellipse at left, #4A5ABB, #3E4EB3)"
             }}>
                 <Toolbar>
-                    <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"} alt={"SPORTSDAY Admin"}/>
+                    <Link href={"/"}>
+                        <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"} alt={"SPORTSDAY Admin"}/>
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -42,6 +44,7 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:2, width:"100%", fontWeight: "600"}}
+                            href={"/"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -133,6 +136,7 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:2, width:"100%", fontWeight: "600"}}
+                            href={"tournament"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>

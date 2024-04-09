@@ -118,7 +118,6 @@ export const theme = createTheme({
                 disableRipple: true,
             },
         },
-
     },
     shape: {
         borderRadius: 12,

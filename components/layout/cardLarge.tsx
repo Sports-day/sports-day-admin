@@ -1,7 +1,7 @@
 import {Button, Card, Stack, Typography} from "@mui/material";
 import React, { ReactNode } from 'react';
 
-interface CardProps {
+type CardProps = {
     children?: ReactNode;
 }
 

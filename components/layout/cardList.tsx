@@ -24,9 +24,7 @@ const CardList: React.FC<CardProps> = ({location, sport, league, judge, left, ri
                     alignItems="flex-start"
                 >
                     <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                        <Avatar
-                            sx={{height: "1em", width: "1em"}}
-                        >
+                        <Avatar sx={{height: "1em", width: "1em"}}>
                         </Avatar>
                         <Typography>{sport}</Typography>
                     </Stack>

@@ -1,12 +1,12 @@
 import {Button, Card, Stack, Typography} from "@mui/material";
 import React, { ReactNode } from 'react';
 
-interface CardProps {
+type CardProps = {
     title?: string;
     button?: string;
     link?: string;
     children?: ReactNode;
-}
+};
 
 const CardBackground: React.FC<CardProps> = ({ title, button, link, children }) => {
     return (
