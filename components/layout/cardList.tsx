@@ -1,7 +1,6 @@
-import {SvgIcon, Grid, Button, Avatar, Chip, Stack, Typography, Tooltip, Divider} from "@mui/material";
+import {Grid, Button, Avatar, Chip, Stack, Tooltip, Divider} from "@mui/material";
 import React, {ReactNode} from 'react';
 import {HiClock, HiFlag, HiMapPin, HiTableCells, HiUserGroup} from "react-icons/hi2";
-import {MdFlagCircle} from "react-icons/md";
 
 type CardProps = {
     link?: string;

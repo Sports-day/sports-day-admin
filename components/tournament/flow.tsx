@@ -1,6 +1,6 @@
 import {ReactFlow, Controls, Background} from "reactflow";
 import 'reactflow/dist/style.css';
-import React, {ReactNode} from "react";
+import React from "react";
 
 
 export const Flow = () => {

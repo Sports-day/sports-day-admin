@@ -1,4 +1,4 @@
-import {Button, Avatar, Card, Stack, SvgIcon, Typography} from "@mui/material";
+import { Avatar, Card, Stack, Typography} from "@mui/material";
 import React, { ReactNode } from 'react';
 import {HiMegaphone} from "react-icons/hi2";
 

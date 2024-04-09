@@ -36,7 +36,7 @@ const initialEdges = [
     {id: "1-2", source: "1", target: "2"}
 ]
 
-export default function Tournament() {
+export default function TournamentPage() {
 
     const [nodes, setNodes] = useState(initialNodes);
     const [edges, setEdges] = useState(initialEdges);
