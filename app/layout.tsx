@@ -25,7 +25,6 @@ export default function RootLayout({
         <body className={noto.className}>
         <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
-                <CssBaseline/>
                 {children}
             </ThemeProvider>
         </AppRouterCacheProvider>
