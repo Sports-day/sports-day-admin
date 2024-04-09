@@ -1,6 +1,7 @@
-import {SvgIcon, Grid, Button, Avatar, Chip, Stack, Typography, Tooltip} from "@mui/material";
+import {SvgIcon, Grid, Button, Avatar, Chip, Stack, Typography, Tooltip, Divider} from "@mui/material";
 import React, {ReactNode} from 'react';
 import {HiClock, HiFlag, HiMapPin, HiTableCells, HiUserGroup} from "react-icons/hi2";
+import {MdFlagCircle} from "react-icons/md";
 
 type CardProps = {
     link?: string;
@@ -24,62 +25,87 @@ const CardList: React.FC<CardProps> = ({link, location, sport, league, judge, le
                     justifyContent={"flex-start"}
                     alignItems="flex-start"
                 >
-                    <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                        <Avatar
-                            sx={{height: "1em", width: "1em"}}
+
+                    <Stack direction={"row"} spacing={0.1}>
+                        <Tooltip title={`競技 | ${sport}`} placement={"top"} arrow>
+                            <Chip
+                                color="primary"
+                                size={"small"}
+                                avatar={<Avatar></Avatar>}
+                            />
+                        </Tooltip>
+
+                        <Tooltip title={`試合会場 | ${location}`} placement={"top"} arrow>
+                            <Chip
+                                color="primary"
+                                size={"small"}
+                                icon={<HiMapPin/>}
+                            />
+                        </Tooltip>
+
+                        <Tooltip title={`試合開始時刻 | ${time}`} placement={"top"} arrow>
+                            <Chip
+                                color="primary"
+                                label={time}
+                                size={"small"}
+                                icon={<HiClock/>}
+                            />
+                        </Tooltip>
+                    </Stack>
+
+                    <Divider/>
+
+                    <Stack
+                        spacing={1}
+                        width={"100%"}
+                        sx={{
+                            borderRadius:"10px",
+                            backgroundColor:"#7f8cd6",
+                            p:1.5,
+                            overflow:"auto"
+                    }}
+                    >
+
+                        <Stack
+                            direction={"row"}
+                            spacing={1}
+                            width={"100%"}
                         >
-                        </Avatar>
-                        <Typography>{sport}</Typography>
+
+                            <Tooltip title={"リーグ"} placement={"top"} arrow>
+                                <Chip
+                                    sx={{px:0.5}}
+                                    color="info"
+                                    label={league}
+                                    icon={<HiTableCells/>}
+                                />
+                            </Tooltip>
+
+                            <Tooltip title={"審判のチーム"} placement={"top"} arrow>
+                                <Chip
+                                    sx={{px:0.5}}
+                                    color="info"
+                                    label={judge}
+                                    icon={<HiFlag/>}
+                                />
+                            </Tooltip>
+
+                        </Stack>
+
+                        <Stack
+                            direction={"row"}
+                            spacing={1}
+                        >
+                            <Tooltip title={"対戦するチーム"} placement={"top"} arrow>
+                                <Chip
+                                    sx={{px:0.5}}
+                                    color="info"
+                                    label={`${left} vs ${right}`}
+                                    icon={<HiUserGroup/>}
+                                />
+                            </Tooltip>
+                        </Stack>
                     </Stack>
-
-                    <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                        <Tooltip title={"試合開始時刻"} placement={"left"} arrow>
-                            <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiClock/>
-                                </SvgIcon>
-                                <Typography sx={{pr: 2}}>{time}</Typography>
-                            </Stack>
-                        </Tooltip>
-
-                        <Tooltip title={"リーグ"} placement={"right"} arrow>
-                            <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiTableCells/>
-                                </SvgIcon>
-                                <Typography>{league}</Typography>
-                            </Stack>
-                        </Tooltip>
-
-                    </Stack>
-
-                    <Tooltip title={"審判チーム"} placement={"left"} arrow>
-                        <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                            <SvgIcon fontSize={"small"}>
-                                <HiFlag/>
-                            </SvgIcon>
-                            <Typography>{judge}</Typography>
-                        </Stack>
-                    </Tooltip>
-
-                    <Tooltip title={"対戦チーム"} placement={"left"} arrow>
-                        <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                            <SvgIcon fontSize={"small"}>
-                                <HiUserGroup/>
-                            </SvgIcon>
-                            <Typography>{left} vs {right}</Typography>
-                        </Stack>
-                    </Tooltip>
-
-                    <Tooltip title={"場所"} placement={"left"} arrow>
-
-                        <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center"> <SvgIcon
-                            fontSize={"small"}>
-                            <HiMapPin/>
-                        </SvgIcon>
-                            <Typography>{location}</Typography>
-                        </Stack>
-                    </Tooltip>
 
                 </Stack>
             </Button>

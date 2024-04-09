@@ -43,7 +43,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>全体</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
                             href={"/"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
@@ -56,7 +56,7 @@ export const Navigation = () => {
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -68,7 +68,7 @@ export const Navigation = () => {
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -83,7 +83,8 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>ユーザー</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            href={"users"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -94,7 +95,8 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            href={"teams"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -109,7 +111,8 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>競技</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            href={"sport"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -124,7 +127,8 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>編成</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            href={"league"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -135,7 +139,7 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:2, width:"100%", fontWeight: "600"}}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
                             href={"tournament"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
