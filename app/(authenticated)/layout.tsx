@@ -27,7 +27,6 @@ export default function RootLayout({
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
                 <Box sx={{ display: 'flex' }}>
-                    <Navigation/>
                     <Stack minHeight="100lvh-8" width="100%" mt={8}>
                         {children}
                     </Stack>
