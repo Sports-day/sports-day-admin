@@ -14,7 +14,7 @@ const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
             {...attributes}
             {...listeners}
         >
-            <Card sx={{p:2, backgroundColor:"primary.main", color:"secondary.main"}}>
+            <Card sx={{p:2, backgroundColor:"primary.main", color:"secondary.main", minWidth:"200px", maxWidth:"200px"}}>
                 <Item id={id} />
             </Card>
         </div>

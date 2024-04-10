@@ -1,7 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "./dndSortableItem";
-import {Stack} from "@mui/material";
+import {Card, Stack, Typography} from "@mui/material";
 
 const SortableContainer = ({
                                id,
@@ -17,16 +17,18 @@ const SortableContainer = ({
     });
     return (
         <div>
-            <h3>{label}</h3>
+            <Typography pl={1}>{label}</Typography>
             <SortableContext id={id} items={items} strategy={rectSortingStrategy}>
                 <div
                     ref={setNodeRef}
                 >
-                    <Stack spacing={1}>
-                        {items.map((id: string) => (
-                            <SortableItem key={id} id={id} />
-                        ))}
-                    </Stack>
+                    <Card variant={"outlined"}>
+                        <Stack spacing={1} m={1}>
+                            {items.map((id: string) => (
+                                <SortableItem key={id} id={id} />
+                            ))}
+                        </Stack>
+                    </Card>
                 </div>
             </SortableContext>
         </div>

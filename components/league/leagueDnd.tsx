@@ -1,6 +1,6 @@
 'use client'
-import { Avatar, Card, Stack, Typography} from "@mui/material";
-import React, { ReactNode, useState } from 'react';
+import {Avatar, Card, Stack, Typography} from "@mui/material";
+import React, {ReactNode, useState} from 'react';
 import {HiMegaphone} from "react-icons/hi2";
 import {
     DndContext,
@@ -15,7 +15,7 @@ import {
     DragOverEvent,
     DragEndEvent,
 } from "@dnd-kit/core";
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
@@ -23,15 +23,15 @@ type DndProps = {
     children?: ReactNode;
 }
 
-const LeagueDnd: React.FC<DndProps> = ({ children }) => {
+const LeagueDnd: React.FC<DndProps> = ({children}) => {
     // ドラッグ&ドロップでソート可能なリスト
     const [items, setItems] = useState<{
         [key: string]: string[];
     }>({
-        container1: ["A", "B", "C"],
-        container2: ["D", "E", "F"],
-        container3: ["G", "H", "I"],
-        container4: [],
+        チーム一覧: ["A", "B", "C"],
+        Aリーグ: ["D", "E", "F"],
+        Bリーグ: ["G", "H", "I"],
+        Cリーグ: ["J", "K", "L"],
     });
 
     //リストのリソースid（リストの値）
@@ -57,7 +57,7 @@ const LeagueDnd: React.FC<DndProps> = ({ children }) => {
 
     // ドラッグ開始時に発火する関数
     const handleDragStart = (event: DragStartEvent) => {
-        const { active } = event;
+        const {active} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
         setActiveId(id);
@@ -65,7 +65,7 @@ const LeagueDnd: React.FC<DndProps> = ({ children }) => {
 
     //ドラッグ可能なアイテムがドロップ可能なコンテナの上に移動時に発火する関数
     const handleDragOver = (event: DragOverEvent) => {
-        const { active, over } = event;
+        const {active, over} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
         //ドロップした場所にあったリソースのid
@@ -124,7 +124,7 @@ const LeagueDnd: React.FC<DndProps> = ({ children }) => {
 
     // ドラッグ終了時に発火する関数
     const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event;
+        const {active, over} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
         //ドロップした場所にあったリソースのid
@@ -164,7 +164,7 @@ const LeagueDnd: React.FC<DndProps> = ({ children }) => {
 
     return (
         <>
-            <Card sx={{py:1.5, px:2, }}>
+            <Stack direction={"row"} spacing={2} overflow={"scroll"}>
                 <DndContext
                     sensors={sensors}
                     collisionDetection={closestCorners}
@@ -174,29 +174,29 @@ const LeagueDnd: React.FC<DndProps> = ({ children }) => {
                 >
                     {/* SortableContainer */}
                     <SortableContainer
-                        id="container1"
-                        items={items.container1}
-                        label="container1"
+                        id="チーム一覧"
+                        items={items.チーム一覧}
+                        label="チーム一覧"
                     />
                     <SortableContainer
-                        id="container2"
-                        label="container2"
-                        items={items.container2}
+                        id="Aリーグ"
+                        label="Aリーグ"
+                        items={items.Aリーグ}
                     />
                     <SortableContainer
-                        id="container3"
-                        label="container3"
-                        items={items.container3}
+                        id="Bリーグ"
+                        label="Bリーグ"
+                        items={items.Bリーグ}
                     />
                     <SortableContainer
-                        id="container4"
-                        label="container4"
-                        items={items.container4}
+                        id="Cリーグ"
+                        label="Cリーグ"
+                        items={items.Cリーグ}
                     />
                     {/* DragOverlay */}
-                    <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
+                    <DragOverlay>{activeId ? <Item id={activeId}/> : null}</DragOverlay>
                 </DndContext>
-            </Card>
+            </Stack>
         </>
     );
 };
