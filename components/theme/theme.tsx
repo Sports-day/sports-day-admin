@@ -42,6 +42,7 @@ export const theme = createTheme({
         info: {
             main: '#4a5abb',
         },
+        divider: '#7f8cd6',
     },
     components: {
         MuiCssBaseline: {

@@ -11,10 +11,9 @@ type CardProps = {
     right: string;
     time: string;
     location: string;
-    children?: ReactNode;
 }
 
-const CardList: React.FC<CardProps> = ({link, location, sport, league, judge, left, right, time, children}) => {
+const CardList: React.FC<CardProps> = ({link, location, sport, league, judge, left, right, time}) => {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Button variant={"contained"} sx={{width: "100%", py: 2, px: 2}} href={link}>

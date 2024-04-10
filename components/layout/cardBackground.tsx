@@ -11,10 +11,10 @@ type CardProps = {
 const CardBackground: React.FC<CardProps> = ({ title, button, link, children }) => {
     return (
         <>
-            <Card sx={{py:2, px:2}}>
+            <Card raised  sx={{py:2, px:2}}>
                 <Stack pb={2}　spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                    {title && <Typography>{title}</Typography>}
-                    {button && <Button variant={"outlined"} href={link}>{button}</Button>}
+                    {title && <Typography color={"primary.light"}>{title}</Typography>}
+                    {button && <Button variant={"contained"} href={link}>{button}</Button>}
                 </Stack>
                 {children}
             </Card>

@@ -14,12 +14,14 @@ export const Navigation = () => {
                 position="fixed"
                 sx={{
                     zIndex: (theme) => theme.zIndex.drawer + 1,
-                    background:"radial-gradient(ellipse at left, #4A5ABB, #3E4EB3)"
+                    background:"rgba(62,78,179, 0.9)",
+                    backdropFilter: 'blur(4px)',
             }}>
                 <Toolbar>
                     <Link href={"/"}>
                         <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"} alt={"SPORTSDAY Admin"}/>
                     </Link>
+
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -28,6 +30,7 @@ export const Navigation = () => {
                     sx: {
                         backgroundColor: "#7F8CD6",
                         color: "#fff",
+                        mt:8
                     }
                 }}
                 sx={{
@@ -36,7 +39,6 @@ export const Navigation = () => {
                     [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
                 }}
             >
-                <Toolbar />
                 <Box mx={2} sx={{ overflow: 'auto' }}>
 
                     <Stack spacing={1} py={3}>
@@ -112,7 +114,7 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"sport"}
+                            href={"sports"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
