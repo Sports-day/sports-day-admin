@@ -81,6 +81,7 @@ export const theme = createTheme({
                     height: '3px'
                 },
                 '::-webkit-scrollbar-track': {
+                    background: "rgba(47,57,118,0)",
                     borderRadius:"10px"
                 },
                 '::-webkit-scrollbar-thumb': {

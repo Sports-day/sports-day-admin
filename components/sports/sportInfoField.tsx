@@ -124,15 +124,6 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                         helperText="例: バスケットボール晴天時"
                     />
 
-                    <TextField
-                        color={"info"}
-                        hiddenLabel={true}
-                        id="outlined-size-small"
-                        defaultValue="0"
-                        size="small"
-                        helperText="重み : 表示の順番等に使用される値"
-                    />
-
                     <FormControl sx={{ m: 1, width: "100%" }} size="small">
                         <InputLabel id="taglabel">タグ</InputLabel>
                         <Select
