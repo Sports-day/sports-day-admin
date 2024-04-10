@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# sports-day-admin
 
-## Getting Started
+ユーザーとチームの管理、リーグとトーナメントの編成、競技の作成、試合結果の入力など、大会進行に必要な管理機能を有する球技大会運営スタッフ向けアプリケーション。
 
-First, run the development server:
+## Develop
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Git branch
+
+``main``: プロダクション用ブランチ
+
+開発時は、``main``ブランチからブランチを切ってください。
+
+#### Style
+
+```
+<type>/#<issue-number>-<alias>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Git commit
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Template
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+<type>: <subject>
+```
 
-## Learn More
+#### Type
 
-To learn more about Next.js, take a look at the following resources:
+- **feat**: 新機能
+- **change**: 修正・削除
+- **fix**: バグフィックス
+- **docs**: ドキュメントに関する変更
+- **style**: フォーマット等の変更
+- **refactor**: リファクタに関する変更
+- **debug**: デバック用のコード
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## LICENSE
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Apache-2.0
+Copyright Sports-day

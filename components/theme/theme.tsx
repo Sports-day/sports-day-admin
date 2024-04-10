@@ -35,6 +35,14 @@ export const theme = createTheme({
             secondary: '#4a5abb',
             disabled: '#7f8cd6',
         },
+        warning: {
+            main: '#b9891a',
+            contrastText: 'rgba(253,252,252,0.87)',
+        },
+        info: {
+            main: '#4a5abb',
+        },
+        divider: '#7f8cd6',
     },
     components: {
         MuiCssBaseline: {
@@ -69,15 +77,16 @@ export const theme = createTheme({
                     height: '8px'
                 },
                 '::-webkit-scrollbar': {
-                    width: '8px',
-                    height: '8px'
+                    width: '6px',
+                    height: '3px'
                 },
                 '::-webkit-scrollbar-track': {
-                    background: "#7f8cd6",
+                    background: "rgba(47,57,118,0)",
+                    borderRadius:"10px"
                 },
                 '::-webkit-scrollbar-thumb': {
-                    background: "#5f6dc2",
-                    borderRadius: '5px'
+                    background: "rgba(47,57,118,0.2)",
+                    borderRadius: '10px'
                 }
             }
         },
@@ -118,7 +127,6 @@ export const theme = createTheme({
                 disableRipple: true,
             },
         },
-
     },
     shape: {
         borderRadius: 12,

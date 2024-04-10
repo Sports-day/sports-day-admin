@@ -1,6 +1,6 @@
-import {Stack, Breadcrumbs, Button, Link, Container, Box, Typography, Card} from "@mui/material";
+import {Stack, Breadcrumbs, Button, Link, Typography, Card} from "@mui/material";
 
-export default function Home() {
+export default function UsersPage() {
     return (
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>

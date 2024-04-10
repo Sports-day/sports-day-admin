@@ -1,7 +1,7 @@
 import {Avatar, Button, Stack, Grid} from "@mui/material";
 import React, {ReactNode} from "react";
 
-interface ButtonLargeProps {
+type ButtonLargeProps = {
     img?: string;
     children?: ReactNode;
 }
@@ -15,12 +15,12 @@ export const ButtonLarge: React.FC<ButtonLargeProps> = ({img, children})=> {
             >
                 <Stack
                     direction={"row"}
-                    my={1}
+                    my={0.5}
                     width={"100%"}
                     justifyContent={"flex-start"}
                     alignItems="center"
                 >
-                    {img && <Avatar sx={{mr:1.5}}>
+                    {img && <Avatar sx={{mr:1.5, height: "1.5em", width: "1.5em"}}>
 
                     </Avatar>}
                     {children}

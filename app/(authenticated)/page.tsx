@@ -32,7 +32,7 @@ export default function Home() {
             </CardBackground>
             <CardBackground title={"配信中のお知らせ"} button={"お知らせを作成・編集"}>
                 <CardLarge>
-                    あ
+                    現在集計中です。教室で放送による結果発表をお待ちください。
                 </CardLarge>
             </CardBackground>
             <CardBackground title={"現在進行中の試合"}>
@@ -81,7 +81,7 @@ export default function Home() {
                         sport={"バスケットボール"}
                         league={"Aリーグ"}
                         judge={"M5-a"}
-                        left={"M1-a"}
+                        left={"M2-a"}
                         right={"エコ1"}
                         time={"10:00"}
                         location={"第二体育館"}
