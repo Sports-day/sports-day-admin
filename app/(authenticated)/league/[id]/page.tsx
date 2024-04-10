@@ -1,7 +1,5 @@
-import {Stack, Grid, Typography} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import CardLarge from "@/components/layout/cardLarge";
-import {ButtonLarge} from "@/components/layout/buttonLarge";
 import LeagueDnd from "@/components/league/leagueDnd";
 
 export default function LeagueTestPage() {

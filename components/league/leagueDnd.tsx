@@ -1,7 +1,6 @@
 'use client'
-import {Avatar, Card, Stack, Typography} from "@mui/material";
-import React, {ReactNode, useState} from 'react';
-import {HiMegaphone} from "react-icons/hi2";
+import {Stack} from "@mui/material";
+import React, {useState} from 'react';
 import {
     DndContext,
     DragOverlay,
@@ -19,11 +18,7 @@ import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
-type DndProps = {
-    children?: ReactNode;
-}
-
-const LeagueDnd: React.FC<DndProps> = ({children}) => {
+const LeagueDnd: React.FC = () => {
     // ドラッグ&ドロップでソート可能なリスト
     const [items, setItems] = useState<{
         [key: string]: string[];
