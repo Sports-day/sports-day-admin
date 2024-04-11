@@ -13,7 +13,7 @@ export type Match = {
     result: MatchResult,
     status: MatchStatus,
     note: string | null,
-    judge: string | null,
+    judgeTeamId: string | null,
     parents: number[],
     children: number[],
     createdAt: string,
