@@ -1,7 +1,6 @@
 import {Stack, Breadcrumbs, Button, Link, Typography, Card} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import BasicTable from "@/components/users/usersTable";
-import StickyHeadTable from "@/components/users/usersTable";
+import UsersTable from "@/components/users/usersTable";
 
 export default function UsersPage() {
     return (
@@ -13,7 +12,7 @@ export default function UsersPage() {
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
             <CardBackground title={"すべてのユーザー"}>
-                <StickyHeadTable/>
+                <UsersTable/>
             </CardBackground>
         </Stack>
     );
