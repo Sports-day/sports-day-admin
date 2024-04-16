@@ -23,7 +23,7 @@ const SortableContainer = ({
                     ref={setNodeRef}
                 >
                     <Card variant={"outlined"}>
-                        <Stack spacing={1} m={1}>
+                        <Stack spacing={0.5} m={1}>
                             {items.map((id: string) => (
                                 <SortableItem key={id} id={id} />
                             ))}
