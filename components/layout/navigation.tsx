@@ -1,9 +1,10 @@
 'use client'
 import * as React from 'react'
-import {AppBar, Box, Button, Drawer, Link, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Drawer, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
 import Image from "next/image";
 import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy} from "react-icons/hi2";
 import WiderLogo from "@/components/svg/wider";
+import Link from  "next/link"
 
 export const Navigation = () => {
     const drawerWidth = 303;
@@ -21,7 +22,6 @@ export const Navigation = () => {
                     <Link href={"/"}>
                         <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"} alt={"SPORTSDAY Admin"}/>
                     </Link>
-
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -46,6 +46,7 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            component={Link}
                             href={"/"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
@@ -59,6 +60,8 @@ export const Navigation = () => {
                             disabled={true}
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -71,6 +74,8 @@ export const Navigation = () => {
                             disabled={true}
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -86,7 +91,8 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"users"}
+                            component={Link}
+                            href={"/users"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -98,7 +104,8 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"teams"}
+                            component={Link}
+                            href={"/teams"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -114,7 +121,8 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"sports"}
+                            component={Link}
+                            href={"/sports"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -130,7 +138,8 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"league"}
+                            component={Link}
+                            href={"/league"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>
@@ -142,7 +151,8 @@ export const Navigation = () => {
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
-                            href={"tournament"}
+                            component={Link}
+                            href={"/tournament"}
                         >
                             <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                                 <SvgIcon fontSize={"small"}>

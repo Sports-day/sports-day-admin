@@ -1,4 +1,7 @@
 import {Stack, Breadcrumbs, Button, Link, Typography, Card} from "@mui/material";
+import CardBackground from "@/components/layout/cardBackground";
+import UsersTable from "@/components/users/usersTable";
+import UsersAgGrid from "@/app/(authenticated)/users/usersAgGrid";
 
 export default function UsersPage() {
     return (
@@ -9,20 +12,9 @@ export default function UsersPage() {
                 </Link>
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
-            <Card sx={{py:2, px:2}}>
-                <Stack pb={2}　spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                    <Typography>カードのタイトル</Typography>
-                    <Button variant={"contained"}>カードに付属するボタン</Button>
-                </Stack>
-                <Typography variant={"h4"}>カードのコンテンツ</Typography>
-            </Card>
-            <Card sx={{py:3, px:2}}>
-                <Stack pb={3}　spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                    <Typography>カードのタイトル</Typography>
-                    <Button variant={"contained"}>カードに付属するボタン</Button>
-                </Stack>
-                <Typography variant={"h4"}>カードのコンテンツ</Typography>
-            </Card>
+            <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"}>
+                <UsersAgGrid/>
+            </CardBackground>
         </Stack>
     );
 }
