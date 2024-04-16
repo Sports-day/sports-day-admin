@@ -1,6 +1,7 @@
 import {Stack, Breadcrumbs, Button, Link, Typography, Card} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import UsersTable from "@/components/users/usersTable";
+import UsersAgGrid from "@/app/(authenticated)/users/usersAgGrid";
 
 export default function UsersPage() {
     return (
@@ -12,7 +13,7 @@ export default function UsersPage() {
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
             <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"}>
-                <UsersTable/>
+                <UsersAgGrid/>
             </CardBackground>
         </Stack>
     );
