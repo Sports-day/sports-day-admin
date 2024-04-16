@@ -14,9 +14,12 @@ import {
     OutlinedInput,
     Chip,
     useTheme,
-    Theme
+    IconButton,
+    Tooltip,
+    Theme, Avatar, Button
 } from "@mui/material";
 import React, {ReactNode} from "react";
+import { HiTrash, HiCheck, HiEllipsisHorizontal } from "react-icons/hi2"
 
 type SportInfoFieldProps = {
     img?: string;
@@ -88,10 +91,32 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
     };
 
     return(
-        <Grid item xs={12} sm={6} md={4} lg={4}>
+        <Grid item xs={12} sm={12} md={6} lg={4}>
             <Card sx={{backgroundColor:"e1e4f6", color:"primary"}} variant={"outlined"}>
                 <Stack mx={2} my={2} spacing={2} direction={"column"}>
                     <Typography pl={1} fontWeight={"500"}>競技の情報</Typography>
+
+                    <TextField
+                        color={"info"}
+                        hiddenLabel={true}
+                        id="outlined-size-small"
+                        placeholder="競技名"
+                        size="small"
+                        helperText="例: バスケットボール晴天時"
+                    />
+
+                    <Stack
+                        direction={"row"}
+                        width={"100%"}
+                        justifyContent={"flex-start"}
+                        alignItems="center"
+                        sx={{border: "1px solid #5f6dc2", borderRadius:"15px", p:1}}
+                    >
+                        <Avatar sx={{mr:1.5, height: "1.5em", width: "1.5em"}}>
+
+                        </Avatar>
+                        <Button variant={"contained"}>アイコンをアップロード</Button>
+                    </Stack>
 
                     <ToggleButtonGroup
                         size={"small"}
@@ -114,14 +139,6 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                         <ToggleButton value="リーグ形式">リーグ</ToggleButton>
                         <ToggleButton value="トーナメント形式">トーナメント</ToggleButton>
                     </ToggleButtonGroup>
-                    <TextField
-                        color={"info"}
-                        hiddenLabel={true}
-                        id="outlined-size-small"
-                        placeholder="競技名"
-                        size="small"
-                        helperText="例: バスケットボール晴天時"
-                    />
 
                     <FormControl sx={{ m: 1, width: "100%" }} size="small">
                         <InputLabel id="taglabel">タグ</InputLabel>
@@ -167,6 +184,28 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                             <MenuItem value={30}>（ルール作成時に設定したタイトルを一覧表示する）</MenuItem>
                         </Select>
                     </FormControl>
+
+                    <Stack
+                        direction={"row"}
+                        my={0.5}
+                        spacing={1}
+                        width={"100%"}
+                        justifyContent={"space-between"}
+                        alignItems="center"
+                    >
+                        <Button variant="outlined" color={"error"} startIcon={<HiTrash />}>
+                            削除
+                        </Button>
+                        <Button variant={"contained"} color={"info"}  sx={{flexGrow: 3}} startIcon={<HiCheck />}>
+                            保存
+                        </Button>
+                        <Tooltip title={'変更が保存されます'} placement={"top"} arrow>
+                            <Button variant={"outlined"} color={"info"} startIcon={<HiEllipsisHorizontal />}>
+                                詳細
+                            </Button>
+                        </Tooltip>
+                    </Stack>
+
                 </Stack>
             </Card>
         </Grid>

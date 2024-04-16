@@ -11,7 +11,7 @@ export default function UsersPage() {
                 </Link>
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
-            <CardBackground title={"すべてのユーザー"}>
+            <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"}>
                 <UsersTable/>
             </CardBackground>
         </Stack>
