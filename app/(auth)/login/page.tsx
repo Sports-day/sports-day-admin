@@ -2,6 +2,8 @@ import {Button, Stack, Typography} from "@mui/material";
 import LoginButton from "@/components/auth/LoginButton";
 import Image from "next/image";
 import WiderLogo from "@/components/svg/wider";
+import Link from "next/link";
+import PrivacyPolicyDrawer from "@/components/layout/privacyPolicyDrawer";
 
 export default function Login() {
     return (
@@ -10,14 +12,7 @@ export default function Login() {
                 <Image src={"/logo/logo_admin.png"} height={"24"} width={"302"} alt={"SPORTSDAY Admin"}/>
                 <Typography pb={3} fontSize={"14px"} fontWeight={"600"} color={"#EFF0F8"}>球技大会の進行管理アプリケーション</Typography>
                 <LoginButton/>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{py:1.5, width:"100%"}}
-                    disableElevation
-                >
-                    プライバシーポリシー
-                </Button>
+                <PrivacyPolicyDrawer/>
                 <Typography fontSize={"13px"} fontWeight={"400"} color={"#9aa6e5"}>SPORTSDAYを使うにはCookieが必要です</Typography>
                 <Button>
                     <Stack direction={"row"} spacing={0.5}>
