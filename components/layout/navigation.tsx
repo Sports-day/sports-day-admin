@@ -15,7 +15,7 @@ export const Navigation = () => {
                 position="fixed"
                 sx={{
                     zIndex: (theme) => theme.zIndex.drawer + 1,
-                    background:"rgba(62,78,179, 0.9)",
+                    background:"rgba(62,78,179,0.8)",
                     backdropFilter: 'blur(4px)',
             }}>
                 <Toolbar>
