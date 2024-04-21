@@ -115,7 +115,7 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                         <Avatar sx={{mr:1.5, height: "1.5em", width: "1.5em"}}>
 
                         </Avatar>
-                        <Button variant={"contained"}>アイコンをアップロード</Button>
+                        <Button variant={"contained"} size={"small"}>アイコンをアップロード</Button>
                     </Stack>
 
                     <ToggleButtonGroup
