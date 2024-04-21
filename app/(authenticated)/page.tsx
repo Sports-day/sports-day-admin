@@ -1,4 +1,4 @@
-import {Grid, Stack, Typography} from "@mui/material";
+import {Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import {ButtonLarge} from "@/components/layout/buttonLarge";
 import CardLarge from "@/components/layout/cardLarge";
@@ -7,7 +7,9 @@ import CardList from "@/components/layout/cardList";
 export default function Home() {
     return (
         <Stack spacing={2} mx={2} my={3}>
-            <Typography pl={2} fontWeight={"600"}>何を管理しますか？</Typography>
+            <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
+                <Typography color="text.primary">管理者のダッシュボード</Typography>
+            </Breadcrumbs>
             <CardBackground title={"競技を選ぶ"} button={"競技を作成・編集する"} link={"users"}>
                 <Grid container spacing={1}>
                     <ButtonLarge img={"a"}>
