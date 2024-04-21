@@ -1,8 +1,8 @@
 'use client'
 import * as React from 'react'
-import {AppBar, Box, Button, Drawer, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Drawer, IconButton, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
 import Image from "next/image";
-import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy} from "react-icons/hi2";
+import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy, HiArrowRightOnRectangle} from "react-icons/hi2";
 import WiderLogo from "@/components/svg/wider";
 import Link from  "next/link"
 
@@ -162,6 +162,25 @@ export const Navigation = () => {
                             </Stack>
                         </Button>
                     </Stack>
+                    <Button
+                        variant={"outlined"}
+                        sx={{
+                            py:1.5,
+                            mb:2,
+                            width:"100%",
+                            fontWeight: "600",
+                            background:"rgba(62,78,179,0.2)",
+                    }}
+                        component={Link}
+                        href={"/tournament"}
+                    >
+                        <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                            <SvgIcon fontSize={"small"}>
+                                <HiArrowRightOnRectangle/>
+                            </SvgIcon>
+                            <Typography>ログアウト</Typography>
+                        </Stack>
+                    </Button>
                     <Stack width={"100%"} justifyContent="center" alignItems="center" direction={"row"} spacing={0.5}>
                         <Typography fontWeight={"600"} color={"#9aa6e5"}>(C)2024</Typography>
                         <WiderLogo/>
