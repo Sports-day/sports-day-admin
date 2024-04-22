@@ -30,9 +30,6 @@ export const roleFactory = (repo?: RoleRepository) => {
         update: async (id: number, omittedRole: Omit<Role, "id" | "permissions" | "createdAt" | "updatedAt">): Promise<Role> => {
             return await repository.updateRole(id, omittedRole)
         },
-        getPermissions: async (id: number): Promise<Permission[]> => {
-            return await repository.getRolePermissions(id)
-        },
         addPermission: async (id: number, permissionName: string): Promise<Role> => {
             return await repository.addRolePermission(id, permissionName)
         },

@@ -26,11 +26,6 @@ const createRole = async (omittedRole: Omit<Role, "id" | "permissions" | "create
     return data.data
 }
 
-const getRolePermissions = async (id: number): Promise<Permission[]> => {
-    const data = await ApiClient().get(`/roles/${id}/permissions`)
-    return data.data
-}
-
 const addRolePermission = async (id: number, permissionName: string): Promise<Role> => {
     const data = await ApiClient().post(`/roles/${id}/permissions`, {
         permission: permissionName
@@ -49,7 +44,6 @@ export type RoleRepository = {
     deleteRole: (id: number) => Promise<void>,
     updateRole: (id: number, omittedRole: Omit<Role, "id" | "permissions" | "createdAt" | "updatedAt">) => Promise<Role>,
     createRole: (omittedRole: Omit<Role, "id" | "permissions" | "createdAt" | "updatedAt">) => Promise<Role>,
-    getRolePermissions: (id: number) => Promise<Permission[]>,
     addRolePermission: (id: number, permissionName: string) => Promise<Role>,
     deleteRolePermission: (id: number, permissionName: string) => Promise<Role>,
 }
@@ -60,7 +54,6 @@ export const roleRepository: RoleRepository = {
     deleteRole,
     updateRole,
     createRole,
-    getRolePermissions,
     addRolePermission,
     deleteRolePermission,
 }
