@@ -70,7 +70,14 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
 
     // Container: Defines the grid's theme & dimensions.
     return (
-        <div className={"ag-theme-quartz"} style={{width: '100%', height: height, borderRadius: "10px"}}>
+        <div
+            className={"ag-theme-quartz"}
+            style={{
+                width: '100%',
+                height: height,
+                borderRadius: "10px"
+            }}
+        >
             <AgGridReact
                 rowData={rowData}
                 columnDefs={colDefs}
