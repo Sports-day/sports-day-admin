@@ -1,9 +1,15 @@
 import {Stack, Breadcrumbs, Button, Link, Typography, Card} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import UsersTable from "@/components/users/usersTable";
-import UsersAgGrid from "@/app/(authenticated)/users/usersAgGrid";
+import UsersAgGrid from "@/components/users/usersAgGrid";
+import {userFactory} from "@/src/models/UserModel";
+import {classFactory} from "@/src/models/ClassModel";
+import {teamFactory} from "@/src/models/TeamModel";
 
-export default function UsersPage() {
+export default async function UsersPage() {
+    const users = await userFactory().index()
+    const classes = await classFactory().index()
+    const teams = await teamFactory().index()
+
     return (
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
@@ -13,7 +19,7 @@ export default function UsersPage() {
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
             <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"}>
-                <UsersAgGrid/>
+                <UsersAgGrid users={users} classes={classes} teams={teams} />
             </CardBackground>
         </Stack>
     );
