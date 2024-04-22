@@ -18,7 +18,7 @@ export default async function UsersPage() {
                 </Link>
                 <Typography color="text.primary">ユーザー管理</Typography>
             </Breadcrumbs>
-            <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"}>
+            <CardBackground title={"すべてのユーザー"} button={"CSVで一括作成"} link={"/users/csv"}>
                 <UsersAgGrid
                     users={users}
                     classes={classes}
