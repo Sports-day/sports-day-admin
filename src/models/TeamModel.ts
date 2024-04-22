@@ -6,7 +6,7 @@ export type Team = {
     name: string,
     description: string,
     classId: number,
-    teamTagsId: number | null,
+    teamTagId: number | null,
     userIds: number[],
     enteredGameIds: number[],
     createdAt: string,
