@@ -1,4 +1,4 @@
-import {Grid, Stack, Typography} from "@mui/material";
+import {Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import CardLarge from "@/components/layout/cardLarge";
 import {ButtonLarge} from "@/components/layout/buttonLarge";
@@ -7,7 +7,12 @@ import {SportInfoField} from "@/components/sports/sportInfoField";
 export default function SportsPage() {
     return (
         <Stack spacing={2} mx={2} my={3}>
-            <Typography pl={2} fontWeight={"600"}>競技を作成・編集する</Typography>
+            <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
+                <Link underline="hover" color="inherit" href="/">
+                    管理者のダッシュボード
+                </Link>
+                <Typography color="text.primary">競技管理</Typography>
+            </Breadcrumbs>
             <CardBackground title={"競技一覧"}>
                 <Grid container spacing={1}>
                     <ButtonLarge img={"a"}>

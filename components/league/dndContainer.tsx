@@ -2,6 +2,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "./dndSortableItem";
 import {Card, Stack, Typography} from "@mui/material";
+import PlaceHolder from "@/components/league/dndPlaceHolder";
 
 const SortableContainer = ({
                                id,
@@ -24,6 +25,7 @@ const SortableContainer = ({
                 >
                     <Card variant={"outlined"} sx={{minWidth:"148px", minHeight:"70vh"}}>
                         <Stack spacing={0.5} m={1}>
+                            <PlaceHolder/>
                             {items.map((id: string) => (
                                 <SortableItem key={id} id={id} />
                             ))}
