@@ -1,10 +1,9 @@
 import {Stack, Breadcrumbs, Link, Typography} from "@mui/material";
-import {roleFactory} from "@/src/models/RoleModel";
-import RolesAgGrid from "@/components/roles/rolesAgGrid";
 import CardBackground from "@/components/layout/cardBackground";
+import RoleCreator from "@/components/roles/roleCreator";
 
-export default async function RolesPage() {
-    const roles = await roleFactory().index()
+export default function RoleCreatePage() {
+
 
     return (
         <Stack spacing={1} mx={2} my={3}>
@@ -12,14 +11,15 @@ export default async function RolesPage() {
                 <Link underline="hover" color="inherit" href="/">
                     管理者のダッシュボード
                 </Link>
-                <Typography color="text.primary">ロール管理</Typography>
+                <Link underline="hover" color="inherit" href="/roles/">
+                    ロール管理
+                </Link>
+                <Typography color="text.primary">ロール作成</Typography>
             </Breadcrumbs>
             <CardBackground
-                title={"すべてのロール"}
-                button={"作成"}
-                link={"/roles/create"}
+                title={"ロール作成"}
             >
-                <RolesAgGrid roles={roles}/>
+                <RoleCreator />
             </CardBackground>
         </Stack>
     );
