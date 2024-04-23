@@ -1,6 +1,5 @@
 import {ApiClient} from "@/src/lib/ApiClient";
 import {Role} from "@/src/models/RoleModel";
-import {Permission} from "@/src/models/PermissionModel";
 
 const getRoles = async (): Promise<Role[]> => {
     const data = await ApiClient().get(`/roles`)
