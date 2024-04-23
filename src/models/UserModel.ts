@@ -1,5 +1,6 @@
 import {userRepository, UserRepository} from "../repositories/UserRepository";
 import {Team} from "./TeamModel";
+import {Role} from "@/src/models/RoleModel";
 
 export type User = {
     id: number,
@@ -36,6 +37,12 @@ export const userFactory = (repo?: UserRepository) => {
         },
         getTeams: async (id: number): Promise<Team[]> => {
             return await repository.getTeams(id)
-        }
+        },
+        getRole: async (id: number): Promise<Role> => {
+            return await repository.getRole(id)
+        },
+        setRole: async (id: number, roleId: number): Promise<void> => {
+            return await repository.setRole(id, roleId)
+        },
     }
 }

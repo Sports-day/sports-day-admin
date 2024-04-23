@@ -1,6 +1,7 @@
 import {User} from "../models/UserModel";
 import {ApiClient} from "../lib/ApiClient";
 import {Team} from "../models/TeamModel";
+import {Role} from "@/src/models/RoleModel";
 
 const getUsers = async (): Promise<User[]> => {
     const data = await ApiClient().get("/users")
@@ -31,6 +32,17 @@ const getTeams = async (id: number): Promise<Team[]> => {
     return data.data
 }
 
+const getRole = async (id: number): Promise<Role> => {
+    const data = await ApiClient().get(`/users/${id}/role`)
+    return data.data
+}
+
+const setRole = async (id: number, roleId: number): Promise<void> => {
+    await ApiClient().post(`/users/${id}/role`, {
+        id: roleId
+    })
+}
+
 export type UserRepository = {
     getUsers: () => Promise<User[]>,
     getUser: (id: number) => Promise<User>,
@@ -38,6 +50,8 @@ export type UserRepository = {
     createUser: (omittedUser: Omit<User, "id" | "teamIds" | "createdAt" | "updatedAt">) => Promise<User>,
     updateUser: (id: number, omittedUser: Omit<User, "id" | "teamIds" | "createdAt" | "updatedAt">) => Promise<User>,
     getTeams: (id: number) => Promise<Team[]>,
+    getRole: (id: number) => Promise<Role>,
+    setRole: (id: number, roleId: number) => Promise<void>,
 }
 
 export const userRepository: UserRepository = {
@@ -47,4 +61,6 @@ export const userRepository: UserRepository = {
     createUser,
     updateUser,
     getTeams,
+    getRole,
+    setRole,
 }
