@@ -5,11 +5,10 @@ type CardProps = {
     title?: string;
     button?: string;
     link?: string;
-    func?: () => void;
     children?: ReactNode;
 };
 
-const CardBackground: React.FC<CardProps> = ({title, button, link, func, children}) => {
+const CardBackground: React.FC<CardProps> = ({title, button, link, children}) => {
     return (
         <>
             <Card sx={{py: 2, px: 2}}>
@@ -19,11 +18,6 @@ const CardBackground: React.FC<CardProps> = ({title, button, link, func, childre
                         <Button
                             variant={"contained"}
                             href={link}
-                            onClick={() => {
-                                if (func) {
-                                    func();
-                                }
-                            }}
                         >
                             {button}
                         </Button>
