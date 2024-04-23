@@ -1,12 +1,17 @@
 import {Alert, Breadcrumbs, Button, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import {userFactory} from "@/src/models/UserModel";
-import {UserEditor} from "@/components/users/userEditor";
+import React from "react";
+import UserEditor from "@/components/users/userEditor";
+import {roleFactory} from "@/src/models/RoleModel";
+import {classFactory} from "@/src/models/ClassModel";
 
 export default async function UserDetailPage({params}: { params: { id: string } }) {
     const userId = parseInt(params.id, 10)
     const user = await userFactory().show(userId)
-    const userGender = user.gender == "male" ? "男子" : "女子"
+    const userRole = await userFactory().getRole(userId)
+    const classes = await classFactory().index()
+    const roles = await roleFactory().index()
 
     if (isNaN(userId) || !user) {
         return (
@@ -35,7 +40,12 @@ export default async function UserDetailPage({params}: { params: { id: string } 
             </Breadcrumbs>
 
             <CardBackground title={`${user.name} さんの情報`}>
-                <UserEditor studentMail={user.email} studentGender={"男性"} />
+                <UserEditor
+                    user={user}
+                    userRole={userRole}
+                    classes={classes}
+                    roles={roles}
+                />
             </CardBackground>
         </Stack>
     )

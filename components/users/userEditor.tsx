@@ -1,42 +1,67 @@
 'use client'
 import {
-    Avatar, Box,
-    Button, Chip,
-    FormControl, InputLabel, MenuItem, OutlinedInput, Select,
+    Button,
+    FormControl, InputLabel, MenuItem, Select,
     Stack,
-    TextField,
-    ToggleButton,
-    ToggleButtonGroup, Tooltip,
-    Typography,
-    SelectChangeEvent
+    Avatar, Typography
 } from "@mui/material";
-import {HiCheck, HiEllipsisHorizontal, HiTrash} from "react-icons/hi2";
-import React from "react";
+import {HiCheck, HiTrash} from "react-icons/hi2";
+import React, {useState} from "react";
+import {Gender, User, userFactory} from "@/src/models/UserModel";
+import { Class } from "@/src/models/ClassModel";
+import {Role} from "@/src/models/RoleModel";
+import {useRouter} from "next/navigation";
 
 type UserEditorProps = {
-    studentMail: string;
-    studentGender: string;
+    user: User;
+    userRole: Role;
+    classes: Class[];
+    roles: Role[];
 }
 
 
-export const UserEditor:React.FC<UserEditorProps> = ({studentMail, studentGender}) => {
-    const studentId = studentMail.split("@")[0]
-    const [gender, setGender] = React.useState('');
+export default function UserEditor(props: UserEditorProps) {
+    const router = useRouter()
+    const [gender, setGender] = useState<string>(props.user.gender.toString())
+    const [classId, setClassId] = useState<number>(props.user.classId)
+    const [roleId, setRoleId] = useState<number>(props.userRole?.id ?? -1)
 
-    const handleGenderChange = (event: SelectChangeEvent) => {
-        setGender(event.target.value as string);
-    };
+    const handleSubmit = async () => {
+        await userFactory().update(props.user.id, {
+            name: props.user.name,
+            email: props.user.email,
+            gender: gender as Gender,
+            pictureId: props.user.pictureId,
+            classId: classId,
+        })
 
-    return(
+        if (roleId > -1) {
+            console.log(roleId)
+            await userFactory().setRole(props.user.id, roleId)
+        }
+
+        router.push('/users')
+    }
+
+    return (
         <>
             <Stack mx={0} my={2} spacing={2} direction={"column"}>
 
-                <TextField
-                    color={"info"}
-                    id="student-id-input"
-                    label="学籍番号"
-                    defaultValue={studentId}
-                />
+                <Stack
+                    direction={"row"}
+                    spacing={2}
+                    alignItems={"center"}
+                >
+                    <Avatar
+                        alt={props.user.name}
+                        src={props.user.pictureId ? `${process.env.NEXT_PUBLIC_API_URL}/images/${props.user.pictureId}/file`: undefined}
+                        sx={{ width: 56, height: 56 }}
+                    />
+
+                    <Typography>
+                        {props.user.name}
+                    </Typography>
+                </Stack>
 
                 <FormControl fullWidth>
                     <InputLabel id="gender-select-label">性別</InputLabel>
@@ -45,10 +70,12 @@ export const UserEditor:React.FC<UserEditorProps> = ({studentMail, studentGender
                         id="gender-select"
                         value={gender}
                         label="性別"
-                        onChange={handleGenderChange}
+                        onChange={(e) => {
+                            setGender(e.target.value)
+                        }}
                     >
-                        <MenuItem value={10}>男性</MenuItem>
-                        <MenuItem value={20}>女性</MenuItem>
+                        <MenuItem value={"male"}>男性</MenuItem>
+                        <MenuItem value={"female"}>女性</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -57,11 +84,33 @@ export const UserEditor:React.FC<UserEditorProps> = ({studentMail, studentGender
                     <Select
                         labelId="class-select"
                         id="class-select"
-                        value={gender}
+                        value={classId}
                         label="所属クラス"
-                        onChange={handleGenderChange}
+                        onChange={(e) => {
+                            setClassId(e.target.value as number)
+                        }}
                     >
-                        <MenuItem value={10}>EA</MenuItem>
+                        {props.classes.map((c) => (
+                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <FormControl fullWidth>
+                    <InputLabel id="role-select-label">ロール</InputLabel>
+                    <Select
+                        labelId="role-select"
+                        id="role-select"
+                        value={roleId}
+                        label="ロール"
+                        onChange={(e) => {
+                            setRoleId(e.target.value as number)
+                        }}
+                    >
+                        <MenuItem value={-1}>未所属</MenuItem>
+                        {props.roles.map((r) => (
+                            <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
 
@@ -73,10 +122,16 @@ export const UserEditor:React.FC<UserEditorProps> = ({studentMail, studentGender
                     justifyContent={"space-between"}
                     alignItems="center"
                 >
-                    <Button variant="outlined" color={"error"} startIcon={<HiTrash />}>
+                    <Button variant="outlined" color={"error"} startIcon={<HiTrash/>}>
                         このユーザーを削除
                     </Button>
-                    <Button variant={"contained"} color={"info"}  sx={{flexGrow: 3}} startIcon={<HiCheck />}>
+                    <Button
+                        variant={"contained"}
+                        color={"info"}
+                        sx={{flexGrow: 3}}
+                        startIcon={<HiCheck/>}
+                        onClick={handleSubmit}
+                    >
                         保存
                     </Button>
                 </Stack>
