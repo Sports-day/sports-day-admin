@@ -62,9 +62,6 @@ export default function RoleEditor(props: RoleEditorProps) {
             return !checkedPermissions.find((permission) => permission.permission.name === rolePermission.name)?.checked
         })
 
-        console.log("added:", addedPermissions)
-        console.log("removed:", removedPermissions)
-
         //  add permission
         for (const permission of addedPermissions) {
             await roleFactory().addPermission(props.role.id, permission.permission.name)
@@ -76,7 +73,7 @@ export default function RoleEditor(props: RoleEditorProps) {
         }
 
         //  reload
-        router.refresh()
+        router.push("/roles")
     }
 
     return (
