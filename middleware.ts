@@ -10,6 +10,7 @@ export function middleware(request: NextRequest) {
             '/league',
             '/teams',
             '/users',
+            '/roles',
         ]
 
         //  check if next path starts with any of the protected paths or root
