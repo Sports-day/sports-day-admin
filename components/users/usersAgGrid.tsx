@@ -10,6 +10,7 @@ import {User} from "@/src/models/UserModel";
 import {Class} from '@/src/models/ClassModel';
 import {Team} from "@/src/models/TeamModel";
 import {useRouter} from "next/navigation";
+import UserLinkRenderer from "@/components/users/userLinkRenderer";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -38,7 +39,11 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
     const [rowData, setRowData] = useState<IRow[]>([])
     // Column Definitions: Defines & controls grid columns.
     const [colDefs,] = useState<ColDef<IRow>[]>([
-        {field: "userId", headerName: "ユーザーID"},
+        {
+            field: "userId",
+            headerName: "ユーザーID",
+            cellRenderer: UserLinkRenderer,
+        },
         {
             field: "name",
             headerName: "名前",
