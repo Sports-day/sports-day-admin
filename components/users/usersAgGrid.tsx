@@ -39,10 +39,22 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
     // Column Definitions: Defines & controls grid columns.
     const [colDefs,] = useState<ColDef<IRow>[]>([
         {field: "userId", headerName: "ユーザーID"},
-        {field: "name", headerName: "名前"},
-        {field: "emailAccountName", headerName: "メール名"},
+        {
+            field: "name",
+            headerName: "名前",
+            filter: true,
+        },
+        {
+            field: "emailAccountName",
+            headerName: "メール名",
+            filter: true,
+        },
         {field: "gender", headerName: "性別"},
-        {field: "className", headerName: "クラス"},
+        {
+            field: "className",
+            headerName: "クラス",
+            filter: true,
+        },
         {field: "studentTeam", headerName: "チーム"},
     ]);
 
