@@ -10,6 +10,7 @@ import {User} from "@/src/models/UserModel";
 import {Class} from '@/src/models/ClassModel';
 import {Team} from "@/src/models/TeamModel";
 import {useRouter} from "next/navigation";
+import UserLinkRenderer from "@/components/users/userLinkRenderer";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -38,11 +39,27 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
     const [rowData, setRowData] = useState<IRow[]>([])
     // Column Definitions: Defines & controls grid columns.
     const [colDefs,] = useState<ColDef<IRow>[]>([
-        {field: "userId", headerName: "ユーザーID"},
-        {field: "name", headerName: "名前"},
-        {field: "emailAccountName", headerName: "メール名"},
+        {
+            field: "userId",
+            headerName: "ユーザーID",
+            cellRenderer: UserLinkRenderer,
+        },
+        {
+            field: "name",
+            headerName: "名前",
+            filter: true,
+        },
+        {
+            field: "emailAccountName",
+            headerName: "メール名",
+            filter: true,
+        },
         {field: "gender", headerName: "性別"},
-        {field: "className", headerName: "クラス"},
+        {
+            field: "className",
+            headerName: "クラス",
+            filter: true,
+        },
         {field: "studentTeam", headerName: "チーム"},
     ]);
 
@@ -92,6 +109,8 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
                 rowData={rowData}
                 columnDefs={colDefs}
                 onRowClicked={handleRowClick}
+                pagination={true}
+                paginationAutoPageSize={true}
             />
         </div>
     );
