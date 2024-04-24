@@ -109,6 +109,8 @@ const UsersAgGrid = (props: UsersAgGridProps) => {
                 rowData={rowData}
                 columnDefs={colDefs}
                 onRowClicked={handleRowClick}
+                pagination={true}
+                paginationAutoPageSize={true}
             />
         </div>
     );
