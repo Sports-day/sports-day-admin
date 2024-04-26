@@ -3,6 +3,7 @@ import {SportInfoField} from "@/components/sports/sportInfoField";
 import {Accordion, AccordionSummary, AccordionDetails, Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
 import {ButtonLarge} from "@/components/layout/buttonLarge";
 import {HiChevronDown} from "react-icons/hi2";
+import CardList from "@/components/layout/cardList";
 
 export default function SportPage() {
     return(
@@ -33,6 +34,11 @@ export default function SportPage() {
                 <Grid container spacing={1}>
                     <ButtonLarge>Aリーグ</ButtonLarge>
                     <ButtonLarge>Bリーグ</ButtonLarge>
+                </Grid>
+            </CardBackground>
+            <CardBackground title={"競技名の現在進行中の試合"}>
+                <Grid container>
+                    <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>
                 </Grid>
             </CardBackground>
         </Stack>

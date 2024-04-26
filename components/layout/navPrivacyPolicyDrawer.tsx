@@ -1,10 +1,10 @@
 'use client'
-import {Container, Button, AppBar, Box, SwipeableDrawer, } from "@mui/material";
+import {Container, Button, AppBar, Box, SwipeableDrawer, IconButton, Tooltip, BottomNavigation,} from "@mui/material";
 import React from 'react';
-import {HiXMark} from "react-icons/hi2";
+import {HiBuildingLibrary, HiXMark} from "react-icons/hi2";
 import PrivacyPolicy from "@/components/layout/privacyPolicy";
 
-const PrivacyPolicyDrawer = () => {
+const NavPrivacyPolicyDrawer = () => {
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -13,7 +13,15 @@ const PrivacyPolicyDrawer = () => {
 
     const DrawerList = (
         <>
-            <AppBar sx={{position:"fixed", zIndex:"999"}}>
+            <BottomNavigation
+                sx={{
+                    position: "fixed",
+                    bottom: 0, left: 0, right: 0,
+                    zIndex: "128",
+                    background:"rgba(62,78,179,0.8)",
+                    backdropFilter: 'blur(4px)',
+                }}
+            >
                 <Box
                     sx={{
                         width: '100vw', height: 'auto', overflow: 'scrollable', my:1.5
@@ -22,7 +30,7 @@ const PrivacyPolicyDrawer = () => {
                     <Container maxWidth={"xl"}>
                         <Button
                             sx={{width:"100%"}}
-                            color="inherit"
+                            color="secondary"
                             onClick={toggleDrawer(false)}
                             aria-label="close"
                             startIcon={<HiXMark/>}
@@ -31,10 +39,10 @@ const PrivacyPolicyDrawer = () => {
                         </Button>
                     </Container>
                 </Box>
-            </AppBar>
+            </BottomNavigation>
             <Box
                 sx={{
-                    width: '100vw', height: 'auto', overflow: 'scrollable', mt: 10, mb: 4
+                    width: '99vw', height: 'auto', overflow: 'scrollable', mt: 10, mb: 10
                 }}
                 role="presentation"
                 onClick={toggleDrawer(false)}
@@ -47,15 +55,13 @@ const PrivacyPolicyDrawer = () => {
 
     return (
         <>
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{py:1.5, width:"100%"}}
-                disableElevation
-                onClick={toggleDrawer(true)}
-            >
-                プライバシーポリシー
-            </Button>
+            <Tooltip title={"プライバシーポリシー"} arrow>
+                <IconButton
+                    onClick={toggleDrawer(true)}
+                >
+                    <HiBuildingLibrary color={"#eff0f8"}/>
+                </IconButton>
+            </Tooltip>
             <SwipeableDrawer
                 open={open}
                 onClose={toggleDrawer(false)}
@@ -68,4 +74,4 @@ const PrivacyPolicyDrawer = () => {
     );
 };
 
-export default PrivacyPolicyDrawer;
+export default NavPrivacyPolicyDrawer;

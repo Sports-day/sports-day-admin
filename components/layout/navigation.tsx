@@ -1,10 +1,12 @@
 'use client'
 import * as React from 'react'
-import {AppBar, Box, Button, Drawer, Stack, SvgIcon, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Drawer, IconButton, Stack, SvgIcon, Toolbar, Tooltip, Typography} from "@mui/material";
 import Image from "next/image";
-import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy} from "react-icons/hi2";
+import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy, HiArrowRightOnRectangle} from "react-icons/hi2";
+import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
 import Link from  "next/link"
+import NavPrivacyPolicyDrawer from "@/components/layout/navPrivacyPolicyDrawer";
 
 export const Navigation = () => {
     const drawerWidth = 303;
@@ -30,7 +32,7 @@ export const Navigation = () => {
                     sx: {
                         backgroundColor: "#7F8CD6",
                         color: "#fff",
-                        mt:8
+                        pt:8
                     }
                 }}
                 sx={{
@@ -162,7 +164,20 @@ export const Navigation = () => {
                             </Stack>
                         </Button>
                     </Stack>
-                    <Stack width={"100%"} justifyContent="center" alignItems="center" direction={"row"} spacing={0.5}>
+                    <Stack spacing={1} width={"100%"} direction={"row"} justifyContent={"space-around"} alignItems="center">
+                        <Tooltip title={"ログアウト"} arrow>
+                            <IconButton>
+                                <HiArrowRightOnRectangle color={"#eff0f8"}/>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title={"GitHub"} arrow>
+                            <IconButton>
+                                <SiGithub color={"#eff0f8"}/>
+                            </IconButton>
+                        </Tooltip>
+                        <NavPrivacyPolicyDrawer/>
+                    </Stack>
+                    <Stack width={"100%"} py={2} justifyContent="center" alignItems="center" direction={"row"} spacing={0.5}>
                         <Typography fontWeight={"600"} color={"#9aa6e5"}>(C)2024</Typography>
                         <WiderLogo/>
                     </Stack>
