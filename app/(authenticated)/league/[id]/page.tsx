@@ -14,7 +14,7 @@ export default function LeagueTestPage() {
                 </Link>
                 <Typography color="text.primary">競技名</Typography>
             </Breadcrumbs>
-            <CardBackground title={"どの競技のリーグを管理しますか？"}>
+            <CardBackground title={"競技名のリーグ"}>
                 <LeagueDnd/>
             </CardBackground>
         </Stack>
