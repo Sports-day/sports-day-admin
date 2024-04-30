@@ -2,7 +2,18 @@
 import * as React from 'react'
 import {AppBar, Box, Button, Drawer, IconButton, Stack, SvgIcon, Toolbar, Tooltip, Typography} from "@mui/material";
 import Image from "next/image";
-import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy, HiArrowRightOnRectangle} from "react-icons/hi2";
+import {
+    HiHome,
+    HiMegaphone,
+    HiMiniNewspaper,
+    HiUser,
+    HiUserGroup,
+    HiTableCells,
+    HiRectangleGroup,
+    HiTrophy,
+    HiArrowRightOnRectangle,
+    HiMapPin
+} from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
 import Link from  "next/link"
@@ -100,7 +111,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiUser/>
                                 </SvgIcon>
-                                <Typography>すべてのユーザーを管理</Typography>
+                                <Typography>ユーザーを管理</Typography>
                             </Stack>
                         </Button>
                         <Button
@@ -131,6 +142,23 @@ export const Navigation = () => {
                                     <HiTrophy/>
                                 </SvgIcon>
                                 <Typography>競技を作成・編集</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+
+                    <Stack spacing={1} pb={3}>
+                        <Typography sx={{pl:2.5}}>会場</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/locations"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiMapPin/>
+                                </SvgIcon>
+                                <Typography>場所を作成・編集</Typography>
                             </Stack>
                         </Button>
                     </Stack>

@@ -3,7 +3,7 @@ import CardBackground from "@/components/layout/cardBackground";
 import {classFactory} from "@/src/models/ClassModel";
 import UserCreatingAutomation from "@/components/users/csv/userCreatingAutomation";
 
-export default async function UsersPage() {
+export default async function UsersCsv() {
     const classes = await classFactory().index()
 
     return (

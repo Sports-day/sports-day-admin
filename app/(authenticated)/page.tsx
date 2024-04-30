@@ -10,7 +10,7 @@ export default function Home() {
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
                 <Typography color="text.primary">管理者のダッシュボード</Typography>
             </Breadcrumbs>
-            <CardBackground title={"競技を選ぶ"} button={"競技を作成・編集する"} link={"users"}>
+            <CardBackground title={"競技を選ぶ"} button={"競技を作成・編集する"} link={"/sports"}>
                 <Grid container spacing={1}>
                     <ButtonLarge img={"a"}>
                         バスケットボール

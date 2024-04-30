@@ -14,16 +14,17 @@ import {
     OutlinedInput,
     Chip,
     useTheme,
-    IconButton,
-    Tooltip,
     Theme, Avatar, Button
 } from "@mui/material";
 import React, {ReactNode} from "react";
-import { HiTrash, HiCheck, HiEllipsisHorizontal } from "react-icons/hi2"
+import { HiCheck } from "react-icons/hi2"
+import {Sport, sportFactory} from "@/src/models/SportModel";
 
 type SportInfoFieldProps = {
     img?: string;
     children?: ReactNode;
+    create: boolean;
+    sports: Sport[];
 }
 
 //タグ
@@ -53,9 +54,10 @@ function getStyles(name: string, tagName: readonly string[], theme: Theme) {
 }
 
 
-export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=> {
+export function SportInfoField(props: SportInfoFieldProps) {
+    const [sportName, setSportName] = React.useState('')
     //天候
-    const [weather, setWeather] = React.useState('web');
+    const [weather, setWeather] = React.useState('');
     const handleWeatherChange = (
         event: React.MouseEvent<HTMLElement>,
         newWeather: string,
@@ -90,6 +92,23 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
         );
     };
 
+    const create = props.create;
+
+    const handleSubmit = async() => {
+        if (create) {
+            await sportFactory().create({
+                name: sportName,
+                description: "test",
+                iconId: 1,
+                weight: 1,
+                ruleId: 1,
+                tagId: 1,
+            })
+        }
+    }
+
+
+
     return(
         <Grid item xs={12} sm={12} md={6} lg={4}>
             <Card sx={{backgroundColor:"e1e4f6", color:"primary"}} variant={"outlined"}>
@@ -103,6 +122,8 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                         placeholder="競技名"
                         size="small"
                         helperText="例: バスケットボール晴天時"
+                        value={sportName}
+                        onChange={(e) => setSportName(e.target.value)}
                     />
 
                     <Stack
@@ -193,17 +214,15 @@ export const SportInfoField: React.FC<SportInfoFieldProps> = ({img, children})=>
                         justifyContent={"space-between"}
                         alignItems="center"
                     >
-                        <Button variant="outlined" color={"error"} startIcon={<HiTrash />}>
-                            削除
-                        </Button>
-                        <Button variant={"contained"} color={"info"}  sx={{flexGrow: 3}} startIcon={<HiCheck />}>
+                        <Button
+                            variant={"contained"}
+                            color={"info"}
+                            sx={{flexGrow: 3}}
+                            startIcon={<HiCheck />}
+                            onClick={handleSubmit}
+                        >
                             保存
                         </Button>
-                        <Tooltip title={'変更が保存されます'} placement={"top"} arrow>
-                            <Button variant={"outlined"} color={"info"} startIcon={<HiEllipsisHorizontal />}>
-                                詳細
-                            </Button>
-                        </Tooltip>
                     </Stack>
 
                 </Stack>
