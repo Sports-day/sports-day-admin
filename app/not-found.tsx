@@ -1,5 +1,4 @@
 import {Stack, Typography, Button} from "@mui/material";
-import Image from "next/image";
 import WiderLogo from "@/components/svg/wider";
 
 export default function NotFound(){

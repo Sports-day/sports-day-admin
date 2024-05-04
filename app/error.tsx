@@ -1,8 +1,6 @@
 'use client'
 import {useEffect} from "react";
-import {Stack, Skeleton, Box, LinearProgress, Typography, Button} from "@mui/material";
-import CardBackground from "@/components/layout/cardBackground";
-import Image from "next/image";
+import {Stack, Typography, Button} from "@mui/material";
 import WiderLogo from "@/components/svg/wider";
 
 export default function Error({
