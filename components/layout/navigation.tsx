@@ -12,12 +12,13 @@ import {
     HiRectangleGroup,
     HiTrophy,
     HiArrowRightOnRectangle,
-    HiMapPin
+    HiMapPin, HiIdentification
 } from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
 import Link from  "next/link"
 import NavPrivacyPolicyDrawer from "@/components/layout/navPrivacyPolicyDrawer";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 export const Navigation = () => {
     const drawerWidth = 303;
@@ -80,7 +81,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiMegaphone/>
                                 </SvgIcon>
-                                <Typography>お知らせを配信</Typography>
+                                <Typography>お知らせ</Typography>
                             </Stack>
                         </Button>
                         <Button
@@ -94,7 +95,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiMiniNewspaper/>
                                 </SvgIcon>
-                                <Typography>予定とルールを管理</Typography>
+                                <Typography>予定とルール</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -111,7 +112,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiUser/>
                                 </SvgIcon>
-                                <Typography>ユーザーを管理</Typography>
+                                <Typography>ユーザー</Typography>
                             </Stack>
                         </Button>
                         <Button
@@ -124,7 +125,20 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiUserGroup/>
                                 </SvgIcon>
-                                <Typography>チームを管理</Typography>
+                                <Typography>チーム</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/roles"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiIdentification/>
+                                </SvgIcon>
+                                <Typography>権限</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -141,13 +155,9 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiTrophy/>
                                 </SvgIcon>
-                                <Typography>競技を作成・編集</Typography>
+                                <Typography>競技</Typography>
                             </Stack>
                         </Button>
-                    </Stack>
-
-                    <Stack spacing={1} pb={3}>
-                        <Typography sx={{pl:2.5}}>会場</Typography>
                         <Button
                             variant={"contained"}
                             sx={{py:1.5, width:"100%", fontWeight: "600"}}
@@ -158,7 +168,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiMapPin/>
                                 </SvgIcon>
-                                <Typography>場所を作成・編集</Typography>
+                                <Typography>場所</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -175,7 +185,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiTableCells/>
                                 </SvgIcon>
-                                <Typography>リーグを編成・管理</Typography>
+                                <Typography>リーグ</Typography>
                             </Stack>
                         </Button>
                         <Button
@@ -188,18 +198,14 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiRectangleGroup/>
                                 </SvgIcon>
-                                <Typography>トーナメントを編成・管理</Typography>
+                                <Typography>トーナメント</Typography>
                             </Stack>
                         </Button>
                     </Stack>
                     <Stack spacing={1} width={"100%"} direction={"row"} justifyContent={"space-around"} alignItems="center">
-                        <Tooltip title={"ログアウト"} arrow>
-                            <IconButton>
-                                <HiArrowRightOnRectangle color={"#eff0f8"}/>
-                            </IconButton>
-                        </Tooltip>
+                        <LogoutButton/>
                         <Tooltip title={"GitHub"} arrow>
-                            <IconButton>
+                            <IconButton href={"https://github.com/Sports-day/sports-day-admin"} target={"_blank"}>
                                 <SiGithub color={"#eff0f8"}/>
                             </IconButton>
                         </Tooltip>

@@ -1,5 +1,6 @@
 import {Avatar, Button, Stack, Grid} from "@mui/material";
 import React, {ReactNode} from "react";
+import Link from "next/link";
 
 type ButtonLargeProps = {
     img?: string;
@@ -13,6 +14,7 @@ export const ButtonLarge: React.FC<ButtonLargeProps> = ({img, children, link})=>
             <Button
                 variant={"contained"}
                 sx={{width:"100%"}}
+                component={Link}
                 href={link}
             >
                 <Stack
