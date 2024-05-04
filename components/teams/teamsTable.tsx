@@ -1,46 +1,69 @@
 'use client'
-import React, { useState } from 'react';
-import { AgGridReact } from 'ag-grid-react';
+import {useEffect, useState} from 'react';
+import {AgGridReact} from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 
-import { ColDef, ModuleRegistry } from 'ag-grid-community';
-import { ClientSideRowModelModule } from 'ag-grid-community';
-ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
+import {ColDef, ModuleRegistry} from 'ag-grid-community';
+import {ClientSideRowModelModule} from 'ag-grid-community';
+import {Team} from "@/src/models/TeamModel";
+import {Class} from '@/src/models/ClassModel';
+import {TeamTag} from "@/src/models/TeamTagModel";
+
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
+
+export type TeamsAgGridProps = {
+    classes: Class[]
+    teams: Team[]
+    teamTags: TeamTag[]
+}
 
 // Row Data Interface
 type IRow = {
-    userId: number;
-    studentName: string;
-    studentId: number;
-    studentClass: string;
-    studentTeam: string;
+    teamId: number;
+    teamName: string;
+    className: string;
+    teamTagName: string;
 }
 
 
 // Create new GridExample component
-const TeamsAgGrid = () => {
-
-    const height= 'calc(100vh - 230px)';
+const TeamsAgGrid = (props: TeamsAgGridProps) => {
+    const height = 'calc(100vh - 230px)';
     // Row Data: The data to be displayed.
-    const [rowData, ] = useState<IRow[]>([
-        { userId: 1, studentName: "山田太郎", studentId: 123456, studentClass: "D", studentTeam: "A2" },
-        { userId: 2, studentName: "田中太郎", studentId: 123455, studentClass: "B", studentTeam: "C4" },
-        { userId: 3, studentName: "岡田太郎", studentId: 123459, studentClass: "A", studentTeam: "A1" },
-    ]);
+    const [rowData, setRowData] = useState<IRow[]>([]);
 
     // Column Definitions: Defines & controls grid columns.
-    const [colDefs, ] = useState<ColDef<IRow>[]>([
-        { field: "userId", headerName:"ユーザーID" },
-        { field: "studentName", headerName:"名前" },
-        { field: "studentId", headerName:"学籍番号" },
-        { field: "studentClass", headerName:"クラス" },
-        { field: "studentTeam", headerName:"チーム" },
+    const [colDefs,] = useState<ColDef<IRow>[]>([
+        {field: "teamId", headerName: "チームID"},
+        {field: "teamName", headerName: "チーム名"},
+        {field: "className", headerName: "クラス"},
+        {field: "teamTagName", headerName: "タグ"},
     ]);
+
+    useEffect(() => {
+            const rows = props.teams.map((team): IRow => {
+                const className = props.classes.find((c) => c.id === team.classId)?.name
+                const teamTagName = props.teamTags.find((t) => t.id === team.teamTagId)?.name
+
+                return {
+                    teamId: team.id,
+                    teamName: team.name,
+                    className: className ?? "不明",
+                    teamTagName: teamTagName ?? "不明",
+                }
+            })
+
+            //  set row data
+            setRowData(rows)
+        },
+        [props.classes, props.teams, props.teamTags]
+    )
+
 
     // Container: Defines the grid's theme & dimensions.
     return (
-        <div className={"ag-theme-quartz"} style={{ width: '100%', height: height, borderRadius:"10px" }}>
+        <div className={"ag-theme-quartz"} style={{width: '100%', height: height, borderRadius: "10px"}}>
             <AgGridReact
                 rowData={rowData}
                 columnDefs={colDefs}
