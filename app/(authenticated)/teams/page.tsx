@@ -18,7 +18,7 @@ export default async function TeamPage() {
                 </Link>
                 <Typography color="text.primary">チーム管理</Typography>
             </Breadcrumbs>
-            <CardBackground title={"すべてのチーム"} >
+            <CardBackground title={"すべてのチーム"} button={"エクスポート"} link={"/teams/export"}>
                 <TeamsAgGrid
                     classes={classes}
                     teams={teams}
