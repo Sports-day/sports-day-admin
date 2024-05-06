@@ -1,9 +1,12 @@
 import {Stack, Grid, Typography, Link, Breadcrumbs} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import CardLarge from "@/components/layout/cardLarge";
 import {ButtonLarge} from "@/components/layout/buttonLarge";
+import {sportFactory} from "@/src/models/SportModel";
+import LeagueSportsList from "@/components/league/leagueSportsList";
 
-export default function LeaguePage() {
+
+export default async function LeaguePage() {
+    const sports = await sportFactory().index()
     return (
         <Stack spacing={2} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
@@ -14,24 +17,7 @@ export default function LeaguePage() {
             </Breadcrumbs>
             <CardBackground title={"どの競技のリーグを管理しますか？"}>
                 <Grid container spacing={1}>
-                    <ButtonLarge img={"a"}>
-                        バスケットボール
-                    </ButtonLarge>
-                    <ButtonLarge img={"a"}>
-                        ドッジビー
-                    </ButtonLarge>
-                    <ButtonLarge img={"a"}>
-                        フットサル
-                    </ButtonLarge>
-                    <ButtonLarge img={"a"}>
-                        ビーチボール
-                    </ButtonLarge>
-                    <ButtonLarge img={"a"}>
-                        ペタンク
-                    </ButtonLarge>
-                    <ButtonLarge img={"a"}>
-                        ストラックアウト
-                    </ButtonLarge>
+                    <LeagueSportsList sports={sports}/>
                 </Grid>
             </CardBackground>
         </Stack>
