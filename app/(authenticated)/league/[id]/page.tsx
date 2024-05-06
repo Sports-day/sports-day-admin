@@ -18,7 +18,7 @@ export default async function LeagueTestPage({params}: { params: { id: string } 
                 <Typography color="text.primary">{sport.name}</Typography>
             </Breadcrumbs>
             <CardBackground title={`${sport.name}のリーグ`}>
-                <LeagueDnd sport={sport}/>
+                <LeagueDnd sport={sport} sportId={sportId}/>
             </CardBackground>
         </Stack>
     );

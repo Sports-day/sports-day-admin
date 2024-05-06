@@ -9,7 +9,7 @@ import {
     Stack,
     Alert, Snackbar, Typography
 } from "@mui/material";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     DndContext,
     DragOverlay,
@@ -27,23 +27,56 @@ import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
 import {Team, teamFactory} from "@/src/models/TeamModel";
+import {gameFactory} from "@/src/models/GameModel";
 import {Sport} from "@/src/models/SportModel";
 import {HiPlus, HiTrash} from "react-icons/hi2";
+import {useAsync} from "react-use";
 
 export type LeagueDndProps = {
+    sportId: number
     sport: Sport
 }
 
 export default function LeagueDnd(props: LeagueDndProps) {
+    const {sportId} = props;
+
     // ドラッグ&ドロップでソート可能なリスト
     const [items, setItems] = useState<{ [key: string]: string[]; }>({
-        All: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        All: [],
     });
 
+    useEffect(() => {
+        const fetchGameEntries = async () => {
+            const games = await gameFactory().index();
+            const sportGames = games.filter(game => game.sportId === sportId);
+            for (const game of sportGames) {
+                const entries = await gameFactory().getGameEntries(game.id);
+                setItems(prevItems => ({
+                    ...prevItems,
+                    All: entries.map(entry => entry.id.toString()),
+                }));
+            }
+        };
+
+        fetchGameEntries();
+    }, [sportId]);
+
     const addNewList = () => {
+        // アルファベットの文字列を作成
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // 現在のリストの数をアルファベットのインデックスとして使用
+        const nextIndex = Object.keys(items).length - 1; // -1 because we already have 'All' list
+
+        // リストの数が26を超えるか、次の文字が存在しない場合は新しいリストを追加しない
+        if (nextIndex >= 26 || !alphabet[nextIndex]) {
+            alert("これ以上リーグを作成できません")
+            return;
+        }
+
+        const nextLetter = alphabet[nextIndex];
         setItems(prevItems => ({
             ...prevItems,
-            [`リーグ${Object.keys(prevItems).length}`]: [],
+            [`リーグ${nextLetter}`]: [],
         }));
     };
 
@@ -230,30 +263,40 @@ export default function LeagueDnd(props: LeagueDndProps) {
                     {Object.keys(items).map((key) => (
                         <Stack direction={"column"}>
                             {key == 'All' &&
-                                <Button
-                                    variant={"contained"}
-                                    startIcon={<HiPlus/>}
-                                    onClick={addNewList}
-                                    sx={{maxWidth:"148px"}}
-                                >
-                                    リーグ追加
-                                </Button>
+                                <>
+                                    <Button
+                                        variant={"contained"}
+                                        startIcon={<HiPlus/>}
+                                        onClick={addNewList}
+                                        sx={{maxWidth:"148px"}}
+                                    >
+                                        リーグ追加
+                                    </Button>
+                                    <SortableContainer
+                                        key={key}
+                                        id={key}
+                                        items={items[key]}
+                                        label={"未登録チーム"}
+                                    />
+                                </>
                             }
                             {key !== 'All' &&
-                                <Button
-                                    variant={"outlined"}
-                                    startIcon={<HiTrash/>}
-                                    color={"error"}
-                                    onClick={() => handleOpenDialog(key)}>
-                                    削除
-                                </Button>
+                                <>
+                                    <Button
+                                        variant={"outlined"}
+                                        startIcon={<HiTrash/>}
+                                        color={"error"}
+                                        onClick={() => handleOpenDialog(key)}>
+                                        削除
+                                    </Button>
+                                    <SortableContainer
+                                        key={key}
+                                        id={key}
+                                        items={items[key]}
+                                        label={key}
+                                    />
+                                </>
                             }
-                            <SortableContainer
-                                key={key}
-                                id={key}
-                                items={items[key]}
-                                label={key}
-                            />
                         </Stack>
                     ))}
                     {/* Dialog */}
@@ -291,7 +334,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             variant="filled"
                             sx={{ width: '100%' }}
                         >
-                            リーグが削除されました。
+                            {listToRemove}が削除されました。
                         </Alert>
                     </Snackbar>
                     {/* DragOverlay */}
