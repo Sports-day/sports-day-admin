@@ -12,7 +12,7 @@ import {
     UniqueIdentifier,
     DragStartEvent,
     DragOverEvent,
-    DragEndEvent,
+    DragEndEvent, rectIntersection,
 } from "@dnd-kit/core";
 import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
@@ -162,7 +162,8 @@ const LeagueDnd: React.FC = () => {
             <Stack direction={"row"} spacing={2} overflow={"scroll"}>
                 <DndContext
                     sensors={sensors}
-                    collisionDetection={closestCorners}
+                    // collisionDetection={closestCorners}
+                    collisionDetection={rectIntersection}
                     onDragStart={handleDragStart}
                     onDragOver={handleDragOver}
                     onDragEnd={handleDragEnd}
