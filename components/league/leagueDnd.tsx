@@ -1,10 +1,18 @@
 'use client'
-import {Stack} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Stack,
+    Alert, Snackbar, Typography
+} from "@mui/material";
 import React, {useState} from 'react';
 import {
     DndContext,
     DragOverlay,
-    closestCorners,
     KeyboardSensor,
     PointerSensor,
     useSensor,
@@ -18,16 +26,67 @@ import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
-const LeagueDnd: React.FC = () => {
+import {Team, teamFactory} from "@/src/models/TeamModel";
+import {Sport} from "@/src/models/SportModel";
+import {HiPlus, HiTrash} from "react-icons/hi2";
+
+export type LeagueDndProps = {
+    sport: Sport
+}
+
+export default function LeagueDnd(props: LeagueDndProps) {
     // ドラッグ&ドロップでソート可能なリスト
-    const [items, setItems] = useState<{
-        [key: string]: string[];
-    }>({
-        チーム一覧: ["A", "B", "C"],
-        Aリーグ: ["D", "E", "F"],
-        Bリーグ: ["G", "H", "I"],
-        Cリーグ: ["J", "K", "L"],
+    const [items, setItems] = useState<{ [key: string]: string[]; }>({
+        All: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
     });
+
+    const addNewList = () => {
+        setItems(prevItems => ({
+            ...prevItems,
+            [`リーグ${Object.keys(prevItems).length}`]: [],
+        }));
+    };
+
+    const removeList = (key: string) => {
+        setItems(prevItems => {
+            const newItems = {...prevItems};
+            // 削除する配列の中に値があるか確認
+            if (newItems[key].length > 0) {
+                // 値がある場合、その値をAll配列に追加
+                newItems['All'] = [...newItems['All'], ...newItems[key]];
+            }
+            // 指定された配列を削除
+            delete newItems[key];
+            return newItems;
+        });
+    };
+
+    // state
+    const [openDialog, setOpenDialog] = useState(false);
+    const [listToRemove, setListToRemove] = useState("");
+    const [delSnackOpen, setDelSnackOpen] = useState<boolean>(false)
+
+    const handleDelSnackClose = () => {
+        setDelSnackOpen(false)
+    }
+
+    // Open the dialog
+    const handleOpenDialog = (key: string) => {
+        setListToRemove(key);
+        setOpenDialog(true);
+    };
+
+    // Close the dialog
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
+    // Remove the list and close the dialog
+    const handleRemoveList = () => {
+        removeList(listToRemove);
+        setOpenDialog(false);
+        setDelSnackOpen(true);
+    };
 
     //リストのリソースid（リストの値）
     const [activeId, setActiveId] = useState<UniqueIdentifier>();
@@ -168,27 +227,73 @@ const LeagueDnd: React.FC = () => {
                     onDragOver={handleDragOver}
                     onDragEnd={handleDragEnd}
                 >
-                    {/* SortableContainer */}
-                    <SortableContainer
-                        id="チーム一覧"
-                        items={items.チーム一覧}
-                        label="チーム一覧"
-                    />
-                    <SortableContainer
-                        id="Aリーグ"
-                        label="Aリーグ"
-                        items={items.Aリーグ}
-                    />
-                    <SortableContainer
-                        id="Bリーグ"
-                        label="Bリーグ"
-                        items={items.Bリーグ}
-                    />
-                    <SortableContainer
-                        id="Cリーグ"
-                        label="Cリーグ"
-                        items={items.Cリーグ}
-                    />
+                    {Object.keys(items).map((key) => (
+                        <Stack direction={"column"}>
+                            {key == 'All' &&
+                                <Button
+                                    variant={"contained"}
+                                    startIcon={<HiPlus/>}
+                                    onClick={addNewList}
+                                    sx={{maxWidth:"148px"}}
+                                >
+                                    リーグ追加
+                                </Button>
+                            }
+                            {key !== 'All' &&
+                                <Button
+                                    variant={"outlined"}
+                                    startIcon={<HiTrash/>}
+                                    color={"error"}
+                                    onClick={() => handleOpenDialog(key)}>
+                                    削除
+                                </Button>
+                            }
+                            <SortableContainer
+                                key={key}
+                                id={key}
+                                items={items[key]}
+                                label={key}
+                            />
+                        </Stack>
+                    ))}
+                    {/* Dialog */}
+                    <Dialog
+                        open={openDialog}
+                        onClose={handleCloseDialog}
+                    >
+                        <DialogTitle sx={{pt:3}}>{listToRemove}を削除しますか？</DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                削除すると、{listToRemove}に入っていたチームはチーム一覧に戻されます。
+                            </Typography>
+                            <Typography>
+                                削除したリーグは復元できません。よろしいですか？
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions sx={{p:3}}>
+                            <Button startIcon={<HiTrash/>} variant={"contained"} onClick={handleRemoveList} color="error">
+                                削除
+                            </Button>
+                            <Button sx={{flexGrow: 3}} variant={"contained"} onClick={handleCloseDialog}>
+                                キャンセル
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Snackbar
+                        open={delSnackOpen}
+                        autoHideDuration={6000}
+                        onClose={handleDelSnackClose}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    >
+                        <Alert
+                            onClose={handleDelSnackClose}
+                            severity="info"
+                            variant="filled"
+                            sx={{ width: '100%' }}
+                        >
+                            リーグが削除されました。
+                        </Alert>
+                    </Snackbar>
                     {/* DragOverlay */}
                     <DragOverlay>{activeId ? <Item id={activeId}/> : null}</DragOverlay>
                 </DndContext>
@@ -196,5 +301,3 @@ const LeagueDnd: React.FC = () => {
         </>
     );
 };
-
-export default LeagueDnd;
