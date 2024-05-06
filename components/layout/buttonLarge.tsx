@@ -14,7 +14,6 @@ export const ButtonLarge: React.FC<ButtonLargeProps> = ({img, children, link})=>
             <Button
                 variant={"contained"}
                 sx={{width:"100%"}}
-                component={Link}
                 href={link}
             >
                 <Stack

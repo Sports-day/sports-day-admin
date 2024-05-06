@@ -1,7 +1,8 @@
 import {Stack, Breadcrumbs, Link, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {SportInfoField} from "@/components/sports/sportInfoField";
+import {SportInfoField} from "@/components/sports/sportEditor";
 import {sportFactory} from "@/src/models/SportModel";
+import SportCreator from "@/components/sports/sportCreator";
 
 export default async function CreateSport() {
     const sports = await sportFactory().index()
@@ -18,7 +19,7 @@ export default async function CreateSport() {
             </Breadcrumbs>
 
             <CardBackground title={"競技を新規作成"} link={"/sports/create"}>
-                <SportInfoField sports={sports} create={true}/>
+                <SportCreator/>
             </CardBackground>
         </Stack>
     );
