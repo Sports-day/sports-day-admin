@@ -25,7 +25,6 @@ const SortableContainer = ({
                 >
                     <Card variant={"outlined"} sx={{minWidth:"148px", minHeight:"70vh"}}>
                         <Stack spacing={0.5} m={1}>
-                            <PlaceHolder/>
                             {items.map((id: string) => (
                                 <SortableItem key={id} id={id} />
                             ))}
