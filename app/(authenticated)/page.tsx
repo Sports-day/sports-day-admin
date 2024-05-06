@@ -1,6 +1,5 @@
-import {Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
+import {Breadcrumbs, Grid, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {ButtonLarge} from "@/components/layout/buttonLarge";
 import CardLarge from "@/components/layout/cardLarge";
 import CardList from "@/components/layout/cardList";
 import SportsList from "@/components/sports/sportsList";

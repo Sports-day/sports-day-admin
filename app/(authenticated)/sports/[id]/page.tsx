@@ -1,5 +1,5 @@
 import CardBackground from "@/components/layout/cardBackground";
-import {Accordion, AccordionSummary, AccordionDetails, Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
+import {Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
 import {ButtonLarge} from "@/components/layout/buttonLarge";
 import CardList from "@/components/layout/cardList";
 import {sportFactory} from "@/src/models/SportModel";
@@ -14,7 +14,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
                 <Link underline="hover" color="inherit" href="/">
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href="/sports">
+                <Link underline="hover" color="inherit" href="../../sports">
                     競技管理
                 </Link>
                 <Typography color="text.primary">{sport.name}</Typography>

@@ -11,7 +11,6 @@ import {
     HiTableCells,
     HiRectangleGroup,
     HiTrophy,
-    HiArrowRightOnRectangle,
     HiMapPin, HiIdentification
 } from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";

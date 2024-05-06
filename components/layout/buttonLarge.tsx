@@ -1,6 +1,5 @@
 import {Avatar, Button, Stack, Grid} from "@mui/material";
 import React, {ReactNode} from "react";
-import Link from "next/link";
 
 type ButtonLargeProps = {
     img?: string;
