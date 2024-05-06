@@ -19,7 +19,7 @@ export default async function Home() {
             </CardBackground>
             <CardBackground title={"配信中のお知らせ"} button={"お知らせを作成・編集"}>
                 <CardLarge>
-                    現在集計中です。教室で放送による結果発表をお待ちください。
+                    この機能は開発中です
                 </CardLarge>
             </CardBackground>
             <CardBackground title={"現在進行中の試合"}>
