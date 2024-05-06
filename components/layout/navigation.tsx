@@ -21,6 +21,7 @@ import LogoutButton from "@/components/auth/LogoutButton";
 
 export const Navigation = () => {
     const drawerWidth = 303;
+    const buttonPadding = 1.3;
 
     return (
         <>
@@ -29,7 +30,7 @@ export const Navigation = () => {
                 sx={{
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                     background:"rgba(62,78,179,0.8)",
-                    backdropFilter: 'blur(4px)',
+                    backdropFilter: 'blur(30px)',
             }}>
                 <Toolbar>
                     <Link href={"/"}>
@@ -52,13 +53,13 @@ export const Navigation = () => {
                     [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
                 }}
             >
-                <Box mx={2} sx={{ overflow: 'auto' }}>
+                <Box px={2} sx={{ overflow: 'auto' }}>
 
                     <Stack spacing={1} py={3}>
                         <Typography sx={{pl:2.5}}>全体</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -72,7 +73,7 @@ export const Navigation = () => {
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -86,7 +87,7 @@ export const Navigation = () => {
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -103,7 +104,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>ユーザー</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/users"}
                         >
@@ -116,7 +117,7 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/teams"}
                         >
@@ -129,7 +130,7 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/roles"}
                         >
@@ -146,7 +147,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>競技</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/sports"}
                         >
@@ -159,7 +160,7 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/locations"}
                         >
@@ -176,7 +177,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>編成</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/league"}
                         >
@@ -189,7 +190,7 @@ export const Navigation = () => {
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/tournament"}
                         >
