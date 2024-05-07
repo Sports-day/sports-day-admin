@@ -90,7 +90,24 @@ export default function LeagueDnd(props: LeagueDndProps) {
             }
             // 指定された配列を削除
             delete newItems[key];
-            return newItems;
+
+            // アルファベットの文字列を作成
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let index = 0;
+
+            // 新しいオブジェクトを作成し、削除したリスト以外のすべてのリストをコピーします
+            const reorderedItems = Object.keys(newItems).reduce<{ [key: string]: string[]; }>((obj, listKey) => {
+                if (listKey !== 'All') {
+                    // 新しい名前を割り当てます（アルファベット順）
+                    obj[`リーグ${alphabet[index]}`] = newItems[listKey];
+                    index++;
+                } else {
+                    obj[listKey] = newItems[listKey];
+                }
+                return obj;
+            }, {});
+
+            return reorderedItems;
         });
     };
 
@@ -261,14 +278,16 @@ export default function LeagueDnd(props: LeagueDndProps) {
                     onDragEnd={handleDragEnd}
                 >
                     {Object.keys(items).map((key) => (
-                        <Stack direction={"column"}>
+                        <Stack direction={"column"} spacing={1} justifyContent={"center"} alignItems="center">
                             {key == 'All' &&
                                 <>
+                                    <Typography>未登録チーム</Typography>
                                     <Button
+                                        size={"small"}
                                         variant={"contained"}
                                         startIcon={<HiPlus/>}
                                         onClick={addNewList}
-                                        sx={{maxWidth:"148px"}}
+                                        sx={{maxWidth:"168px", width:"100%"}}
                                     >
                                         リーグ追加
                                     </Button>
@@ -282,11 +301,15 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             }
                             {key !== 'All' &&
                                 <>
+                                    <Typography>{key}</Typography>
                                     <Button
+                                        size={"small"}
                                         variant={"outlined"}
                                         startIcon={<HiTrash/>}
                                         color={"error"}
-                                        onClick={() => handleOpenDialog(key)}>
+                                        onClick={() => handleOpenDialog(key)}
+                                        sx={{maxWidth:"168px", width:"100%"}}
+                                    >
                                         削除
                                     </Button>
                                     <SortableContainer
