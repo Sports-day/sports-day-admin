@@ -1,7 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import Item from "./dndItem";
-import {Card} from "@mui/material";
 
 const SortableItem = ({ id }: { id: UniqueIdentifier }) => {
     const { attributes, listeners, setNodeRef, transform, transition } =

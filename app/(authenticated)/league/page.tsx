@@ -1,6 +1,5 @@
 import {Stack, Grid, Typography, Link, Breadcrumbs} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {ButtonLarge} from "@/components/layout/buttonLarge";
 import {sportFactory} from "@/src/models/SportModel";
 import LeagueSportsList from "@/components/league/leagueSportsList";
 

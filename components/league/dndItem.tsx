@@ -32,7 +32,7 @@ export default function Item(props: ItemProps) {
             setTeam(fetchedTeam);
         };
 
-        fetchTeam();
+        void fetchTeam();
     }, [id]);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function Item(props: ItemProps) {
         };
 
         if (team.classId) {
-            fetchClassName();
+            void fetchClassName();
         }
     }, [team]);
 

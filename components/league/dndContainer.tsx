@@ -1,7 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "./dndSortableItem";
-import {Box, Card, Stack, Typography} from "@mui/material";
+import {Box, Card, Stack} from "@mui/material";
 
 const SortableContainer = ({
                                id,

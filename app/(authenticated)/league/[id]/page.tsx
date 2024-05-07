@@ -12,7 +12,7 @@ export default async function LeagueTestPage({params}: { params: { id: string } 
                 <Link underline="hover" color="inherit" href="/">
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href="/league">
+                <Link underline="hover" color="inherit" href="../../league">
                     リーグ管理
                 </Link>
                 <Typography color="text.primary">{sport.name}</Typography>

@@ -4,7 +4,6 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogContentText,
     DialogActions,
     Stack,
     Alert, Snackbar, Typography
@@ -26,11 +25,9 @@ import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
-import {Team, teamFactory} from "@/src/models/TeamModel";
 import {gameFactory} from "@/src/models/GameModel";
 import {Sport} from "@/src/models/SportModel";
 import {HiPlus, HiTrash} from "react-icons/hi2";
-import {useAsync} from "react-use";
 
 export type LeagueDndProps = {
     sportId: number
@@ -58,7 +55,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
             }
         };
 
-        fetchGameEntries();
+        void fetchGameEntries();
     }, [sportId]);
 
     const addNewList = () => {
