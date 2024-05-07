@@ -275,7 +275,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                     onDragEnd={handleDragEnd}
                 >
                     {Object.keys(items).map((key) => (
-                        <Stack direction={"column"} spacing={1} justifyContent={"center"} alignItems="center">
+                        <Stack key={key} direction={"column"} spacing={1} justifyContent={"center"} alignItems="center">
                             {key == 'All' &&
                                 <>
                                     <Typography>未登録チーム</Typography>
@@ -289,7 +289,6 @@ export default function LeagueDnd(props: LeagueDndProps) {
                                         リーグ追加
                                     </Button>
                                     <SortableContainer
-                                        key={key}
                                         id={key}
                                         items={items[key]}
                                         label={"未登録チーム"}
