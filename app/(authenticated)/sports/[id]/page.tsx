@@ -4,10 +4,15 @@ import {ButtonLarge} from "@/components/layout/buttonLarge";
 import CardList from "@/components/layout/cardList";
 import {sportFactory} from "@/src/models/SportModel";
 import SportEditor from "@/components/sports/sportEditor";
+import LeagueList from "@/components/sports/leagueList";
+import {gameFactory} from "@/src/models/GameModel";
 
 export default async function SportPage({params}: { params: { id: string } }) {
     const sportId = parseInt(params.id, 10)
     const sport = await sportFactory().show(sportId)
+    const games = await gameFactory().index()
+    const filteredGames = games.filter((game) => game.sportId == sportId)
+
     return(
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
@@ -24,8 +29,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
             </CardBackground>
             <CardBackground title={"リーグ一覧"} button={"編集"}>
                 <Grid container spacing={1}>
-                    <ButtonLarge>Aリーグ</ButtonLarge>
-                    <ButtonLarge>Bリーグ</ButtonLarge>
+                    <LeagueList games={filteredGames}/>
                 </Grid>
             </CardBackground>
             <CardBackground title={"競技名の現在進行中の試合"}>
