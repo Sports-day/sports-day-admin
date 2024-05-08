@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogActions,
     Stack,
-    Alert, Snackbar, Typography
+    Alert, Snackbar, Typography, Tooltip
 } from "@mui/material";
 import React, {useState, useEffect} from 'react';
 import {
@@ -56,6 +56,17 @@ export default function LeagueDnd(props: LeagueDndProps) {
         };
 
         void fetchGameEntries();
+
+        const fetchGames = async () => {
+            const games = await gameFactory().index();
+            const sportGames = games.filter(game => game.sportId === sportId);
+            const gameItems: Record<string, string[]> = sportGames.reduce((obj: Record<string, string[]>, game) => {
+                obj[game.name] = [];
+                return obj;
+            }, { 'All': [] } as Record<string, string[]>);
+            setItems(gameItems);
+        };
+        fetchGames();
     }, [sportId]);
 
     const addNewList = () => {
@@ -73,7 +84,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
         const nextLetter = alphabet[nextIndex];
         setItems(prevItems => ({
             ...prevItems,
-            [`リーグ${nextLetter}`]: [],
+            [`${nextLetter}リーグ`]: [],
         }));
     };
 
@@ -96,7 +107,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
             const reorderedItems = Object.keys(newItems).reduce<{ [key: string]: string[]; }>((obj, listKey) => {
                 if (listKey !== 'All') {
                     // 新しい名前を割り当てます（アルファベット順）
-                    obj[`リーグ${alphabet[index]}`] = newItems[listKey];
+                    obj[`${alphabet[index]}リーグ`] = newItems[listKey];
                     index++;
                 } else {
                     obj[listKey] = newItems[listKey];
@@ -297,7 +308,9 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             }
                             {key !== 'All' &&
                                 <>
-                                    <Typography>{key}</Typography>
+                                    <Tooltip title={"description"} placement={"top"}>
+                                        <Typography>{key}</Typography>
+                                    </Tooltip>
                                     <Button
                                         size={"small"}
                                         variant={"outlined"}

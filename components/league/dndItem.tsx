@@ -25,6 +25,20 @@ export default function Item(props: ItemProps) {
 
     const [team, setTeam] = useState(emptyTeam);
     const [className, setClassName] = useState('');
+    const [experience, setExperience] = useState(0);
+
+    useEffect(() => {
+        try {
+            const descriptionData = JSON.parse(team.description);
+            if (descriptionData.value) {
+                setExperience(descriptionData.value);
+            } else {
+                setExperience(0);
+            }
+        } catch (error) {
+            setExperience(0);
+        }
+    }, [team]);
 
     useEffect(() => {
         const fetchTeam = async () => {
@@ -62,7 +76,7 @@ export default function Item(props: ItemProps) {
                 </Stack>
                 <Stack direction={"column"} spacing={0} justifyContent={"center"} alignItems="center" sx={{width:"80px"}}>
                     <Typography fontSize={"12px"} color={"#b0b7dc"}>経験者</Typography>
-                    <Typography fontSize={"15px"} fontWeight={"500"}>1</Typography>
+                    <Typography fontSize={"15px"} fontWeight={"500"}>{experience}</Typography>
                 </Stack>
             </Stack>
         </Card>
