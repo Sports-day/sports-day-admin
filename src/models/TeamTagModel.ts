@@ -3,6 +3,7 @@ import {TeamTagRepository, teamTagRepository} from "@/src/repositories/TeamTagRe
 export type TeamTag = {
     id: number,
     name: string,
+    sportId: number | null,
     createdAt: string,
     updatedAt: string
 }
