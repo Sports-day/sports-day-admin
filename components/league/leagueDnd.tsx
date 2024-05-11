@@ -6,9 +6,10 @@ import {
     DialogContent,
     DialogActions,
     Stack,
-    Alert, Snackbar, Typography, Tooltip
+    Alert, Snackbar, Typography, Tooltip,
+    TextField
 } from "@mui/material";
-import React, {useState, useEffect} from 'react';
+import {HiPlus, HiTrash} from "react-icons/hi2";
 import {
     DndContext,
     DragOverlay,
@@ -25,9 +26,11 @@ import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
 import SortableContainer from "./dndContainer";
 import Item from "./dndItem";
 
+import React, {useState, useEffect} from 'react';
 import {gameFactory} from "@/src/models/GameModel";
+import {teamFactory} from "@/src/models/TeamModel";
+import {teamTagFactory} from "@/src/models/TeamTagModel";
 import {Sport} from "@/src/models/SportModel";
-import {HiPlus, HiTrash} from "react-icons/hi2";
 
 export type LeagueDndProps = {
     sportId: number
@@ -43,52 +46,79 @@ export default function LeagueDnd(props: LeagueDndProps) {
     });
 
     useEffect(() => {
-        const fetchGameEntries = async () => {
-            const games = await gameFactory().index();
-            const sportGames = games.filter(game => game.sportId === sportId);
-            for (const game of sportGames) {
-                const entries = await gameFactory().getGameEntries(game.id);
-                setItems(prevItems => ({
-                    ...prevItems,
-                    All: entries.map(entry => entry.id.toString()),
-                }));
-            }
-        };
-
-        void fetchGameEntries();
-
         const fetchGames = async () => {
             const games = await gameFactory().index();
             const sportGames = games.filter(game => game.sportId === sportId);
-            const gameItems: Record<string, string[]> = sportGames.reduce((obj: Record<string, string[]>, game) => {
-                obj[game.name] = [];
-                return obj;
-            }, { 'All': [] } as Record<string, string[]>);
+
+            // 各ゲームに対応するチームを取得する関数
+            const fetchTeamsForGame = async (gameId: number) => {
+                const teams = await teamFactory().index();
+                return teams.filter(team => team.enteredGameIds.includes(gameId));
+            };
+
+            // 各ゲームに対応するチームの配列を作成
+            const gameItems: Record<string, string[]> = {};
+            // 初期化
+            gameItems['All'] = [];
+
+            for (const game of sportGames) {
+                const teams = await fetchTeamsForGame(game.id);
+                gameItems[game.name] = teams.map(team => team.id.toString());
+            }
+
+            // すべてのチームを取得
+            const allTeams = await teamFactory().index();
+            // 全てのチームタグを取得
+            const allTeamTags = await teamTagFactory().index();
+            // propsのsportId と TeamTagのsportIdが一致するものを検索
+            const sportTeamTag = allTeamTags.find(teamTag => teamTag.sportId === sportId);
+            // sportTeamTagに属するチームを抽出
+            // sportTeamTagがundefinedの場合、全てのチームを対象とする
+            const sportTeams = allTeams.filter(team => sportTeamTag ? team.teamTagId === sportTeamTag.id : true);
+
+            // どのゲームにも参加していないチームを抽出
+            const noGameTeams = sportTeams.filter(team => !team.enteredGameIds.some(id => games.map(game => game.id).includes(id)));
+
+            // All配列にどのゲームにも参加していないチームを追加
+            gameItems['All'] = noGameTeams.map(team => team.id.toString());
+
             setItems(gameItems);
         };
-        fetchGames();
+        void fetchGames();
     }, [sportId]);
 
-    const addNewList = () => {
-        // アルファベットの文字列を作成
+    const addNewList = async () => {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // 現在のリストの数をアルファベットのインデックスとして使用
-        const nextIndex = Object.keys(items).length - 1; // -1 because we already have 'All' list
+        const nextIndex = Object.keys(items).length - 1;
 
-        // リストの数が26を超えるか、次の文字が存在しない場合は新しいリストを追加しない
         if (nextIndex >= 26 || !alphabet[nextIndex]) {
             alert("これ以上リーグを作成できません")
             return;
         }
 
         const nextLetter = alphabet[nextIndex];
+        const prefix = props.sport.tagId === 1 ? '晴天時' : props.sport.tagId === 2 ? '雨天時' : '';
         setItems(prevItems => ({
             ...prevItems,
-            [`${nextLetter}リーグ`]: [],
+            [`${prefix}${nextLetter}リーグ`]: [],
         }));
+
+        const newGame = await gameFactory().create({
+            name: `${prefix}${nextLetter}リーグ`,
+            sportId: props.sport.id,
+            description: props.sport.name,
+            type: "league",
+            calculationType: "total_score",
+            weight: 0,
+            tagId: null
+        });
+        setMoveSnackOpen(false)
+        setMoveSnackOpen(true)
     };
 
-    const removeList = (key: string) => {
+    const removeList = async (key: string) => {
+        const games = await gameFactory().index();
+
         setItems(prevItems => {
             const newItems = {...prevItems};
             // 削除する配列の中に値があるか確認
@@ -107,7 +137,8 @@ export default function LeagueDnd(props: LeagueDndProps) {
             const reorderedItems = Object.keys(newItems).reduce<{ [key: string]: string[]; }>((obj, listKey) => {
                 if (listKey !== 'All') {
                     // 新しい名前を割り当てます（アルファベット順）
-                    obj[`${alphabet[index]}リーグ`] = newItems[listKey];
+                    const prefix = props.sport.tagId === 1 ? '晴天時' : props.sport.tagId === 2 ? '雨天時' : '';
+                    obj[`${prefix}${alphabet[index]}リーグ`] = newItems[listKey];
                     index++;
                 } else {
                     obj[listKey] = newItems[listKey];
@@ -117,15 +148,26 @@ export default function LeagueDnd(props: LeagueDndProps) {
 
             return reorderedItems;
         });
+
+        const gameToDelete = games.find(game => game.name === listToRemove);
+        if (gameToDelete) {
+            await gameFactory().delete(gameToDelete.id);
+        }
     };
 
     // state
     const [openDialog, setOpenDialog] = useState(false);
     const [listToRemove, setListToRemove] = useState("");
     const [delSnackOpen, setDelSnackOpen] = useState<boolean>(false)
+    const [moveSnackOpen, setMoveSnackOpen] = useState<boolean>(false)
+    const [newListName, setNewListName] = useState<string>('')
 
     const handleDelSnackClose = () => {
         setDelSnackOpen(false)
+    }
+
+    const handleMoveSnackClose = () => {
+        setMoveSnackOpen(false)
     }
 
     // Open the dialog
@@ -146,6 +188,15 @@ export default function LeagueDnd(props: LeagueDndProps) {
         setDelSnackOpen(true);
     };
 
+    const handleListNameChange = (key: string) => {
+        setItems(prevItems => {
+            const newItems = {...prevItems};
+            newItems[newListName] = newItems[key];
+            delete newItems[key];
+            return newItems;
+        });
+    };
+
     //リストのリソースid（リストの値）
     const [activeId, setActiveId] = useState<UniqueIdentifier>();
 
@@ -159,12 +210,24 @@ export default function LeagueDnd(props: LeagueDndProps) {
 
     //各コンテナ取得関数
     const findContainer = (id: UniqueIdentifier) => {
+        console.log(`id: ${id.toString()}`)
         if (id in items) {
+            console.log("id in items")
             return id;
         }
-        return Object.keys(items).find((key: string) =>
+
+        const container = Object.keys(items).find((key: string) =>
             items[key].includes(id.toString())
         );
+
+        if (!container) {
+            console.log("Not found id")
+        }
+        else {
+            console.log("keys(items).find()")
+        }
+
+        return container
     };
 
     // ドラッグ開始時に発火する関数
@@ -189,6 +252,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
         // container1,container2,container3,container4のいずれかを持つ
         const activeContainer = findContainer(id);
         const overContainer = findContainer(over?.id);
+        console.log("Over1", id, over?.id.toString())
 
         if (
             !activeContainer ||
@@ -207,6 +271,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
             // 配列のインデックス取得
             const activeIndex = activeItems.indexOf(id);
             const overIndex = overItems.indexOf(overId.toString());
+            console.log ("Over2", id, overId.toString())
 
             let newIndex;
             if (overId in prev) {
@@ -235,7 +300,36 @@ export default function LeagueDnd(props: LeagueDndProps) {
     };
 
     // ドラッグ終了時に発火する関数
-    const handleDragEnd = (event: DragEndEvent) => {
+    const handleDragEnd = async (event: DragEndEvent) => {
+        console.log("ドラックエンド!")
+        const games = await gameFactory().index();
+        const gamesToDelete = games.filter(game => game.sportId === props.sport.id);
+
+        // Delete games that match the sportId
+        for (const game of gamesToDelete) {
+            await gameFactory().delete(game.id);
+        }
+
+        // Create new games and add teams to them
+        for (const [key, value] of Object.entries(items)) {
+            if (key !== 'All') {
+                const newGame = await gameFactory().create({
+                    name: key,
+                    sportId: props.sport.id,
+                    description: props.sport.name,
+                    type: "league",
+                    calculationType: "total_score",
+                    weight: 0,
+                    tagId: null
+                });
+
+                for (const teamId of value) {
+                    await gameFactory().addGameEntries(newGame.id, [parseInt(teamId)]);
+                }
+            }
+        }
+        setMoveSnackOpen(false)
+        setMoveSnackOpen(true)
         const {active, over} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
@@ -271,9 +365,9 @@ export default function LeagueDnd(props: LeagueDndProps) {
                 ),
             }));
         }
+
         setActiveId(undefined);
     };
-
     return (
         <>
             <Stack direction={"row"} spacing={2} overflow={"scroll"}>
@@ -317,7 +411,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                                         startIcon={<HiTrash/>}
                                         color={"error"}
                                         onClick={() => handleOpenDialog(key)}
-                                        sx={{maxWidth:"168px", width:"100%"}}
+                                        sx={{maxWidth: "168px", width: "100%"}}
                                     >
                                         削除
                                     </Button>
@@ -336,10 +430,10 @@ export default function LeagueDnd(props: LeagueDndProps) {
                         open={openDialog}
                         onClose={handleCloseDialog}
                     >
-                        <DialogTitle sx={{pt:3}}>{listToRemove}を削除しますか？</DialogTitle>
+                        <DialogTitle sx={{pt: 3}}>{listToRemove}を削除しますか？</DialogTitle>
                         <DialogContent>
                             <Typography>
-                                削除すると、{listToRemove}に入っていたチームはチーム一覧に戻されます。
+                            削除すると、{listToRemove}に入っていたチームはチーム一覧に戻されます。
                             </Typography>
                             <Typography>
                                 削除したリーグは復元できません。よろしいですか？
@@ -354,6 +448,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             </Button>
                         </DialogActions>
                     </Dialog>
+                    {/* League Remove Snackbar */}
                     <Snackbar
                         open={delSnackOpen}
                         autoHideDuration={6000}
@@ -367,6 +462,22 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             sx={{ width: '100%' }}
                         >
                             {listToRemove}が削除されました。
+                        </Alert>
+                    </Snackbar>
+                    {/* League Move Snackbar */}
+                    <Snackbar
+                        open={moveSnackOpen}
+                        autoHideDuration={6000}
+                        onClose={handleMoveSnackClose}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    >
+                        <Alert
+                            onClose={handleMoveSnackClose}
+                            severity="info"
+                            variant="filled"
+                            sx={{ width: '100%' }}
+                        >
+                            変更を保存しました
                         </Alert>
                     </Snackbar>
                     {/* DragOverlay */}
