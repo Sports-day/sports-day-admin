@@ -4,11 +4,13 @@ import {AgGridReact} from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 
-import {ColDef, ModuleRegistry} from 'ag-grid-community';
+import {ColDef, ModuleRegistry, RowClickedEvent} from 'ag-grid-community';
 import {ClientSideRowModelModule} from 'ag-grid-community';
 import {Team} from "@/src/models/TeamModel";
 import {Class} from '@/src/models/ClassModel';
 import {TeamTag} from "@/src/models/TeamTagModel";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -30,6 +32,7 @@ type IRow = {
 // Create new GridExample component
 const TeamsAgGrid = (props: TeamsAgGridProps) => {
     const height = 'calc(100vh - 230px)';
+    const router = useRouter()
     // Row Data: The data to be displayed.
     const [rowData, setRowData] = useState<IRow[]>([]);
 
@@ -60,6 +63,16 @@ const TeamsAgGrid = (props: TeamsAgGridProps) => {
         [props.classes, props.teams, props.teamTags]
     )
 
+    const handleRowClick = (e: RowClickedEvent<IRow>) => {
+        const data = e.data
+
+        //  ignore undefined
+        if (!data) return
+
+        //  redirect
+        router.push(`/teams/${data.teamId}`)
+    }
+
 
     // Container: Defines the grid's theme & dimensions.
     return (
@@ -67,6 +80,7 @@ const TeamsAgGrid = (props: TeamsAgGridProps) => {
             <AgGridReact
                 rowData={rowData}
                 columnDefs={colDefs}
+                onRowClicked={handleRowClick}
             />
         </div>
     );
