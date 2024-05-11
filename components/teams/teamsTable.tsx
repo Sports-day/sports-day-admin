@@ -9,7 +9,6 @@ import {ClientSideRowModelModule} from 'ag-grid-community';
 import {Team} from "@/src/models/TeamModel";
 import {Class} from '@/src/models/ClassModel';
 import {TeamTag} from "@/src/models/TeamTagModel";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
