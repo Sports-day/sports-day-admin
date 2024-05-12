@@ -9,7 +9,7 @@ import {
     Alert, Snackbar, Typography, Tooltip,
     TextField
 } from "@mui/material";
-import {HiPlus, HiTrash} from "react-icons/hi2";
+import {HiCheck, HiPlus, HiTrash, HiXMark} from "react-icons/hi2";
 import {
     DndContext,
     DragOverlay,
@@ -86,33 +86,6 @@ export default function LeagueDnd(props: LeagueDndProps) {
         };
         void fetchGames();
     }, [sportId]);
-
-    const addNewList = async () => {
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nextIndex = Object.keys(items).length - 1;
-
-        if (nextIndex >= 26 || !alphabet[nextIndex]) {
-            alert("これ以上リーグを作成できません")
-            return;
-        }
-
-        const nextLetter = alphabet[nextIndex];
-        const prefix = props.sport.tagId === 1 ? '晴天時' : props.sport.tagId === 2 ? '雨天時' : '';
-        setItems(prevItems => ({
-            ...prevItems,
-            [`${prefix}${nextLetter}リーグ`]: [],
-        }));
-
-        const newGame = await gameFactory().create({
-            name: `${prefix}${nextLetter}リーグ`,
-            sportId: props.sport.id,
-            description: props.sport.name,
-            type: "league",
-            calculationType: "total_score",
-            weight: 0,
-            tagId: null
-        });
-    };
 
     const removeList = async (key: string) => {
         const games = await gameFactory().index();
@@ -201,7 +174,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                         }
                     }
 
-                    setMoveSnackMessage(`${teamsToRemove.length}チームが${key}から削除されました。`)
+                    setMoveSnackMessage(`変更が保存されました。`)
                     setMoveSnackOpen(true)
                 }
             }
@@ -214,7 +187,107 @@ export default function LeagueDnd(props: LeagueDndProps) {
     const [delSnackOpen, setDelSnackOpen] = useState<boolean>(false)
     const [moveSnackOpen, setMoveSnackOpen] = useState<boolean>(false)
     const [moveSnackMessage, setMoveSnackMessage] = useState<string>("")
-    const [newListName, setNewListName] = useState<string>('')
+    const [openRenameDialog, setOpenRenameDialog] = useState(false);
+    const [gameToRename, setGameToRename] = useState("");
+    const [newGameName, setNewGameName] = useState("");
+    const [openNewGameDialog, setOpenNewGameDialog] = useState(false);
+    const [addGameName, setAddGameName] = useState("");
+    const [newErrorMessage, setNewErrorMessage] = useState("");
+    const [editErrorMessage, setEditErrorMessage] = useState("");
+
+// Open the dialog
+    const handleOpenNewGameDialog = () => {
+        setOpenNewGameDialog(true);
+    };
+
+// Close the dialog
+    const handleCloseNewGameDialog = () => {
+        setOpenNewGameDialog(false);
+    };
+
+// Create a new game and close the dialog
+    const handleCreateNewGame = async () => {
+        // Fetch all games
+        const games = await gameFactory().index();
+
+        // Check if the new game name already exists
+        if (games.some(game => game.name === addGameName && game.sportId === props.sport.id)) {
+            setNewErrorMessage("この名前は既に存在します。");
+            return;
+        }
+
+        // Create the new game
+        const newGame = await gameFactory().create({
+            name: addGameName,
+            sportId: props.sport.id,
+            description: props.sport.name,
+            type: "league",
+            calculationType: "total_score",
+            weight: 0,
+            tagId: null
+        });
+
+        // Add the new game to the items
+        setItems(prevItems => ({
+            ...prevItems,
+            [addGameName]: [],
+        }));
+
+        // Reset the new game name and close the dialog
+        setAddGameName("");
+        setOpenNewGameDialog(false);
+        setNewErrorMessage(""); // Reset the error message
+    };
+
+// Open the dialog
+    const handleOpenRenameDialog = (key: string) => {
+        setGameToRename(key);
+        setNewGameName(key); // Set the new game name to the current game name
+        setOpenRenameDialog(true);
+    };
+
+// Close the dialog
+    const handleCloseRenameDialog = () => {
+        setOpenRenameDialog(false);
+    };
+
+// Rename the game and close the dialog
+    const handleRenameGame = async () => {
+        // Fetch the game to update
+        const games = await gameFactory().index();
+        const gameToUpdate = games.find(game => game.name === gameToRename && game.sportId === props.sport.id);
+
+        if (games.some(game => game.name === newGameName && game.sportId === props.sport.id)) {
+            setEditErrorMessage("この名前は既に存在します。");
+            return;
+        }
+        if (gameToUpdate) {
+            // Update the game name
+            await gameFactory().update(gameToUpdate.id,
+                {
+                    name: newGameName,
+                    description: gameToUpdate.description,
+                    sportId: gameToUpdate.sportId,
+                    type: gameToUpdate.type,
+                    calculationType: gameToUpdate.calculationType,
+                    weight: gameToUpdate.weight,
+                    tagId: gameToUpdate.tagId
+                }
+            );
+        } else {
+            console.error(`Game with name ${gameToRename} not found.`);
+        }
+
+        setItems(prevItems => {
+            const newItems = {...prevItems};
+            newItems[newGameName] = newItems[gameToRename];
+            delete newItems[gameToRename];
+            return newItems;
+        });
+
+        setOpenRenameDialog(false);
+        setEditErrorMessage(""); // Reset the error message
+    };
 
     const handleDelSnackClose = () => {
         setDelSnackOpen(false)
@@ -241,15 +314,6 @@ export default function LeagueDnd(props: LeagueDndProps) {
         setOpenDialog(false);
     };
 
-    const handleListNameChange = (key: string) => {
-        setItems(prevItems => {
-            const newItems = {...prevItems};
-            newItems[newListName] = newItems[key];
-            delete newItems[key];
-            return newItems;
-        });
-    };
-
     //リストのリソースid（リストの値）
     const [activeId, setActiveId] = useState<UniqueIdentifier>();
 
@@ -263,22 +327,13 @@ export default function LeagueDnd(props: LeagueDndProps) {
 
     //各コンテナ取得関数
     const findContainer = (id: UniqueIdentifier) => {
-        // console.log(`id: ${id.toString()}`)
         if (id in items) {
-            // console.log("id in items")
             return id;
         }
 
         const container = Object.keys(items).find((key: string) =>
             items[key].includes(id.toString())
         );
-
-        // if (!container) {
-        //     console.log("Not found id")
-        // }
-        // else {
-        //     console.log("keys(items).find()")
-        // }
 
         return container
     };
@@ -355,31 +410,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
     // ドラッグ終了時に発火する関数
     const handleDragEnd = async (event: DragEndEvent) => {
         await updateGames();
-        // const games = await gameFactory().index();
-        // const gamesToDelete = games.filter(game => game.sportId === props.sport.id);
-        // // Delete all games
-        // for (const game of gamesToDelete) {
-        //     await gameFactory().delete(game.id);
-        // }
-        //
-        // // Create new games and add teams to them
-        // for (const [key, value] of Object.entries(items)) {
-        //     if (key !== 'All') {
-        //         const newGame = await gameFactory().create({
-        //             name: key,
-        //             sportId: props.sport.id,
-        //             description: props.sport.name,
-        //             type: "league",
-        //             calculationType: "total_score",
-        //             weight: 0,
-        //             tagId: null
-        //         });
-        //
-        //         for (const teamId of value) {
-        //             await gameFactory().addGameEntries(newGame.id, [parseInt(teamId)]);
-        //         }
-        //     }
-        // }
+
         const {active, over} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
@@ -438,7 +469,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                                         size={"small"}
                                         variant={"contained"}
                                         startIcon={<HiPlus/>}
-                                        onClick={addNewList}
+                                        onClick={handleOpenNewGameDialog}
                                         sx={{maxWidth:"168px", width:"100%"}}
                                     >
                                         リーグ追加
@@ -455,16 +486,26 @@ export default function LeagueDnd(props: LeagueDndProps) {
                                     <Tooltip title={"description"} placement={"top"}>
                                         <Typography>{key}</Typography>
                                     </Tooltip>
-                                    <Button
-                                        size={"small"}
-                                        variant={"outlined"}
-                                        startIcon={<HiTrash/>}
-                                        color={"error"}
-                                        onClick={() => handleOpenDialog(key)}
-                                        sx={{maxWidth: "168px", width: "100%"}}
-                                    >
-                                        削除
-                                    </Button>
+                                    <Stack direction={"row"} spacing={1}>
+                                        <Button
+                                            size={"small"}
+                                            variant={"outlined"}
+                                            startIcon={<HiTrash/>}
+                                            color={"error"}
+                                            onClick={() => handleOpenDialog(key)}
+                                        >
+                                            削除
+                                        </Button>
+                                        <Button
+                                            size={"small"}
+                                            variant={"contained"}
+                                            color={"primary"}
+                                            sx={{flexGrow: 1}}
+                                            onClick={() => handleOpenRenameDialog(key)}
+                                        >
+                                            名前変更
+                                        </Button>
+                                    </Stack>
                                     <SortableContainer
                                         key={key}
                                         id={key}
@@ -479,6 +520,8 @@ export default function LeagueDnd(props: LeagueDndProps) {
                     <Dialog
                         open={openDialog}
                         onClose={handleCloseDialog}
+                        fullWidth={true}
+                        maxWidth={"sm"}
                     >
                         <DialogTitle sx={{pt: 3}}>{listToRemove}を削除しますか？</DialogTitle>
                         <DialogContent>
@@ -495,6 +538,73 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             </Button>
                             <Button sx={{flexGrow: 3}} variant={"contained"} onClick={handleCloseDialog}>
                                 キャンセル
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    {/* "New Game" Dialog */}
+                    <Dialog
+                        open={openNewGameDialog}
+                        onClose={handleCloseNewGameDialog}
+                        fullWidth={true}
+                        maxWidth={"sm"}
+                    >
+                        <DialogTitle sx={{pt: 3}}>新しいリーグを作成します</DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                リーグにつける名前を決めましょう
+                            </Typography>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                label="リーグ名"
+                                type="text"
+                                fullWidth
+                                value={addGameName}
+                                onChange={(event) => setAddGameName(event.target.value)}
+                                error={!!newErrorMessage} // Show the error if the error message is not empty
+                                helperText={newErrorMessage}
+                            />
+                        </DialogContent>
+                        <DialogActions sx={{p:3}}>
+                            <Button startIcon={<HiXMark/>} variant={"outlined"} onClick={handleCloseNewGameDialog}>
+                                キャンセル
+                            </Button>
+                            <Button sx={{flexGrow:1}} startIcon={<HiPlus/>} variant={"contained"} onClick={handleCreateNewGame}>
+                                作成
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    {/* Rename Dialog */}
+                    <Dialog
+                        open={openRenameDialog}
+                        onClose={handleCloseRenameDialog}
+                        fullWidth={true}
+                        maxWidth={"sm"}
+                    >
+                        <DialogTitle sx={{pt: 3}}>リーグ名を変更します</DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                新しい名前は何にしますか？
+                            </Typography>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                label="新しいリーグ名"
+                                type="text"
+                                fullWidth
+                                defaultValue={gameToRename} // Set the default value to the current game name
+                                value={newGameName}
+                                onChange={(event) => setNewGameName(event.target.value)}
+                                error={!!editErrorMessage} // Show the error if the error message is not empty
+                                helperText={editErrorMessage}
+                            />
+                        </DialogContent>
+                        <DialogActions sx={{p:3}}>
+                            <Button startIcon={<HiXMark/>} variant={"outlined"}　onClick={handleCloseRenameDialog} color="primary">
+                                キャンセル
+                            </Button>
+                            <Button sx={{flexGrow:1}} startIcon={<HiCheck/>} variant={"contained"} onClick={handleRenameGame} color="primary">
+                                保存
                             </Button>
                         </DialogActions>
                     </Dialog>
