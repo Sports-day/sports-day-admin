@@ -112,46 +112,99 @@ export default function LeagueDnd(props: LeagueDndProps) {
             weight: 0,
             tagId: null
         });
-        setMoveSnackOpen(false)
-        setMoveSnackOpen(true)
     };
 
     const removeList = async (key: string) => {
         const games = await gameFactory().index();
 
-        setItems(prevItems => {
-            const newItems = {...prevItems};
-            // 削除する配列の中に値があるか確認
-            if (newItems[key].length > 0) {
-                // 値がある場合、その値をAll配列に追加
-                newItems['All'] = [...newItems['All'], ...newItems[key]];
-            }
-            // 指定された配列を削除
-            delete newItems[key];
+        // Find the game to delete
+        const gameToDelete = games.find(game => game.name === key);
 
-            // アルファベットの文字列を作成
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            let index = 0;
-
-            // 新しいオブジェクトを作成し、削除したリスト以外のすべてのリストをコピーします
-            const reorderedItems = Object.keys(newItems).reduce<{ [key: string]: string[]; }>((obj, listKey) => {
-                if (listKey !== 'All') {
-                    // 新しい名前を割り当てます（アルファベット順）
-                    const prefix = props.sport.tagId === 1 ? '晴天時' : props.sport.tagId === 2 ? '雨天時' : '';
-                    obj[`${prefix}${alphabet[index]}リーグ`] = newItems[listKey];
-                    index++;
-                } else {
-                    obj[listKey] = newItems[listKey];
-                }
-                return obj;
-            }, {});
-
-            return reorderedItems;
-        });
-
-        const gameToDelete = games.find(game => game.name === listToRemove);
         if (gameToDelete) {
+            // Delete the game
             await gameFactory().delete(gameToDelete.id);
+
+            setItems(prevItems => {
+                const newItems = {...prevItems};
+
+                // Move the teams from the deleted game to the 'All' list
+                if (newItems[key].length > 0) {
+                    newItems['All'] = [...newItems['All'], ...newItems[key]];
+                }
+
+                // Delete the game from the list
+                delete newItems[key];
+
+                // Create a new object and copy all lists except the deleted one
+                const reorderedItems = Object.keys(newItems).sort().reduce<{ [key: string]: string[]; }>((obj, listKey) => {
+                    obj[listKey] = newItems[listKey];
+                    return obj;
+                }, {});
+
+                return reorderedItems;
+            });
+
+            setDelSnackOpen(true);
+        } else {
+            console.error(`Game with name ${key} not found.`);
+        }
+    };
+
+    const updateGames = async () => {
+        // Fetch games and teams from the server
+        const games = await gameFactory().index();
+        const teams = await teamFactory().index();
+
+        // Compare the current state with the server state and update if necessary
+        for (const [key, value] of Object.entries(items)) {
+            if (key !== 'All') {
+                const game = games.find(game => game.name === key && game.sportId === props.sport.id);
+
+                // Check if the game is not undefined
+                if (!game) {
+                    console.error(`Game with name ${key} not found.`);
+                    continue;
+                }
+
+                const serverTeams = teams.filter(team => team.enteredGameIds.includes(game.id));
+
+                // Check if the teams in the server match with the current state
+                const isSame = value.length === serverTeams.length && value.every((teamId, index) => serverTeams[index]?.id.toString() === teamId);
+
+                // If not, update the game with the current state
+                if (!isSame) {
+                    await gameFactory().update(game.id, {
+                        name: key,
+                        sportId: props.sport.id,
+                        description: props.sport.name,
+                        type: "league",
+                        calculationType: "total_score",
+                        weight: 0,
+                        tagId: null
+                    });
+
+                    // Find teams that are no longer in the array and remove them
+                    const teamsToRemove = serverTeams.filter(serverTeam => !value.includes(serverTeam.id.toString()));
+                    for (const team of teamsToRemove) {
+                        try {
+                            await gameFactory().removeGameEntry(game.id, team.id);
+                        } catch (error) {
+                            console.error(`Failed to remove team with id ${team.id} from game with id ${game.id}. Error: ${error}`);
+                        }
+                    }
+
+                    // Add new teams to the game
+                    for (const teamId of value) {
+                        // Check if the team is not in the list of teams to remove
+                        if (!teamsToRemove.some(team => team.id.toString() === teamId)) {
+                            await gameFactory().addGameEntries(game.id, [parseInt(teamId)]);
+                        }
+                    }
+
+                    setMoveSnackMessage(`${teamsToRemove.length}チームが${key}から削除されました。`)
+                    setMoveSnackOpen(true)
+                }
+            }
         }
     };
 
@@ -160,6 +213,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
     const [listToRemove, setListToRemove] = useState("");
     const [delSnackOpen, setDelSnackOpen] = useState<boolean>(false)
     const [moveSnackOpen, setMoveSnackOpen] = useState<boolean>(false)
+    const [moveSnackMessage, setMoveSnackMessage] = useState<string>("")
     const [newListName, setNewListName] = useState<string>('')
 
     const handleDelSnackClose = () => {
@@ -185,7 +239,6 @@ export default function LeagueDnd(props: LeagueDndProps) {
     const handleRemoveList = () => {
         removeList(listToRemove);
         setOpenDialog(false);
-        setDelSnackOpen(true);
     };
 
     const handleListNameChange = (key: string) => {
@@ -210,9 +263,9 @@ export default function LeagueDnd(props: LeagueDndProps) {
 
     //各コンテナ取得関数
     const findContainer = (id: UniqueIdentifier) => {
-        console.log(`id: ${id.toString()}`)
+        // console.log(`id: ${id.toString()}`)
         if (id in items) {
-            console.log("id in items")
+            // console.log("id in items")
             return id;
         }
 
@@ -220,12 +273,12 @@ export default function LeagueDnd(props: LeagueDndProps) {
             items[key].includes(id.toString())
         );
 
-        if (!container) {
-            console.log("Not found id")
-        }
-        else {
-            console.log("keys(items).find()")
-        }
+        // if (!container) {
+        //     console.log("Not found id")
+        // }
+        // else {
+        //     console.log("keys(items).find()")
+        // }
 
         return container
     };
@@ -252,7 +305,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
         // container1,container2,container3,container4のいずれかを持つ
         const activeContainer = findContainer(id);
         const overContainer = findContainer(over?.id);
-        console.log("Over1", id, over?.id.toString())
+        // console.log("Over1", id, over?.id.toString())
 
         if (
             !activeContainer ||
@@ -271,7 +324,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
             // 配列のインデックス取得
             const activeIndex = activeItems.indexOf(id);
             const overIndex = overItems.indexOf(overId.toString());
-            console.log ("Over2", id, overId.toString())
+            // console.log ("Over2", id, overId.toString())
 
             let newIndex;
             if (overId in prev) {
@@ -301,35 +354,32 @@ export default function LeagueDnd(props: LeagueDndProps) {
 
     // ドラッグ終了時に発火する関数
     const handleDragEnd = async (event: DragEndEvent) => {
-        console.log("ドラックエンド!")
-        const games = await gameFactory().index();
-        const gamesToDelete = games.filter(game => game.sportId === props.sport.id);
-
-        // Delete games that match the sportId
-        for (const game of gamesToDelete) {
-            await gameFactory().delete(game.id);
-        }
-
-        // Create new games and add teams to them
-        for (const [key, value] of Object.entries(items)) {
-            if (key !== 'All') {
-                const newGame = await gameFactory().create({
-                    name: key,
-                    sportId: props.sport.id,
-                    description: props.sport.name,
-                    type: "league",
-                    calculationType: "total_score",
-                    weight: 0,
-                    tagId: null
-                });
-
-                for (const teamId of value) {
-                    await gameFactory().addGameEntries(newGame.id, [parseInt(teamId)]);
-                }
-            }
-        }
-        setMoveSnackOpen(false)
-        setMoveSnackOpen(true)
+        await updateGames();
+        // const games = await gameFactory().index();
+        // const gamesToDelete = games.filter(game => game.sportId === props.sport.id);
+        // // Delete all games
+        // for (const game of gamesToDelete) {
+        //     await gameFactory().delete(game.id);
+        // }
+        //
+        // // Create new games and add teams to them
+        // for (const [key, value] of Object.entries(items)) {
+        //     if (key !== 'All') {
+        //         const newGame = await gameFactory().create({
+        //             name: key,
+        //             sportId: props.sport.id,
+        //             description: props.sport.name,
+        //             type: "league",
+        //             calculationType: "total_score",
+        //             weight: 0,
+        //             tagId: null
+        //         });
+        //
+        //         for (const teamId of value) {
+        //             await gameFactory().addGameEntries(newGame.id, [parseInt(teamId)]);
+        //         }
+        //     }
+        // }
         const {active, over} = event;
         //ドラッグしたリソースのid
         const id = active.id.toString();
@@ -477,7 +527,7 @@ export default function LeagueDnd(props: LeagueDndProps) {
                             variant="filled"
                             sx={{ width: '100%' }}
                         >
-                            変更を保存しました
+                            {moveSnackMessage}
                         </Alert>
                     </Snackbar>
                     {/* DragOverlay */}
