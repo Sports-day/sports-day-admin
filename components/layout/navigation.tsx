@@ -2,14 +2,26 @@
 import * as React from 'react'
 import {AppBar, Box, Button, Drawer, IconButton, Stack, SvgIcon, Toolbar, Tooltip, Typography} from "@mui/material";
 import Image from "next/image";
-import {HiHome, HiMegaphone,　HiMiniNewspaper, HiUser, HiUserGroup, HiTableCells, HiRectangleGroup, HiTrophy, HiArrowRightOnRectangle} from "react-icons/hi2";
+import {
+    HiHome,
+    HiMegaphone,
+    HiMiniNewspaper,
+    HiUser,
+    HiUserGroup,
+    HiTableCells,
+    HiRectangleGroup,
+    HiTrophy,
+    HiMapPin, HiIdentification
+} from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
 import Link from  "next/link"
 import NavPrivacyPolicyDrawer from "@/components/layout/navPrivacyPolicyDrawer";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 export const Navigation = () => {
     const drawerWidth = 303;
+    const buttonPadding = 1.3;
 
     return (
         <>
@@ -18,7 +30,7 @@ export const Navigation = () => {
                 sx={{
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                     background:"rgba(62,78,179,0.8)",
-                    backdropFilter: 'blur(4px)',
+                    backdropFilter: 'blur(30px)',
             }}>
                 <Toolbar>
                     <Link href={"/"}>
@@ -41,13 +53,13 @@ export const Navigation = () => {
                     [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
                 }}
             >
-                <Box mx={2} sx={{ overflow: 'auto' }}>
+                <Box px={2} sx={{ overflow: 'auto' }}>
 
                     <Stack spacing={1} py={3}>
                         <Typography sx={{pl:2.5}}>全体</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -61,7 +73,7 @@ export const Navigation = () => {
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -69,13 +81,13 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiMegaphone/>
                                 </SvgIcon>
-                                <Typography>お知らせを配信</Typography>
+                                <Typography>お知らせ</Typography>
                             </Stack>
                         </Button>
                         <Button
                             disabled={true}
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/"}
                         >
@@ -83,7 +95,7 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiMiniNewspaper/>
                                 </SvgIcon>
-                                <Typography>予定とルールを管理</Typography>
+                                <Typography>予定とルール</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -92,7 +104,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>ユーザー</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/users"}
                         >
@@ -100,12 +112,12 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiUser/>
                                 </SvgIcon>
-                                <Typography>すべてのユーザーを管理</Typography>
+                                <Typography>ユーザー</Typography>
                             </Stack>
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/teams"}
                         >
@@ -113,7 +125,20 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiUserGroup/>
                                 </SvgIcon>
-                                <Typography>チームを管理</Typography>
+                                <Typography>チーム</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/roles"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiIdentification/>
+                                </SvgIcon>
+                                <Typography>権限</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -122,7 +147,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>競技</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/sports"}
                         >
@@ -130,7 +155,20 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiTrophy/>
                                 </SvgIcon>
-                                <Typography>競技を作成・編集</Typography>
+                                <Typography>競技</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/locations"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiMapPin/>
+                                </SvgIcon>
+                                <Typography>場所</Typography>
                             </Stack>
                         </Button>
                     </Stack>
@@ -139,7 +177,7 @@ export const Navigation = () => {
                         <Typography sx={{pl:2.5}}>編成</Typography>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/league"}
                         >
@@ -147,12 +185,12 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiTableCells/>
                                 </SvgIcon>
-                                <Typography>リーグを編成・管理</Typography>
+                                <Typography>リーグ</Typography>
                             </Stack>
                         </Button>
                         <Button
                             variant={"contained"}
-                            sx={{py:1.5, width:"100%", fontWeight: "600"}}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
                             component={Link}
                             href={"/tournament"}
                         >
@@ -160,18 +198,14 @@ export const Navigation = () => {
                                 <SvgIcon fontSize={"small"}>
                                     <HiRectangleGroup/>
                                 </SvgIcon>
-                                <Typography>トーナメントを編成・管理</Typography>
+                                <Typography>トーナメント</Typography>
                             </Stack>
                         </Button>
                     </Stack>
                     <Stack spacing={1} width={"100%"} direction={"row"} justifyContent={"space-around"} alignItems="center">
-                        <Tooltip title={"ログアウト"} arrow>
-                            <IconButton>
-                                <HiArrowRightOnRectangle color={"#eff0f8"}/>
-                            </IconButton>
-                        </Tooltip>
+                        <LogoutButton/>
                         <Tooltip title={"GitHub"} arrow>
-                            <IconButton>
+                            <IconButton href={"https://github.com/Sports-day/sports-day-admin"} target={"_blank"}>
                                 <SiGithub color={"#eff0f8"}/>
                             </IconButton>
                         </Tooltip>

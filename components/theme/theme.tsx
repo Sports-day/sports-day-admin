@@ -73,11 +73,11 @@ export const theme = createTheme({
                     width: '100%'
                 },
                 'body::-webkit-scrollbar': {
-                    width: '8px',
+                    width: '5px',
                     height: '8px'
                 },
                 '::-webkit-scrollbar': {
-                    width: '6px',
+                    width: '5px',
                     height: '3px'
                 },
                 '::-webkit-scrollbar-track': {
@@ -85,7 +85,7 @@ export const theme = createTheme({
                     borderRadius:"10px"
                 },
                 '::-webkit-scrollbar-thumb': {
-                    background: "rgba(47,57,118,0.2)",
+                    background: "rgba(92,105,187,0.8)",
                     borderRadius: '10px'
                 }
             }

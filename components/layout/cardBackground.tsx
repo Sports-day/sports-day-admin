@@ -6,9 +6,10 @@ type CardProps = {
     button?: string;
     link?: string;
     children?: ReactNode;
+    onClick?: () => void;
 };
 
-const CardBackground: React.FC<CardProps> = ({title, button, link, children}) => {
+const CardBackground: React.FC<CardProps> = ({title, button, link, children, onClick}) => {
     return (
         <>
             <Card sx={{py: 2, px: 2}}>
@@ -18,6 +19,7 @@ const CardBackground: React.FC<CardProps> = ({title, button, link, children}) =>
                         <Button
                             variant={"contained"}
                             href={link}
+                            onClick={onClick}
                         >
                             {button}
                         </Button>
