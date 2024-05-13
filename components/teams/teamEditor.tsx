@@ -6,12 +6,13 @@ import {
     Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField,
     Typography
 } from "@mui/material";
-import {HiCheck, HiTrash} from "react-icons/hi2";
+import { HiCheck } from "react-icons/hi2";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {Team, teamFactory} from "@/src/models/TeamModel";
 import {Class} from "@/src/models/ClassModel";
 import {User} from "@/src/models/UserModel";
+import TeamDelete from "@/components/teams/teamDelete";
 
 type TeamEditorProps = {
     class : Class;
@@ -142,9 +143,7 @@ export default function TeamEditor(props: TeamEditorProps) {
                     justifyContent={"space-between"}
                     alignItems="center"
                 >
-                    <Button variant="outlined" color={"error"} startIcon={<HiTrash/>}>
-                        このチームを削除
-                    </Button>
+                    <TeamDelete teamId={props.team.id}/>
                     <Button
                         variant={"contained"}
                         color={"info"}
