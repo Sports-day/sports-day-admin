@@ -27,7 +27,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
             <CardBackground title={`${sport.name}`}>
                 <SportEditor sport={sport}/>
             </CardBackground>
-            <CardBackground title={"リーグ一覧"} button={"編集"}>
+            <CardBackground title={"リーグ一覧"} button={"リーグを作成・編集"} link={`/sports/${sport.id}/league`}>
                 <Grid container spacing={1}>
                     <LeagueList games={filteredGames}/>
                 </Grid>
