@@ -3,8 +3,11 @@ import {Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
 import CardList from "@/components/layout/cardList";
 import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
+import {matchFactory} from "@/src/models/MatchModel";
 
-export default async function GamePage({params}: { params: { gameId:string, id: string } }) {
+export default async function MatchPage({params}: { params: { matchId:string, gameId:string, id: string } }) {
+    const matchId = parseInt(params.matchId, 10)
+    const match = await matchFactory().show(matchId)
     const gameId = parseInt(params.gameId, 10)
     const game = await gameFactory().show(gameId)
     const sportId = parseInt(params.id, 10)
@@ -26,7 +29,7 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
             </Breadcrumbs>
             <CardBackground title={`${game.name}のリーグ表`}>
             </CardBackground>
-            <CardBackground title={`${game.name}の進行中の試合`}>
+            <CardBackground title={`${game.name}の現在進行中の試合`}>
                 <Grid container>
                     <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>
                 </Grid>

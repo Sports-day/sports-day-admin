@@ -41,7 +41,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
                     </Grid>
                 </CardBackground>
             )}
-            <CardBackground title={"競技名の現在進行中の試合"}>
+            <CardBackground title={`${sport.name}の進行中の試合`}>
                 <Grid container>
                     <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>
                 </Grid>

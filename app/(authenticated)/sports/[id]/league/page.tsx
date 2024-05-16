@@ -3,7 +3,7 @@ import CardBackground from "@/components/layout/cardBackground";
 import LeagueDnd from "@/components/league/leagueDnd";
 import {sportFactory} from "@/src/models/SportModel";
 
-export default async function LeagueTestPage({params}: { params: { id: string } }) {
+export default async function LeaguePage({params}: { params: { id: string } }) {
     const sportId = parseInt(params.id, 10)
     const sport = await sportFactory().show(sportId)
     const sportLink = `/sports/${sportId}`
