@@ -1,6 +1,5 @@
 import {Breadcrumbs, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import TeamsAgGrid from "@/components/teams/teamsTable";
 
 export default function  LocationPage() {
     return (

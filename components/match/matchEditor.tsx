@@ -1,5 +1,5 @@
 'use client'
-import React, {useRef, useEffect} from "react";
+import React, {useRef} from "react";
 import {useAsync} from "react-use";
 import {useRouter} from "next/navigation";
 import {
@@ -21,7 +21,7 @@ import {
     ToggleButtonGroup, Chip, SvgIcon, Avatar
 } from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {HiCheck, HiChevronDown, HiArrowPath, HiArrowUturnLeft, HiFlag, HiMapPin, HiClock} from "react-icons/hi2";
+import {HiCheck, HiChevronDown, HiArrowPath, HiFlag, HiMapPin, HiClock} from "react-icons/hi2";
 
 import {Sport} from "@/src/models/SportModel";
 import {Game} from "@/src/models/GameModel";
@@ -152,7 +152,7 @@ export default function MatchEditor(props: MatchEditorProps) {
         const leftScoreValue = leftRef.current?.value;
         const rightScoreValue = rightRef.current?.value;
 
-        if (!leftScoreValue || !rightScoreValue || isNaN(Number(leftScoreValue)) || isNaN(Number(rightScoreValue || Number(leftScoreValue) < 0 || Number(rightScoreValue) < 0 ))){
+        if (!leftScoreValue || !rightScoreValue || isNaN(Number(leftScoreValue)) || isNaN(Number(rightScoreValue || Number(leftScoreValue) < 0 || Number(rightScoreValue) < 0))) {
             setScoreError(true);
             return;
         }
@@ -160,7 +160,7 @@ export default function MatchEditor(props: MatchEditorProps) {
         const leftScore = Number(leftScoreValue);
         const rightScore = Number(rightScoreValue);
 
-        await matchFactory().update(props.match.id,{
+        await matchFactory().update(props.match.id, {
             locationId: locationId,
             gameId: props.match.gameId,
             sportId: props.match.sportId,
@@ -187,8 +187,10 @@ export default function MatchEditor(props: MatchEditorProps) {
     } else {
         return (
             <Stack spacing={2} pb={10}>
-                <CardBackground title={`試合 ${leftTeam.name} vs ${rightTeam.name} の結果を登録`} button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
-                    <Card sx={{backgroundColor:"e1e4f6", color:"primary", mb:2, maxWidth:"md"}} variant={"outlined"}>
+                <CardBackground title={`試合 ${leftTeam.name} vs ${rightTeam.name} の結果を登録`}
+                                button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
+                    <Card sx={{backgroundColor: "e1e4f6", color: "primary", mb: 2, maxWidth: "md"}}
+                          variant={"outlined"}>
                         <Stack mx={2} my={2} spacing={2} direction={"column"}>
 
                             <Stack direction={"row"} spacing={1} overflow={"scrollable"}>
@@ -208,12 +210,13 @@ export default function MatchEditor(props: MatchEditorProps) {
 
                             <Divider/>
 
-                            <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} spacing={1} alignItems={"end"}>
+                            <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} spacing={1}
+                                   alignItems={"end"}>
                                 <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
                                        sx={{
-                                             borderRadius: "12px",
-                                             backgroundColor: "rgba(49,119,44,0.05)",
-                                             p: 2
+                                           borderRadius: "12px",
+                                           backgroundColor: "rgba(49,119,44,0.05)",
+                                           p: 2
                                        }}
                                 >
                                     <Typography fontWeight={"600"}>{leftTeam.name}のスコア</Typography>
@@ -258,7 +261,8 @@ export default function MatchEditor(props: MatchEditorProps) {
 
                             <Divider/>
 
-                            <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} pb={3} spacing={1} alignItems={"end"}>
+                            <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} pb={3} spacing={1}
+                                   alignItems={"end"}>
                                 <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
                                     <Typography>勝ったのは</Typography>
                                     <ToggleButtonGroup
@@ -304,8 +308,8 @@ export default function MatchEditor(props: MatchEditorProps) {
                                 <Button
                                     variant={"outlined"}
                                     color={"error"}
-                                    sx={{py:1.5}}
-                                    startIcon={<HiArrowPath />}
+                                    sx={{py: 1.5}}
+                                    startIcon={<HiArrowPath/>}
                                     onClick={handleCancel}
                                 >
                                     元に戻す
@@ -313,8 +317,8 @@ export default function MatchEditor(props: MatchEditorProps) {
                                 <Button
                                     variant={"contained"}
                                     color={"info"}
-                                    sx={{flexGrow: 3, py:1.5}}
-                                    startIcon={<HiCheck />}
+                                    sx={{flexGrow: 3, py: 1.5}}
+                                    startIcon={<HiCheck/>}
                                     onClick={handleUpdate}
                                 >
                                     保存
@@ -325,7 +329,13 @@ export default function MatchEditor(props: MatchEditorProps) {
                 </CardBackground>
 
                 <CardBackground title={"試合の詳細設定"}>
-                    <Accordion sx={{backgroundColor:"secondary.main", color:"primary.main", borderRadius:"1px", border: "1px solid #5f6dc2", maxWidth:"md"}}>
+                    <Accordion sx={{
+                        backgroundColor: "secondary.main",
+                        color: "primary.main",
+                        borderRadius: "1px",
+                        border: "1px solid #5f6dc2",
+                        maxWidth: "md"
+                    }}>
                         <AccordionSummary
                             expandIcon={<HiChevronDown color={"secondary"}/>}
                             aria-controls="panel-content"
@@ -334,90 +344,90 @@ export default function MatchEditor(props: MatchEditorProps) {
                             <Typography>編集する</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                                <Stack  m={0} spacing={1} direction={"column"}>
+                            <Stack m={0} spacing={1} direction={"column"}>
 
-                                    <Typography pl={1.5}>補足</Typography>
-                                    <TextField
-                                        fullWidth
-                                        size={"small"}
-                                        color={"info"}
-                                        hiddenLabel={true}
-                                        id="outlined-size-small"
-                                        placeholder="補足情報を入力してください(任意)"
-                                        inputRef={noteRef}
-                                        defaultValue={props.match.note}
-                                    />
+                                <Typography pl={1.5}>補足</Typography>
+                                <TextField
+                                    fullWidth
+                                    size={"small"}
+                                    color={"info"}
+                                    hiddenLabel={true}
+                                    id="outlined-size-small"
+                                    placeholder="補足情報を入力してください(任意)"
+                                    inputRef={noteRef}
+                                    defaultValue={props.match.note}
+                                />
 
-                                    <Typography pl={1.5} pt={2}>審判</Typography>
-                                    <FormControl fullWidth size={"small"}>
-                                        <InputLabel id="demo-simple-select-label">審判</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={judgeTeamId}
-                                            defaultValue={props.match.judgeTeamId}
-                                            label="審判"
-                                            onChange={(e) => {
-                                                setJudgeTeamId(e.target.value as string)
-                                            }}
-                                        >
-                                            {teams.map((team) => (
-                                                <MenuItem key={team.id} value={team.id}>
-                                                    {team.id} - {team.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-
-                                    <Typography pl={1.5} pt={2}>試合の場所</Typography>
-                                    <FormControl fullWidth size={"small"}>
-                                        <InputLabel id="demo-simple-select-label">場所</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={locationId}
-                                            defaultValue={props.match.locationId}
-                                            label="場所"
-                                            onChange={(e) => {
-                                                setLocationId(e.target.value as number)
-                                            }}
-                                        >
-                                            {locations.map((location) => (
-                                                <MenuItem key={location.id} value={location.id}>
-                                                    {location.id} - {location.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-
-                                    <Stack
-                                        direction={"row"}
-                                        my={0.5}
-                                        pt={3}
-                                        spacing={1}
-                                        width={"100%"}
-                                        justifyContent={"space-between"}
-                                        alignItems="center"
+                                <Typography pl={1.5} pt={2}>審判</Typography>
+                                <FormControl fullWidth size={"small"}>
+                                    <InputLabel id="demo-simple-select-label">審判</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={judgeTeamId}
+                                        defaultValue={props.match.judgeTeamId}
+                                        label="審判"
+                                        onChange={(e) => {
+                                            setJudgeTeamId(e.target.value as string)
+                                        }}
                                     >
-                                        <Button
-                                            variant={"outlined"}
-                                            color={"error"}
-                                            startIcon={<HiArrowPath />}
-                                            onClick={handleCancel}
-                                        >
-                                            すべて元に戻す
-                                        </Button>
-                                        <Button
-                                            variant={"contained"}
-                                            color={"info"}
-                                            sx={{flexGrow: 3}}
-                                            startIcon={<HiCheck />}
-                                            onClick={handleUpdate}
-                                        >
-                                            すべて保存
-                                        </Button>
-                                    </Stack>
+                                        {teams.map((team) => (
+                                            <MenuItem key={team.id} value={team.id}>
+                                                {team.id} - {team.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+
+                                <Typography pl={1.5} pt={2}>試合の場所</Typography>
+                                <FormControl fullWidth size={"small"}>
+                                    <InputLabel id="demo-simple-select-label">場所</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={locationId}
+                                        defaultValue={props.match.locationId}
+                                        label="場所"
+                                        onChange={(e) => {
+                                            setLocationId(e.target.value as number)
+                                        }}
+                                    >
+                                        {locations.map((location) => (
+                                            <MenuItem key={location.id} value={location.id}>
+                                                {location.id} - {location.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+
+                                <Stack
+                                    direction={"row"}
+                                    my={0.5}
+                                    pt={3}
+                                    spacing={1}
+                                    width={"100%"}
+                                    justifyContent={"space-between"}
+                                    alignItems="center"
+                                >
+                                    <Button
+                                        variant={"outlined"}
+                                        color={"error"}
+                                        startIcon={<HiArrowPath/>}
+                                        onClick={handleCancel}
+                                    >
+                                        すべて元に戻す
+                                    </Button>
+                                    <Button
+                                        variant={"contained"}
+                                        color={"info"}
+                                        sx={{flexGrow: 3}}
+                                        startIcon={<HiCheck/>}
+                                        onClick={handleUpdate}
+                                    >
+                                        すべて保存
+                                    </Button>
                                 </Stack>
+                            </Stack>
                         </AccordionDetails>
                     </Accordion>
                 </CardBackground>
@@ -425,13 +435,13 @@ export default function MatchEditor(props: MatchEditorProps) {
                     open={updateSnackOpen}
                     autoHideDuration={8000}
                     onClose={handleUpdateSnackClose}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                 >
                     <Alert
                         onClose={handleUpdateSnackClose}
                         icon={false}
                         variant="filled"
-                        sx={{ width: '100%', backgroundColor:"primary.main" }}
+                        sx={{width: '100%', backgroundColor: "primary.main"}}
                     >
                         <Stack direction={"row"} alignItems={"center"} spacing={2} mx={1}>
                             <SvgIcon>
@@ -445,7 +455,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                                 color={"info"}
                                 component={Link}
                                 href={`/sports/${props.sport.id}/${props.game.id}`}
-                                sx={{border: "1px solid #5f6dc2", py:2}}
+                                sx={{border: "1px solid #5f6dc2", py: 2}}
                             >
                                 リーグに戻る
                             </Button>
@@ -456,13 +466,13 @@ export default function MatchEditor(props: MatchEditorProps) {
                     open={cancelSnackOpen}
                     autoHideDuration={8000}
                     onClose={handleCancelSnackClose}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                 >
                     <Alert
                         onClose={handleCancelSnackClose}
                         icon={false}
                         variant="filled"
-                        sx={{ width: '100%', backgroundColor:"primary.main" }}
+                        sx={{width: '100%', backgroundColor: "primary.main"}}
                     >
                         <Stack direction={"row"} alignItems={"center"} spacing={2} mx={1}>
                             <SvgIcon>
@@ -476,7 +486,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                                 color={"info"}
                                 component={Link}
                                 href={`/sports/${props.sport.id}/${props.game.id}`}
-                                sx={{border: "1px solid #5f6dc2", py:2}}
+                                sx={{border: "1px solid #5f6dc2", py: 2}}
                             >
                                 リーグに戻る
                             </Button>

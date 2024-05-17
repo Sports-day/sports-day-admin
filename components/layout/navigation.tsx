@@ -8,8 +8,6 @@ import {
     HiMiniNewspaper,
     HiUser,
     HiUserGroup,
-    HiTableCells,
-    HiRectangleGroup,
     HiTrophy,
     HiMapPin, HiIdentification
 } from "react-icons/hi2";
