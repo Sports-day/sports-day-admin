@@ -1,5 +1,5 @@
 'use client'
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import {useAsync} from "react-use";
 import {useRouter} from "next/navigation";
 import {
@@ -18,10 +18,10 @@ import {
     TextFieldProps,
     Typography,
     ToggleButton,
-    ToggleButtonGroup
+    ToggleButtonGroup, Chip, SvgIcon, Avatar
 } from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {HiCheck, HiChevronDown, HiArrowPath} from "react-icons/hi2";
+import {HiCheck, HiChevronDown, HiArrowPath, HiArrowUturnLeft, HiFlag, HiMapPin, HiClock} from "react-icons/hi2";
 
 import {Sport} from "@/src/models/SportModel";
 import {Game} from "@/src/models/GameModel";
@@ -29,6 +29,7 @@ import {Match, matchFactory, MatchResult, MatchStatus} from "@/src/models/MatchM
 import {Team, teamFactory} from "@/src/models/TeamModel";
 import {Location, locationFactory} from "@/src/models/LocationModel";
 import Loading from "@/app/(authenticated)/loading";
+import Link from "next/link";
 
 export type MatchEditorProps = {
     sport: Sport
@@ -63,7 +64,9 @@ export default function MatchEditor(props: MatchEditorProps) {
     const [locationId, setLocationId] = useState<number | null>(props.match.locationId);
     const [teams, setTeams] = useState<Team[]>([]);
     const [judgeTeamId, setJudgeTeamId] = useState<string | null>(props.match.judgeTeamId);
-    const [snackOpen, setSnackOpen] = React.useState<boolean>(false)
+    const [updateSnackOpen, setUpdateSnackOpen] = React.useState<boolean>(false)
+    const [cancelSnackOpen, setCancelSnackOpen] = React.useState<boolean>(false)
+    const [scoreError, setScoreError] = useState<boolean>(false);
     const leftRef = useRef<TextFieldProps>(null)
     const rightRef = useRef<TextFieldProps>(null)
     const noteRef = useRef<TextFieldProps>(null)
@@ -94,8 +97,11 @@ export default function MatchEditor(props: MatchEditorProps) {
     const formattedDate = `${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}時${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}分`;
 
     // handler
-    const handleSnackClose = () => {
-        setSnackOpen(false)
+    const handleUpdateSnackClose = () => {
+        setUpdateSnackOpen(false)
+    }
+    const handleCancelSnackClose = () => {
+        setCancelSnackOpen(false)
     }
     const handleResultChange = (
         event: React.MouseEvent<HTMLElement>,
@@ -109,6 +115,25 @@ export default function MatchEditor(props: MatchEditorProps) {
     ) => {
         setMatchStatus(newStatus as MatchStatus);
     };
+    const handleCompare = () => {
+        const leftScore = Number(leftRef.current?.value);
+        const rightScore = Number(rightRef.current?.value);
+
+        if (leftScore !== 0 || rightScore !== 0) {
+            setMatchStatus('finished');
+        } else {
+            setMatchStatus('standby');
+        }
+
+        if (leftScore > rightScore) {
+            setMatchResult('left_win');
+        } else if (leftScore < rightScore) {
+            setMatchResult('right_win');
+        } else {
+            setMatchResult('draw');
+        }
+        setScoreError(false)
+    }
 
     // cancel
     const handleCancel = () => {
@@ -119,10 +144,22 @@ export default function MatchEditor(props: MatchEditorProps) {
         noteRef.current!.value = props.match.note
         leftRef.current!.value = props.match.leftScore
         rightRef.current!.value = props.match.rightScore
+        setCancelSnackOpen(true)
     }
 
     // update data
     const handleUpdate = async () => {
+        const leftScoreValue = leftRef.current?.value;
+        const rightScoreValue = rightRef.current?.value;
+
+        if (!leftScoreValue || !rightScoreValue || isNaN(Number(leftScoreValue)) || isNaN(Number(rightScoreValue || Number(leftScoreValue) < 0 || Number(rightScoreValue) < 0 ))){
+            setScoreError(true);
+            return;
+        }
+
+        const leftScore = Number(leftScoreValue);
+        const rightScore = Number(rightScoreValue);
+
         await matchFactory().update(props.match.id,{
             locationId: locationId,
             gameId: props.match.gameId,
@@ -130,8 +167,8 @@ export default function MatchEditor(props: MatchEditorProps) {
             startAt: props.match.startAt,
             leftTeamId: props.match.leftTeamId,
             rightTeamId: props.match.rightTeamId,
-            leftScore: leftRef.current?.value as number,
-            rightScore: rightRef.current?.value as number,
+            leftScore: leftScore,
+            rightScore: rightScore,
             result: matchResult,
             status: matchStatus,
             note: noteRef.current?.value as string,
@@ -139,7 +176,8 @@ export default function MatchEditor(props: MatchEditorProps) {
         })
 
         router.refresh()
-        setSnackOpen(true)
+        setUpdateSnackOpen(true)
+        setScoreError(false)
     }
 
     if (isFetching) {
@@ -149,45 +187,72 @@ export default function MatchEditor(props: MatchEditorProps) {
     } else {
         return (
             <Stack spacing={2} pb={10}>
-                <CardBackground title={`試合 [${leftTeam.name}] vs [${rightTeam.name}]`}>
+                <CardBackground title={`試合 [${leftTeam.name}] vs [${rightTeam.name}]`} button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
                     <Card sx={{backgroundColor:"e1e4f6", color:"primary", mb:2, maxWidth:"md"}} variant={"outlined"}>
                         <Stack mx={2} my={2} spacing={2} direction={"column"}>
                             <Typography pl={1} fontWeight={"500"}>結果を登録</Typography>
 
                             <Stack direction={"row"} spacing={1} overflow={"scrollable"}>
-                                <Typography pl={1}>審判：{judgeTeam.name}</Typography>
-                                <Typography pl={1}>試合場所：{locationName}</Typography>
-                                <Typography pl={1}>試合開始：{formattedDate}</Typography>
+                                <Chip
+                                    label={`審判：${judgeTeam.name}`}
+                                    avatar={<Avatar><HiFlag/></Avatar>} color={"primary"}
+                                />
+                                <Chip
+                                    label={`試合場所：${locationName}`}
+                                    avatar={<Avatar><HiMapPin/></Avatar>} color={"primary"}
+                                />
+                                <Chip
+                                    label={`試合開始：${formattedDate}`}
+                                    avatar={<Avatar><HiClock/></Avatar>} color={"primary"}
+                                />
                             </Stack>
 
                             <Divider/>
 
                             <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} spacing={1} alignItems={"end"}>
-                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
+                                       sx={{
+                                             borderRadius: "12px",
+                                             backgroundColor: "rgba(49,119,44,0.05)",
+                                             p: 2
+                                       }}
+                                >
                                     <Typography fontWeight={"600"}>{leftTeam.name}のスコア</Typography>
                                     <TextField
                                         fullWidth
-                                        color={"info"}
+                                        color={"success"}
                                         hiddenLabel={true}
                                         id="outlined-size-small"
                                         placeholder="左チームのスコア"
                                         inputRef={leftRef}
                                         defaultValue={props.match.leftScore}
+                                        onChange={handleCompare}
+                                        error={scoreError}
+                                        helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
                                     />
                                 </Stack>
                                 <Typography pb={2}>
                                     VS
                                 </Typography>
-                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
+                                       sx={{
+                                           borderRadius: "12px",
+                                           backgroundColor: "rgba(162,31,31,0.05)",
+                                           p: 2
+                                       }}
+                                >
                                     <Typography fontWeight={"600"}>{rightTeam.name}のスコア</Typography>
                                     <TextField
                                         fullWidth
-                                        color={"info"}
+                                        color={"error"}
                                         hiddenLabel={true}
                                         id="outlined-size-small"
                                         placeholder="右チームのスコア"
                                         inputRef={rightRef}
                                         defaultValue={props.match.rightScore}
+                                        onChange={handleCompare}
+                                        error={scoreError}
+                                        helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
                                     />
                                 </Stack>
                             </Stack>
@@ -196,7 +261,7 @@ export default function MatchEditor(props: MatchEditorProps) {
 
                             <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} pb={3} spacing={1} alignItems={"end"}>
                                 <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
-                                    <Typography>結果</Typography>
+                                    <Typography>勝ったのは</Typography>
                                     <ToggleButtonGroup
                                         fullWidth
                                         color={"info"}
@@ -205,9 +270,9 @@ export default function MatchEditor(props: MatchEditorProps) {
                                         onChange={handleResultChange}
                                         aria-label="Platform"
                                     >
-                                        <ToggleButton value="left_win">{leftTeam.name}</ToggleButton>
+                                        <ToggleButton value="left_win" color={"success"}>{leftTeam.name}</ToggleButton>
                                         <ToggleButton value="draw">引き分け</ToggleButton>
-                                        <ToggleButton value="right_win">{rightTeam.name}</ToggleButton>
+                                        <ToggleButton value="right_win" color={"error"}>{rightTeam.name}</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Stack>
                                 <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
@@ -220,10 +285,10 @@ export default function MatchEditor(props: MatchEditorProps) {
                                         onChange={handleStatusChange}
                                         aria-label="Platform"
                                     >
-                                        <ToggleButton value={"cancelled"}>中止</ToggleButton>
-                                        <ToggleButton value="standby">スタンバイ</ToggleButton>
-                                        <ToggleButton value="in_progress">進行中</ToggleButton>
-                                        <ToggleButton value="finished">完了</ToggleButton>
+                                        <ToggleButton value={"cancelled"} color={"error"}>中止</ToggleButton>
+                                        <ToggleButton value="standby" color={"success"}>スタンバイ</ToggleButton>
+                                        <ToggleButton value="in_progress" color={"warning"}>進行中</ToggleButton>
+                                        <ToggleButton value="finished" color={"info"}>完了</ToggleButton>
                                     </ToggleButtonGroup>
                                 </Stack>
                             </Stack>
@@ -239,7 +304,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                             >
                                 <Button
                                     variant={"outlined"}
-                                    color={"info"}
+                                    color={"error"}
                                     sx={{py:1.5}}
                                     startIcon={<HiArrowPath />}
                                     onClick={handleCancel}
@@ -337,7 +402,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                                     >
                                         <Button
                                             variant={"outlined"}
-                                            color={"info"}
+                                            color={"error"}
                                             startIcon={<HiArrowPath />}
                                             onClick={handleCancel}
                                         >
@@ -358,18 +423,65 @@ export default function MatchEditor(props: MatchEditorProps) {
                     </Accordion>
                 </CardBackground>
                 <Snackbar
-                    open={snackOpen}
-                    autoHideDuration={6000}
-                    onClose={handleSnackClose}
+                    open={updateSnackOpen}
+                    autoHideDuration={8000}
+                    onClose={handleUpdateSnackClose}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 >
                     <Alert
-                        onClose={handleSnackClose}
-                        severity="success"
+                        onClose={handleUpdateSnackClose}
+                        icon={false}
                         variant="filled"
-                        sx={{ width: '100%' }}
+                        sx={{ width: '100%', backgroundColor:"primary.main" }}
                     >
-                        変更が保存されました
+                        <Stack direction={"row"} alignItems={"center"} spacing={2} mx={1}>
+                            <SvgIcon>
+                                <HiCheck/>
+                            </SvgIcon>
+                            <Typography>
+                                変更が保存されました
+                            </Typography>
+                            <Button
+                                variant={"contained"}
+                                color={"info"}
+                                component={Link}
+                                href={`/sports/${props.sport.id}/${props.game.id}`}
+                                sx={{border: "1px solid #5f6dc2", py:2}}
+                            >
+                                リーグに戻る
+                            </Button>
+                        </Stack>
+                    </Alert>
+                </Snackbar>
+                <Snackbar
+                    open={cancelSnackOpen}
+                    autoHideDuration={8000}
+                    onClose={handleCancelSnackClose}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                >
+                    <Alert
+                        onClose={handleCancelSnackClose}
+                        icon={false}
+                        variant="filled"
+                        sx={{ width: '100%', backgroundColor:"primary.main" }}
+                    >
+                        <Stack direction={"row"} alignItems={"center"} spacing={2} mx={1}>
+                            <SvgIcon>
+                                <HiArrowPath/>
+                            </SvgIcon>
+                            <Typography>
+                                変更を元に戻しました
+                            </Typography>
+                            <Button
+                                variant={"contained"}
+                                color={"info"}
+                                component={Link}
+                                href={`/sports/${props.sport.id}/${props.game.id}`}
+                                sx={{border: "1px solid #5f6dc2", py:2}}
+                            >
+                                リーグに戻る
+                            </Button>
+                        </Stack>
                     </Alert>
                 </Snackbar>
             </Stack>
