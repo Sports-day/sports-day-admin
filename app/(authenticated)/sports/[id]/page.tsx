@@ -24,9 +24,6 @@ export default async function SportPage({params}: { params: { id: string } }) {
                 </Link>
                 <Typography color="text.primary">{sport.name}</Typography>
             </Breadcrumbs>
-            <CardBackground title={`${sport.name}`}>
-                <SportEditor sport={sport}/>
-            </CardBackground>
             {gameType === "league" && (
                 <CardBackground title={"リーグ一覧"} button={"リーグを作成・編集"} link={`/sports/${sport.id}/league`}>
                     <Grid container spacing={1}>
@@ -41,6 +38,9 @@ export default async function SportPage({params}: { params: { id: string } }) {
                     </Grid>
                 </CardBackground>
             )}
+            <CardBackground title={`${sport.name}`}>
+                <SportEditor sport={sport}/>
+            </CardBackground>
             <CardBackground title={`${sport.name}の進行中の試合`}>
                 <Grid container>
                     <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>

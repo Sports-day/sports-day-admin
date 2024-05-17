@@ -1,9 +1,8 @@
-import CardBackground from "@/components/layout/cardBackground";
-import {Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
-import CardList from "@/components/layout/cardList";
+import {Stack, Link, Typography, Breadcrumbs} from "@mui/material";
 import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
 import {matchFactory} from "@/src/models/MatchModel";
+import MatchEditor from "@/components/match/matchEditor";
 
 export default async function MatchPage({params}: { params: { matchId:string, gameId:string, id: string } }) {
     const matchId = parseInt(params.matchId, 10)
@@ -19,21 +18,20 @@ export default async function MatchPage({params}: { params: { matchId:string, ga
                 <Link underline="hover" color="inherit" href="/">
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href="../../sports">
+                <Link underline="hover" color="inherit" href={"/sports"}>
                     競技管理
                 </Link>
                 <Link underline="hover" color="inherit" href={`/sports/${sport.id}`}>
                     {sport.name}
                 </Link>
-                <Typography color="text.primary">{game.name}(id:{gameId})</Typography>
+                <Link underline="hover" color="inherit" href={`/sports/${sport.id}/${gameId}`}>
+                    {game.name}(ID:{gameId})
+                </Link>
+                <Typography color="text.primary">試合(ID:{match.id})</Typography>
             </Breadcrumbs>
-            <CardBackground title={`${game.name}のリーグ表`}>
-            </CardBackground>
-            <CardBackground title={`${game.name}の現在進行中の試合`}>
-                <Grid container>
-                    <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>
-                </Grid>
-            </CardBackground>
+
+            <MatchEditor sport={sport} match={match} game={game}/>
+
         </Stack>
     )
 }

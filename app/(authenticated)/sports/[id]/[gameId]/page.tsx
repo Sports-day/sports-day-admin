@@ -22,7 +22,7 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
                 <Link underline="hover" color="inherit" href={`/sports/${sport.id}`}>
                     {sport.name}
                 </Link>
-                <Typography color="text.primary">{game.name}(id:{gameId})</Typography>
+                <Typography color="text.primary">{game.name}(ID:{gameId})</Typography>
             </Breadcrumbs>
             <CardBackground title={`${game.name}のリーグ表`}>
             </CardBackground>
