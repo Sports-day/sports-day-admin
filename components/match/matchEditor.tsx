@@ -187,23 +187,22 @@ export default function MatchEditor(props: MatchEditorProps) {
     } else {
         return (
             <Stack spacing={2} pb={10}>
-                <CardBackground title={`試合 [${leftTeam.name}] vs [${rightTeam.name}]`} button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
+                <CardBackground title={`試合 ${leftTeam.name} vs ${rightTeam.name} の結果を登録`} button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
                     <Card sx={{backgroundColor:"e1e4f6", color:"primary", mb:2, maxWidth:"md"}} variant={"outlined"}>
                         <Stack mx={2} my={2} spacing={2} direction={"column"}>
-                            <Typography pl={1} fontWeight={"500"}>結果を登録</Typography>
 
                             <Stack direction={"row"} spacing={1} overflow={"scrollable"}>
                                 <Chip
                                     label={`審判：${judgeTeam.name}`}
-                                    avatar={<Avatar><HiFlag/></Avatar>} color={"primary"}
+                                    avatar={<Avatar><HiFlag/></Avatar>} color={"secondary"}
                                 />
                                 <Chip
                                     label={`試合場所：${locationName}`}
-                                    avatar={<Avatar><HiMapPin/></Avatar>} color={"primary"}
+                                    avatar={<Avatar><HiMapPin/></Avatar>} color={"secondary"}
                                 />
                                 <Chip
                                     label={`試合開始：${formattedDate}`}
-                                    avatar={<Avatar><HiClock/></Avatar>} color={"primary"}
+                                    avatar={<Avatar><HiClock/></Avatar>} color={"secondary"}
                                 />
                             </Stack>
 
