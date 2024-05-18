@@ -3,9 +3,11 @@ import {Game} from "@/src/models/GameModel";
 
 export type LeagueListProps = {
     games: Game[]
+    sportId: number
 }
 
 export default function LeagueList(props: LeagueListProps) {
+    const sportId = props.sportId
 
 
     return (
@@ -14,7 +16,7 @@ export default function LeagueList(props: LeagueListProps) {
                 <ButtonLarge
                     key={game.id}
                     img={"a"}
-                    link={`/games/${game.id}`}
+                    link={`/sports/${sportId}/${game.id}`}
                 >
                     {game.name}
                 </ButtonLarge>

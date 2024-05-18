@@ -1,6 +1,5 @@
 import {Breadcrumbs, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import TeamsAgGrid from "@/components/teams/teamsTable";
 
 export default function  LocationPage() {
     return (
@@ -12,7 +11,7 @@ export default function  LocationPage() {
                 <Typography color="text.primary">場所管理</Typography>
             </Breadcrumbs>
             <CardBackground title={"すべての場所"} button={"場所を新規作成"}>
-                none
+                この機能は開発中です。
             </CardBackground>
         </Stack>
     )

@@ -8,8 +8,6 @@ import {
     HiMiniNewspaper,
     HiUser,
     HiUserGroup,
-    HiTableCells,
-    HiRectangleGroup,
     HiTrophy,
     HiMapPin, HiIdentification
 } from "react-icons/hi2";
@@ -101,7 +99,37 @@ export const Navigation = () => {
                     </Stack>
 
                     <Stack spacing={1} pb={3}>
-                        <Typography sx={{pl:2.5}}>ユーザー</Typography>
+                        <Typography sx={{pl:2.5}}>スポーツ</Typography>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/sports"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiTrophy/>
+                                </SvgIcon>
+                                <Typography>競技</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/locations"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiMapPin/>
+                                </SvgIcon>
+                                <Typography>場所</Typography>
+                            </Stack>
+                        </Button>
+                    </Stack>
+
+                    <Stack spacing={1} pb={3}>
+                        <Typography sx={{pl:2.5}}>情報</Typography>
                         <Button
                             variant={"contained"}
                             sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
@@ -143,65 +171,6 @@ export const Navigation = () => {
                         </Button>
                     </Stack>
 
-                    <Stack spacing={1} pb={3}>
-                        <Typography sx={{pl:2.5}}>競技</Typography>
-                        <Button
-                            variant={"contained"}
-                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
-                            component={Link}
-                            href={"/sports"}
-                        >
-                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiTrophy/>
-                                </SvgIcon>
-                                <Typography>競技</Typography>
-                            </Stack>
-                        </Button>
-                        <Button
-                            variant={"contained"}
-                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
-                            component={Link}
-                            href={"/locations"}
-                        >
-                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiMapPin/>
-                                </SvgIcon>
-                                <Typography>場所</Typography>
-                            </Stack>
-                        </Button>
-                    </Stack>
-
-                    <Stack spacing={1}　pb={3}>
-                        <Typography sx={{pl:2.5}}>編成</Typography>
-                        <Button
-                            variant={"contained"}
-                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
-                            component={Link}
-                            href={"/league"}
-                        >
-                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiTableCells/>
-                                </SvgIcon>
-                                <Typography>リーグ</Typography>
-                            </Stack>
-                        </Button>
-                        <Button
-                            variant={"contained"}
-                            sx={{py:buttonPadding, width:"100%", fontWeight: "600"}}
-                            component={Link}
-                            href={"/tournament"}
-                        >
-                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                                <SvgIcon fontSize={"small"}>
-                                    <HiRectangleGroup/>
-                                </SvgIcon>
-                                <Typography>トーナメント</Typography>
-                            </Stack>
-                        </Button>
-                    </Stack>
                     <Stack spacing={1} width={"100%"} direction={"row"} justifyContent={"space-around"} alignItems="center">
                         <LogoutButton/>
                         <Tooltip title={"GitHub"} arrow>

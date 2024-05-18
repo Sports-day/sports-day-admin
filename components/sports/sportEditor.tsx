@@ -67,7 +67,7 @@ export default function SportEditor(props: SportEditorProps) {
         <>
                 <Card sx={{backgroundColor:"e1e4f6", color:"primary"}} variant={"outlined"}>
                     <Stack mx={2} my={2} spacing={2} direction={"column"}>
-                        <Typography pl={1} fontWeight={"500"}>競技の情報</Typography>
+                        <Typography pl={1} fontWeight={"500"}>競技を編集する</Typography>
 
                         <TextField
                             color={"info"}
