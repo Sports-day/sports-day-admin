@@ -20,6 +20,7 @@
     "@mui/x-data-grid": "^7.1.1",
     "ag-grid-community": "^31.2.1",
     "ag-grid-react": "^31.2.1",
+    "dayjs": "^1.11.11",
     "js-cookie": "^3.0.5",
     "next": "14.1.4",
     "react": "^18",
