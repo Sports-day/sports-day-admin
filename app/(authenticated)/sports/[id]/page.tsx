@@ -41,7 +41,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
             <CardBackground title={`${sport.name}`}>
                 <SportEditor sport={sport}/>
             </CardBackground>
-            <CardBackground title={`${sport.name}の進行中の試合`}>
+            <CardBackground title={`${sport.name}の進行中の試合`} button={"一括編集(Cross Game)"} link={`/sports/${sportId}/automatic-match-editor`}>
                 <SportInProgressMatchList sport={sport}/>
             </CardBackground>
         </Stack>
