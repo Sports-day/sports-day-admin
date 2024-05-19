@@ -6,11 +6,10 @@ export function middleware(request: NextRequest) {
     if (!accessToken) {
         const protectedPaths: string[] = [
             '/sports',
-            '/tournament',
-            '/league',
             '/teams',
             '/users',
             '/roles',
+            '/locations',
         ]
 
         //  check if next path starts with any of the protected paths or root
