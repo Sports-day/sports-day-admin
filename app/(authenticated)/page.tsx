@@ -1,15 +1,15 @@
-import {Breadcrumbs, Grid, Stack, Typography} from "@mui/material";
-import CardBackground from "@/components/layout/cardBackground";
-import CardLarge from "@/components/layout/cardLarge";
-import CardList from "@/components/layout/cardList";
-import SportsList from "@/components/sports/sportsList";
-import {sportFactory} from "@/src/models/SportModel";
+import {Breadcrumbs, Grid, Stack, Typography} from "@mui/material"
+import CardBackground from "@/components/layout/cardBackground"
+import CardLarge from "@/components/layout/cardLarge"
+import SportsList from "@/components/sports/sportsList"
+import {sportFactory} from "@/src/models/SportModel"
+import InProgressMatchList from "@/components/match/inProgressMatchList"
 
 export default async function Home() {
     const sports = await sportFactory().index()
     return (
         <Stack spacing={2} mx={2} my={3}>
-            <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
+            <Breadcrumbs aria-label="breadcrumb" sx={{pl: 2}}>
                 <Typography color="text.primary">管理者のダッシュボード</Typography>
             </Breadcrumbs>
             <CardBackground title={"配信中のお知らせ"} button={"お知らせを作成・編集"}>
@@ -23,69 +23,8 @@ export default async function Home() {
                 </Grid>
             </CardBackground>
             <CardBackground title={"進行中の全ての試合から選ぶ"}>
-                <Grid container spacing={1}>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M1-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M1-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M1-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M1-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M2-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                    <CardList
-                        sport={"バスケットボール"}
-                        league={"Aリーグ"}
-                        judge={"M5-a"}
-                        left={"M1-a"}
-                        right={"エコ1"}
-                        time={"10:00"}
-                        location={"第二体育館"}
-                    >
-                    </CardList>
-                </Grid>
+                <InProgressMatchList/>
             </CardBackground>
         </Stack>
-    );
+    )
 }
