@@ -25,14 +25,14 @@ export default async function SportPage({params}: { params: { id: string } }) {
                 <Typography color="text.primary">{sport.name}</Typography>
             </Breadcrumbs>
             {gameType === "league" && (
-                <CardBackground title={"リーグ一覧"} button={"リーグを作成・編集"} link={`/sports/${sport.id}/league`}>
+                <CardBackground title={"リーグ一覧"} button={"リーグを作成・編集"} link={`/sports/${sport.id}/create-league`}>
                     <Grid container spacing={1}>
                         <LeagueList games={filteredGames} sportId={sportId}/>
                     </Grid>
                 </CardBackground>
             )}
             {gameType === "tournament" && (
-                <CardBackground title={"トーナメントビュー"} button={"トーナメントを作成・編集"} link={`/sports/${sport.id}/tournament`}>
+                <CardBackground title={"トーナメントビュー"} button={"トーナメントを作成・編集"} link={`/sports/${sport.id}/create-tournament`}>
                     <Grid container spacing={1}>
 
                     </Grid>

@@ -10,7 +10,7 @@ export default async function LeaguePage({params}: { params: { id: string } }) {
     return (
         <Stack spacing={2} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
-                <Link underline="hover" color="inherit" href="/">
+                <Link underline="hover" color="inherit" href="/public">
                     管理者のダッシュボード
                 </Link>
                 <Link underline="hover" color="inherit" href={"/sports"}>
