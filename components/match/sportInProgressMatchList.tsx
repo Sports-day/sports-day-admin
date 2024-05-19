@@ -1,4 +1,4 @@
-import {Sport, sportFactory} from "@/src/models/SportModel";
+import {Sport} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
 import {Match} from "@/src/models/MatchModel";
 import MatchList from "@/components/match/matchList";
