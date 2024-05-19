@@ -1,6 +1,6 @@
 import {Breadcrumbs, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import LeagueDnd from "@/components/league/leagueDnd";
+import LeagueDnd from "@/components/league/create/leagueDnd";
 import {sportFactory} from "@/src/models/SportModel";
 
 export default async function LeaguePage({params}: { params: { id: string } }) {
