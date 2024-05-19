@@ -1,10 +1,10 @@
 import CardBackground from "@/components/layout/cardBackground";
 import {Stack, Grid, Link, Typography, Breadcrumbs} from "@mui/material";
-import CardList from "@/components/layout/cardList";
 import {sportFactory} from "@/src/models/SportModel";
 import SportEditor from "@/components/sports/sportEditor";
 import LeagueList from "@/components/sports/leagueList";
 import {gameFactory} from "@/src/models/GameModel";
+import SportInProgressMatchList from "@/components/match/sportInProgressMatchList";
 
 export default async function SportPage({params}: { params: { id: string } }) {
     const sportId = parseInt(params.id, 10)
@@ -42,9 +42,7 @@ export default async function SportPage({params}: { params: { id: string } }) {
                 <SportEditor sport={sport}/>
             </CardBackground>
             <CardBackground title={`${sport.name}の進行中の試合`}>
-                <Grid container>
-                    <CardList sport={"a"} league={"a"} judge={"a"} left={"a"} right={"a"} time={"11:11"} location={"a"}/>
-                </Grid>
+                <SportInProgressMatchList sport={sport}/>
             </CardBackground>
         </Stack>
     )
