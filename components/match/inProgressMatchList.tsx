@@ -19,8 +19,6 @@ export default async function InProgressMatchList() {
             return new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
         })
 
-        console.log(inProgressMatches[0])
-
         //  pick the first match
         matchList.push(inProgressMatches[0])
     }
