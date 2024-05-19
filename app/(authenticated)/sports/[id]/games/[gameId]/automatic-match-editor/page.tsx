@@ -2,15 +2,13 @@ import CardBackground from "@/components/layout/cardBackground";
 import {Stack, Link, Typography, Breadcrumbs} from "@mui/material";
 import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
-import MatchList from "@/components/match/matchList";
-import LeagueTable from "@/components/league/table/leagueTable";
+import {AutomaticMatchEditor} from "@/components/automation/AutomaticMatchEditor";
 
-export default async function GamePage({params}: { params: { gameId:string, id: string } }) {
+export default async function AutomaticMatchEditorPage({params}: { params: { gameId:string, id: string } }) {
     const gameId = parseInt(params.gameId, 10)
     const game = await gameFactory().show(gameId)
     const sportId = parseInt(params.id, 10)
     const sport = await sportFactory().show(sportId)
-    const matchList = await gameFactory().getGameMatches(gameId)
 
     return(
         <Stack spacing={1} mx={2} my={3}>
@@ -24,15 +22,13 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
                 <Link underline="hover" color="inherit" href={`/sports/${sport.id}`}>
                     {sport.name}
                 </Link>
-                <Typography color="text.primary">{game.name}(ID:{gameId})</Typography>
+                <Link underline="hover" color="inherit" href={`/sports/${sport.id}/games/${game.id}`}>
+                    {game.name}(ID:{gameId})
+                </Link>
+                <Typography color="text.primary">試合一括編集</Typography>
             </Breadcrumbs>
-            <CardBackground title={`${game.name}のリーグ表`}>
-                <LeagueTable game={game} sport={sport} />
-            </CardBackground>
-            <CardBackground title={`${game.name}試合一覧`} button={"一括変更"} link={`/sports/${sportId}/games/${gameId}/automatic-match-editor`}>
-                <MatchList
-                    matches={matchList}
-                />
+            <CardBackground title={`試合一括編集`}>
+                <AutomaticMatchEditor game={game} />
             </CardBackground>
         </Stack>
     )
