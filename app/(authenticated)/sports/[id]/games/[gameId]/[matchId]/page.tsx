@@ -24,7 +24,7 @@ export default async function MatchPage({params}: { params: { matchId:string, ga
                 <Link underline="hover" color="inherit" href={`/sports/${sport.id}`}>
                     {sport.name}
                 </Link>
-                <Link underline="hover" color="inherit" href={`/sports/${sport.id}/${gameId}`}>
+                <Link underline="hover" color="inherit" href={`/sports/${sport.id}/games/${gameId}`}>
                     {game.name}(ID:{gameId})
                 </Link>
                 <Typography color="text.primary">試合(ID:{match.id})</Typography>

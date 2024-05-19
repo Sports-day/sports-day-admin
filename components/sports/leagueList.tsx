@@ -16,7 +16,7 @@ export default function LeagueList(props: LeagueListProps) {
                 <ButtonLarge
                     key={game.id}
                     img={"a"}
-                    link={`/sports/${sportId}/${game.id}`}
+                    link={`/sports/${sportId}/games/${game.id}`}
                 >
                     {game.name}
                 </ButtonLarge>
