@@ -10,6 +10,7 @@ import {Team} from "@/src/models/TeamModel";
 import {Class} from '@/src/models/ClassModel';
 import {TeamTag} from "@/src/models/TeamTagModel";
 import {useRouter} from "next/navigation";
+import TeamLinkRenderer from "@/components/teams/teamLinkRenderer";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -37,10 +38,26 @@ const TeamsAgGrid = (props: TeamsAgGridProps) => {
 
     // Column Definitions: Defines & controls grid columns.
     const [colDefs,] = useState<ColDef<IRow>[]>([
-        {field: "teamId", headerName: "チームID"},
-        {field: "teamName", headerName: "チーム名"},
-        {field: "className", headerName: "クラス"},
-        {field: "teamTagName", headerName: "タグ"},
+        {
+            field: "teamId",
+            headerName: "チームID",
+            cellRenderer: TeamLinkRenderer,
+        },
+        {
+            field: "teamName",
+            headerName: "チーム名",
+            filter: true,
+        },
+        {
+            field: "className",
+            headerName: "クラス",
+            filter: true,
+        },
+        {
+            field: "teamTagName",
+            headerName: "タグ",
+            filter: true,
+        },
     ]);
 
     useEffect(() => {
