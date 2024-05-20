@@ -10,6 +10,7 @@ import {Team} from "@/src/models/TeamModel";
 import {Class} from '@/src/models/ClassModel';
 import {TeamTag} from "@/src/models/TeamTagModel";
 import {useRouter} from "next/navigation";
+import TeamLinkRenderer from "@/components/teams/teamLinkRenderer";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -40,7 +41,7 @@ const TeamsAgGrid = (props: TeamsAgGridProps) => {
         {
             field: "teamId",
             headerName: "チームID",
-            filter: true,
+            cellRenderer: TeamLinkRenderer,
         },
         {
             field: "teamName",
