@@ -20,7 +20,9 @@ export default async function InProgressMatchList() {
         })
 
         //  pick the first match
-        matchList.push(inProgressMatches[0])
+        if (inProgressMatches[0]) {
+            matchList.push(inProgressMatches[0])
+        }
     }
 
     return (
