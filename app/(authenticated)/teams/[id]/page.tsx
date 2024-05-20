@@ -8,7 +8,8 @@ import {classFactory} from "@/src/models/ClassModel";
 export default async function TeamDetailPage({ params }: { params: { id: string } }) {
     const teamId = parseInt(params.id, 10)
     const teamInfo = await teamFactory().show(teamId)
-    const classes = await classFactory().show(teamInfo.classId)
+    const classModel = await classFactory().show(teamInfo.classId)
+    const classUsers = await classFactory().getUsers(teamInfo.classId)
     const teamUsers = await teamFactory().getTeamUsers(teamId);
 
     return (
@@ -17,7 +18,7 @@ export default async function TeamDetailPage({ params }: { params: { id: string 
                 <Link underline="hover" color="inherit" href="/">
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href="/teams/">
+                <Link underline="hover" color="inherit" href={"/teams/"}>
                     チーム管理
                 </Link>
                 <Typography color="text.primary">{teamInfo.name}</Typography>
@@ -27,7 +28,8 @@ export default async function TeamDetailPage({ params }: { params: { id: string 
                 <TeamEditor
                     team={teamInfo}
                     teamUser={teamUsers}
-                    class={classes}
+                    class={classModel}
+                    classUsers={classUsers}
                 />
             </CardBackground>
         </Stack>
