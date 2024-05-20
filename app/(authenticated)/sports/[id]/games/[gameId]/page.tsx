@@ -4,6 +4,8 @@ import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
 import MatchList from "@/components/match/matchList";
 import LeagueTable from "@/components/league/table/leagueTable";
+import {tagFactory} from "@/src/models/TagModel";
+import GameForm from "@/components/league/legacy/GameForm";
 
 export default async function GamePage({params}: { params: { gameId:string, id: string } }) {
     const gameId = parseInt(params.gameId, 10)
@@ -11,6 +13,7 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
     const sportId = parseInt(params.id, 10)
     const sport = await sportFactory().show(sportId)
     const matchList = await gameFactory().getGameMatches(gameId)
+    const tags = await tagFactory().index()
 
     return(
         <Stack spacing={1} mx={2} my={3}>
@@ -26,6 +29,14 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
                 </Link>
                 <Typography color="text.primary">{game.name}(ID:{gameId})</Typography>
             </Breadcrumbs>
+            <CardBackground title={`${game.name}を編集`}>
+                <GameForm
+                    formType={"edit"}
+                    sportId={sportId}
+                    game={game}
+                    tags={tags}
+                />
+            </CardBackground>
             <CardBackground title={`${game.name}のリーグ表`} button={"試合を再生成"} link={`/sports/${sportId}/games/${gameId}/generate-league-matches`}>
                 <LeagueTable game={game} sport={sport} />
             </CardBackground>
