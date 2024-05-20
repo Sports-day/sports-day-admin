@@ -26,7 +26,7 @@ export default async function GamePage({params}: { params: { gameId:string, id: 
                 </Link>
                 <Typography color="text.primary">{game.name}(ID:{gameId})</Typography>
             </Breadcrumbs>
-            <CardBackground title={`${game.name}のリーグ表`}>
+            <CardBackground title={`${game.name}のリーグ表`} button={"試合を再生成"} link={`/sports/${sportId}/games/${gameId}/generate-league-matches`}>
                 <LeagueTable game={game} sport={sport} />
             </CardBackground>
             <CardBackground title={`${game.name}試合一覧`} button={"一括変更"} link={`/sports/${sportId}/games/${gameId}/automatic-match-editor`}>
