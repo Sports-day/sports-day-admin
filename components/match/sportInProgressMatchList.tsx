@@ -25,7 +25,9 @@ export default async function SportInProgressMatchList(props: SportInProgressMat
         })
 
         //  pick the first match
-        matchList.push(inProgressMatches[0])
+        if (inProgressMatches[0]) {
+            matchList.push(inProgressMatches[0])
+        }
     }
 
     return (
