@@ -6,23 +6,26 @@ import {
     Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField,
     Typography
 } from "@mui/material";
-import {HiCheck, HiMiniTrash} from "react-icons/hi2";
+import {HiCheck, HiMiniTrash, HiPlus} from "react-icons/hi2";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {Team, teamFactory} from "@/src/models/TeamModel";
 import {Class} from "@/src/models/ClassModel";
 import {User} from "@/src/models/UserModel";
 import TeamDelete from "@/components/teams/teamDelete";
+import AddTeamMemberDialog from "@/components/teams/addTeamMemberDialog";
 
 type TeamEditorProps = {
     class: Class;
     team: Team;
     teamUser: User[];
+    classUsers: User[];
 }
 
 export default function TeamEditor(props: TeamEditorProps) {
     const router = useRouter()
     const [teamName, setTeamName] = useState<string>(props.team.name)
+    const [isOpenTeamMemberAddDialog, setIsOpenTeamMemberAddDialog] = useState<boolean>(false)
 
     const handleSubmit = async () => {
         await teamFactory().update(props.team.id, {
@@ -42,6 +45,10 @@ export default function TeamEditor(props: TeamEditorProps) {
         //  refresh
         router.refresh()
     }
+
+    const notTeamUsers = props.classUsers.filter((user) => {
+        return !props.teamUser.some((teamUser) => teamUser.id === user.id)
+    })
 
     return (
         <>
@@ -152,6 +159,27 @@ export default function TeamEditor(props: TeamEditorProps) {
                         </Table>
                     </TableContainer>
                 </FormControl>
+
+                <AddTeamMemberDialog
+                    isOpen={isOpenTeamMemberAddDialog}
+                    setClose={() => {
+                        setIsOpenTeamMemberAddDialog(false)
+                    }}
+                    team={props.team}
+                    users={notTeamUsers}
+                />
+
+                <Button
+                    variant={"contained"}
+                    color={"primary"}
+                    sx={{flexGrow: 3}}
+                    startIcon={<HiPlus/>}
+                    onClick={() => {
+                        setIsOpenTeamMemberAddDialog(true)
+                    }}
+                >
+                    チームメンバー追加
+                </Button>
 
                 <Stack
                     direction={"row"}
