@@ -83,6 +83,7 @@ export default async function LeagueTable(props: LeagueTableProps) {
         <Stack
             spacing={0}
             direction={"row"}
+            overflow={"auto"}
         >
             {cells}
         </Stack>
