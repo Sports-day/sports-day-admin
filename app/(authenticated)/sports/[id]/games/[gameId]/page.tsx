@@ -10,6 +10,7 @@ import {teamTagFactory} from "@/src/models/TeamTagModel";
 import {teamFactory} from "@/src/models/TeamModel";
 import {GameEntryList} from "@/components/league/legacy/GameEntryList";
 import AddGameEntryDialog from "@/components/league/legacy/AddGameEntryDialog";
+import AddGameEntryAutomation from "@/components/league/legacy/AddGameEntryAutomation";
 
 export default async function GamePage({params}: { params: { gameId: string, id: string } }) {
     const gameId = parseInt(params.gameId, 10)
@@ -24,7 +25,10 @@ export default async function GamePage({params}: { params: { gameId: string, id:
     const teamTags = await teamTagFactory().index()
     const linkedTeamTag = teamTags.find((teamTag) => teamTag.sportId === sport.id)
     const teams = await teamFactory().index()
-    const filteredTeams = linkedTeamTag ? teams.filter((team) => team.teamTagId === linkedTeamTag.id) : []
+    const filteredTeams = linkedTeamTag ? teams
+            .filter((team) => team.teamTagId === linkedTeamTag.id)
+            .filter((team) => team.enteredGameIds.length === 0)
+        : []
 
 
     return (
@@ -50,12 +54,19 @@ export default async function GamePage({params}: { params: { gameId: string, id:
                 />
             </CardBackground>
             <CardBackground title={`${game.name}のエントリー`}>
-                <Stack>
+                <Stack
+                    spacing={2}
+                >
                     <GameEntryList
                         game={game}
                         entries={gameEntryTeams}
                     />
                     <AddGameEntryDialog
+                        game={game}
+                        teams={filteredTeams}
+                        entries={gameEntryTeams}
+                    />
+                    <AddGameEntryAutomation
                         game={game}
                         teams={filteredTeams}
                         entries={gameEntryTeams}
