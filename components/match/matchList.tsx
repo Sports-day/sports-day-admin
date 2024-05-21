@@ -7,7 +7,10 @@ export type MatchListProps = {
 }
 
 export default async function MatchList(props: MatchListProps) {
-    const components = props.matches.map((match) =>
+    const components = props.matches
+        //  sort by date in ascending order
+        .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime())
+        .map((match) =>
         <MatchCard
             match={match}
             key={match.id}
