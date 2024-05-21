@@ -24,7 +24,7 @@ import CardBackground from "@/components/layout/cardBackground"
 import {HiCheck, HiChevronDown, HiArrowPath, HiFlag, HiMapPin, HiClock, HiMiniNoSymbol} from "react-icons/hi2"
 
 import {Sport} from "@/src/models/SportModel"
-import {Game} from "@/src/models/GameModel"
+import {Game, gameFactory} from "@/src/models/GameModel"
 import {Match, matchFactory, MatchResult, MatchStatus} from "@/src/models/MatchModel"
 import {Team, teamFactory} from "@/src/models/TeamModel"
 import {Location, locationFactory} from "@/src/models/LocationModel"
@@ -65,9 +65,13 @@ export default function MatchEditor(props: MatchEditorProps) {
         const fetchedLocations = await locationFactory().index()
         setLocations(fetchedLocations)
 
+        const fetchedGames = await gameFactory().index()
+        const sportGames = fetchedGames.filter(game => game.sportId === props.sport.id)
+        const sportGameIds = sportGames.map(game => game.id)
+
         const fetchedTeams = await teamFactory().index()
         //  filter by game id
-        const filteredTeams = fetchedTeams.filter(team => team.enteredGameIds.includes(props.game.id))
+        const filteredTeams = fetchedTeams.filter(team => team.enteredGameIds.some(id => sportGameIds.includes(id)))
         setTeams(filteredTeams)
 
         //  finish loading
