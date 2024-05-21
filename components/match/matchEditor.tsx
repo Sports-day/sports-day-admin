@@ -1,5 +1,5 @@
 'use client'
-import React, {useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {useAsync} from "react-use"
 import {useRouter} from "next/navigation"
 import {
@@ -18,7 +18,7 @@ import {
     TextFieldProps,
     Typography,
     ToggleButton,
-    ToggleButtonGroup, Chip, SvgIcon, Avatar
+    ToggleButtonGroup, Chip, SvgIcon, Avatar, Box
 } from "@mui/material"
 import CardBackground from "@/components/layout/cardBackground"
 import {HiCheck, HiChevronDown, HiArrowPath, HiFlag, HiMapPin, HiClock, HiMiniNoSymbol} from "react-icons/hi2"
@@ -30,6 +30,9 @@ import {Team, teamFactory} from "@/src/models/TeamModel"
 import {Location, locationFactory} from "@/src/models/LocationModel"
 import Loading from "@/app/(authenticated)/loading"
 import Link from "next/link"
+import dayjs, {Dayjs} from "dayjs";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 
 export type MatchEditorProps = {
     sport: Sport
@@ -50,6 +53,8 @@ export default function MatchEditor(props: MatchEditorProps) {
     //  location and team state
     const [locationId, setLocationId] = useState<number | null>(props.match.locationId)
     const [judgeTeamId, setJudgeTeamId] = useState<number | null>(props.match.judgeTeamId)
+    //  date time state
+    const [startDateTime, setStartDateTime] = useState<Dayjs>(dayjs())
     //  UX state
     const [updateSnackOpen, setUpdateSnackOpen] = useState<boolean>(false)
     const [cancelSnackOpen, setCancelSnackOpen] = useState<boolean>(false)
@@ -73,6 +78,10 @@ export default function MatchEditor(props: MatchEditorProps) {
         //  finish loading
         setIsFetching(false)
     })
+
+    useEffect(() => {
+        setStartDateTime(dayjs(props.match.startAt))
+    }, [props.match.startAt])
 
     // reformat data
     const locationName = locations.find(location => location.id === props.match.locationId)?.name
@@ -138,6 +147,7 @@ export default function MatchEditor(props: MatchEditorProps) {
         noteRef.current!.value = props.match.note
         leftScoreRef.current!.value = props.match.leftScore
         rightScoreRef.current!.value = props.match.rightScore
+        setStartDateTime(dayjs(props.match.startAt))
         setCancelSnackOpen(true)
     }
 
@@ -163,7 +173,7 @@ export default function MatchEditor(props: MatchEditorProps) {
             locationId: locationId,
             gameId: props.match.gameId,
             sportId: props.match.sportId,
-            startAt: props.match.startAt,
+            startAt: startDateTime.format("YYYY-MM-DDTHH:mm:ss.SSS"),
             leftTeamId: props.match.leftTeamId,
             rightTeamId: props.match.rightTeamId,
             leftScore: leftScore,
@@ -404,6 +414,23 @@ export default function MatchEditor(props: MatchEditorProps) {
                                     ))}
                                 </Select>
                             </FormControl>
+
+                            <Box pt={2}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DateTimePicker
+                                        label={"開始時刻"}
+                                        value={startDateTime}
+                                        onChange={(newValue) => {
+                                            if (!newValue) return
+                                            setStartDateTime(newValue)
+                                        }}
+                                        sx={{
+                                            my: '20px',
+                                            width: "300px",
+                                        }}
+                                    />
+                                </LocalizationProvider>
+                            </Box>
 
                             <Stack
                                 direction={"row"}
