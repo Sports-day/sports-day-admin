@@ -158,7 +158,7 @@ export function CrossGameAutomaticMatchEditor(props: CrossGameAutomaticMatchEdit
             const judge = filteredEntries.find(team => team.name === judgeTeamName)
 
             //  if team not found
-            if (leftTeam === undefined || rightTeam === undefined || judge === undefined) {
+            if (leftTeam === undefined || rightTeam === undefined || (judgeTeamName !== "" && judge === undefined)) {
                 //  failed
                 editedMatches.push({
                     id: -1,
