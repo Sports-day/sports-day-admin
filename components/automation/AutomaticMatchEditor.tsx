@@ -155,7 +155,7 @@ export function AutomaticMatchEditor(props: AutomaticMatchEditorProps) {
             const rightTeam = teams.find(team => team.name === rightTeamName)
             const judge = teams.find(team => team.name === judgeTeamName)
             //  if team not found
-            if (leftTeam === undefined || rightTeam === undefined || judge === undefined) {
+            if (leftTeam === undefined || rightTeam === undefined || (judgeTeamName !== "" && judge === undefined)) {
                 //  failed
                 editedMatches.push({
                     id: -1,
