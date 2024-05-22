@@ -1,11 +1,9 @@
 import {Stack, Breadcrumbs, Link, Typography, Avatar, Button} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {tagFactory} from "@/src/models/TagModel";
 import {imageFactory} from "@/src/models/ImageModel";
 import React from "react";
 
 export default async function TagsPage() {
-    const tags = await tagFactory().index()
     const images = await imageFactory().index()
 
     return (

@@ -1,7 +1,5 @@
 import {Alert, Breadcrumbs, Button, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
-import {tagFactory} from "@/src/models/TagModel";
-import TagEditor from "@/components/tags/tagEditor";
 import {imageFactory} from "@/src/models/ImageModel";
 import ImageEditor from "@/components/images/imageEditor";
 

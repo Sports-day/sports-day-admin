@@ -1,7 +1,7 @@
 'use client'
 import {Avatar, Button, Stack, Typography} from "@mui/material";
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React from "react";
 import {imageFactory, Image} from "@/src/models/ImageModel";
 
 export type ImageEditorProps = {
