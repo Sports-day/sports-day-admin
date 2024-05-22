@@ -9,7 +9,7 @@ import {
     HiUser,
     HiUserGroup,
     HiTrophy,
-    HiMapPin, HiIdentification, HiMiniTag
+    HiMapPin, HiIdentification, HiMiniTag, HiPhoto
 } from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
@@ -189,6 +189,20 @@ export const Navigation = () => {
                                     <HiMiniTag/>
                                 </SvgIcon>
                                 <Typography>タグ</Typography>
+                            </Stack>
+                        </Button>
+                        <Button
+                            variant={"contained"}
+                            sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
+                            component={Link}
+                            href={"/images"}
+                        >
+                            <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
+                                   alignItems="center">
+                                <SvgIcon fontSize={"small"}>
+                                    <HiPhoto/>
+                                </SvgIcon>
+                                <Typography>画像</Typography>
                             </Stack>
                         </Button>
                     </Stack>
