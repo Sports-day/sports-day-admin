@@ -12,7 +12,7 @@ export default function SportsList(props: SportsListProps) {
             {props.sports.map((sport) => (
                 <ButtonLarge
                     key={sport.id}
-                    img={"a"}
+                    img={`${process.env.NEXT_PUBLIC_API_URL}/images/${sport.iconId}/file`}
                     link={`/sports/${sport.id}`}
                 >
                     {sport.name}

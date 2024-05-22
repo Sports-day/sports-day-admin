@@ -22,8 +22,10 @@ export const ButtonLarge: React.FC<ButtonLargeProps> = ({img, children, link})=>
                     justifyContent={"flex-start"}
                     alignItems="center"
                 >
-                    {img && <Avatar sx={{mr:1.5, height: "1.5em", width: "1.5em"}}>
-
+                    {img && <Avatar
+                        sx={{mr:1.5, height: "1.5em", width: "1.5em"}}
+                        src={img}
+                    >
                     </Avatar>}
                     {children}
                 </Stack>

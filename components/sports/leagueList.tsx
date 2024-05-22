@@ -15,7 +15,6 @@ export default function LeagueList(props: LeagueListProps) {
             {props.games.map((game) => (
                 <ButtonLarge
                     key={game.id}
-                    img={"a"}
                     link={`/sports/${sportId}/games/${game.id}`}
                 >
                     {game.name}
