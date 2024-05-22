@@ -21,7 +21,7 @@ export default async function TagsPage() {
             >
                 <Stack spacing={1}>
                     {images?.map((image) => (
-                        <Button variant={"contained"} fullWidth href={`/images/${image.id}`}>
+                        <Button variant={"contained"} fullWidth href={`/images/${image.id}`} key={image.id}>
                             <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{width:"100%"}}>
                                 <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
                                 <Typography>
