@@ -5,6 +5,7 @@ import {ReactNode} from "react";
 import TeamCell from "@/components/league/table/teamCell";
 import SlashCell from "@/components/league/table/slashCell";
 import MatchCell from "@/components/league/table/matchCell";
+import TextCell from "@/components/league/table/textCell";
 
 export type LeagueTableProps = {
     game: Game
@@ -14,6 +15,7 @@ export type LeagueTableProps = {
 export default async function LeagueTable(props: LeagueTableProps) {
     const entries = await gameFactory().getGameEntries(props.game.id)
     const matches = await gameFactory().getGameMatches(props.game.id)
+    const results = await gameFactory().getLeagueResult(props.game.id)
 
     const cells: ReactNode[] = []
 
@@ -76,6 +78,72 @@ export default async function LeagueTable(props: LeagueTableProps) {
             }
         }
         cells.push(<Stack key={i} direction={"column"}>{rows}</Stack>)
+    }
+
+    //  result section
+    for (let i = 0; i < 3; i++) {
+        const rows: ReactNode[] = []
+        for (let j = 0; j < (entries.length + 1); j++) {
+            if (j === 0) {
+                if (i === 0) {
+                    rows.push(
+                        <TextCell text={"勝ち点率"} key={`result_header_${i}_${j}`}/>
+                    )
+                }
+                else if (i === 1) {
+                    if (props.game.calculationType === "total_score") {
+                        rows.push(
+                            <TextCell text={"総得点率"} key={`result_header_${i}_${j}`}/>
+                        )
+                    }
+                    else {
+                        rows.push(
+                            <TextCell text={"得失点率"} key={`result_header_${i}_${j}`}/>
+                        )
+                    }
+                }
+                else {
+                    rows.push(
+                        <TextCell text={"順位"} key={`result_header_${i}_${j}`} />
+                    )
+                }
+            }
+            else {
+                const team = entries[j - 1]
+                const result = results.teams.find(result => result.teamId === team.id)
+
+                if (!result) {
+                    rows.push(
+                        <TextCell text={"エラー"} key={`result_${i}_${j}`} />
+                    )
+                    continue
+                }
+
+                if (i === 0) {
+                    rows.push(
+                        <TextCell text={result.score.toFixed(3)} key={`result_${i}_${j}`} />
+                    )
+                }
+                else if (i === 1) {
+                    if (props.game.calculationType === "total_score") {
+                        rows.push(
+                            <TextCell text={result.goal.toFixed(3)} key={`result_${i}_${j}`} />
+                        )
+                    }
+                    else {
+                        rows.push(
+                            <TextCell text={result.goalDiff.toFixed(3)} key={`result_${i}_${j}`} />
+                        )
+                    }
+                }
+                else {
+                    rows.push(
+                        <TextCell text={`${result.rank.toString()} 位`} key={`result_${i}_${j}`} />
+                    )
+                }
+            }
+        }
+        cells.push(<Stack key={`result_${i}`} direction={"column"}>{rows}</Stack>)
     }
 
 
