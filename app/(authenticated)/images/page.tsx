@@ -3,7 +3,7 @@ import CardBackground from "@/components/layout/cardBackground";
 import {imageFactory} from "@/src/models/ImageModel";
 import React from "react";
 
-export default async function TagsPage() {
+export default async function ImagesPage() {
     const images = await imageFactory().index()
 
     return (

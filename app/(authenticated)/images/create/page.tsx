@@ -2,7 +2,7 @@ import {Stack, Breadcrumbs, Link, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import ImageCreator from "@/components/images/imageCreator";
 
-export default function TagCreatePage() {
+export default function ImageCreatePage() {
 
     return (
         <Stack spacing={1} mx={2} my={3}>
