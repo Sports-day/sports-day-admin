@@ -59,7 +59,7 @@ const NavPrivacyPolicyDrawer = () => {
                 <IconButton
                     onClick={toggleDrawer(true)}
                 >
-                    <HiBuildingLibrary color={"#eff0f8"}/>
+                    <HiBuildingLibrary color={"text.primary"}/>
                 </IconButton>
             </Tooltip>
             <SwipeableDrawer

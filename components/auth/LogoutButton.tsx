@@ -18,7 +18,7 @@ export default function LogoutButton() {
                 }}
                 sx={{width:"fit-content"}}
             >
-                <HiArrowRightOnRectangle color={"#eff0f8"}/>
+                <HiArrowRightOnRectangle color={"text.primary"}/>
             </IconButton>
         </Tooltip>
     );
