@@ -9,10 +9,10 @@ type CardProps = {
 const CardLarge: React.FC<CardProps> = ({ children }) => {
     return (
         <>
-            <Card sx={{py:1.5, px:2, backgroundColor:"primary.main", color:"secondary.main"}}>
+            <Card sx={{py:1.5, px:2, backgroundColor:"secondary.main", color:"text.primary"}}>
                 <Stack spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                    <Avatar sx={{height:"1.5em", width:"1.5em", backgroundColor:"primary.dark"}}>
-                        <HiMegaphone/>
+                    <Avatar sx={{height:"1.5em", width:"1.5em", backgroundColor:"text.secondary"}}>
+                        <HiMegaphone color={"secondary.main"}/>
                     </Avatar>
                     <Typography>{children}</Typography>
                 </Stack>

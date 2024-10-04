@@ -1,4 +1,4 @@
-import {Breadcrumbs, Grid, Stack, Typography} from "@mui/material"
+import {Breadcrumbs, Grid, Stack, Typography, useTheme} from "@mui/material"
 import CardBackground from "@/components/layout/cardBackground"
 import CardLarge from "@/components/layout/cardLarge"
 import SportsList from "@/components/sports/sportsList"
