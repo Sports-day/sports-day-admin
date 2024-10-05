@@ -101,7 +101,7 @@ const baseTheme = {
 const lightPalette = {
     mode: 'light' as PaletteMode, // 型キャストを追加
     primary: {
-        main: '#EFF0F8',
+        main: '#52598d',
         dark: '#4a5abb',
         light: '#5f6dc2',
     },
@@ -131,7 +131,7 @@ const lightPalette = {
 const darkPalette = {
     mode: 'dark' as PaletteMode, // 型キャストを追加
     primary: {
-        main: '#22284F',
+        main: '#8d95c9',
         dark: '#050925',
         light: '#373e6e',
     },
@@ -163,7 +163,7 @@ export default function ColorModeProvider({ children }: ColorModeProviderProps) 
 
     const theme = useMemo(() => createTheme({
         ...baseTheme,
-        palette: prefersDarkMode ? darkPalette : lightPalette,
+        palette: lightPalette,
     }), [prefersDarkMode]);
 
     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
