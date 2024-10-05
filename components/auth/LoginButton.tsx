@@ -1,11 +1,13 @@
 'use client'
-import {Button} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import crypto from 'crypto';
 import * as querystring from "querystring";
 import {useEffect, useState} from "react";
+import {useTheme} from "@mui/material/styles";
 
 export default function LoginButton() {
     const [authorizationUrl, setAuthorizationUrl] = useState<string>('')
+    const theme = useTheme()
 
     useEffect(() => {
         const authorizationBaseUrl = process.env.NEXT_PUBLIC_OIDC_AUTHORIZE_URL
@@ -37,12 +39,14 @@ export default function LoginButton() {
     return (
         <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             href={authorizationUrl}
-            sx={{py:1.5, width:"100%"}}
+            sx={{px:3, py:1.5, width:"100%", backgroundColor:`${theme.palette.text.primary}`}}
             disableElevation
         >
-            {buttonDisplayName}
+            <Typography fontSize={"14px"} color={theme.palette.background.paper}>
+                {buttonDisplayName}
+            </Typography>
         </Button>
     );
 }
