@@ -49,6 +49,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -65,6 +66,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -81,6 +83,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -100,6 +103,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/sports"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -115,6 +119,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/locations"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -134,6 +139,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/users"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -149,6 +155,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/teams"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -164,6 +171,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/roles"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -179,6 +187,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/tags"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -194,6 +203,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={Link}
                     href={"/images"}
+                    onClick={handleDrawerToggle}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
