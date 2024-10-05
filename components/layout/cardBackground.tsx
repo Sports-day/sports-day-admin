@@ -1,5 +1,6 @@
-import {Button, Card, Stack, Typography} from "@mui/material";
+import {Button, Card, Stack, Typography, useTheme} from "@mui/material";
 import React, {ReactNode} from 'react';
+import {red} from "@mui/material/colors";
 
 type CardProps = {
     title?: string;
@@ -10,18 +11,27 @@ type CardProps = {
 };
 
 const CardBackground: React.FC<CardProps> = ({title, button, link, children, onClick}) => {
+
     return (
         <>
-            <Card sx={{py: 2, px: 2}}>
+            <Card
+                sx={{
+                    py: 2, px: 2,
+                    backgroundImage:`linear-gradient(rgba(105,112,164,0), rgba(47,60,140,0.08))`
+                }}
+            >
                 <Stack pb={2} spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
-                    {title && <Typography color={"primary.light"}>{title}</Typography>}
+                    {title && <Typography color={"text.primary"}>{title}</Typography>}
                     {button &&
                         <Button
+                            color={"secondary"}
                             variant={"contained"}
                             href={link}
                             onClick={onClick}
                         >
-                            {button}
+                            <Typography fontSize={"inherit"} color={"text.primary"}>
+                                {button}
+                            </Typography>
                         </Button>
                     }
                 </Stack>

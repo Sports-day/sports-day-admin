@@ -1,5 +1,5 @@
 import {Grid, Button, Avatar, Chip, Stack, Tooltip, Divider} from "@mui/material";
-import {HiClock, HiFlag, HiMapPin, HiTableCells, HiUserGroup} from "react-icons/hi2";
+import {HiClock, HiFlag, HiMapPin, HiTableCells, HiTrophy, HiUserGroup} from "react-icons/hi2";
 import {Match} from "@/src/models/MatchModel";
 import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
@@ -24,6 +24,7 @@ export default async function MatchCard(props: MatchCardProps) {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Button
+                color={"secondary"}
                 variant={"contained"}
                 sx={{
                     width: "100%",
@@ -42,15 +43,15 @@ export default async function MatchCard(props: MatchCardProps) {
                     <Stack direction={"row"} spacing={0.1}>
                         <Tooltip title={`競技 | ${sport.name}`} placement={"top"} arrow>
                             <Chip
-                                color="primary"
+                                color="secondary"
                                 size={"small"}
-                                avatar={<Avatar></Avatar>}
+                                avatar={<Avatar><HiTrophy/></Avatar>}
                             />
                         </Tooltip>
 
                         <Tooltip title={`試合会場 | ${location?.name ?? "未登録"}`} placement={"top"} arrow>
                             <Chip
-                                color="primary"
+                                color="secondary"
                                 size={"small"}
                                 icon={<HiMapPin/>}
                             />
@@ -58,7 +59,7 @@ export default async function MatchCard(props: MatchCardProps) {
 
                         <Tooltip title={`試合開始時刻 | ${formattedDate}`} placement={"top"} arrow>
                             <Chip
-                                color="primary"
+                                color="secondary"
                                 label={formattedDate}
                                 size={"small"}
                                 icon={<HiClock/>}
@@ -71,9 +72,9 @@ export default async function MatchCard(props: MatchCardProps) {
                     <Stack
                         spacing={1}
                         width={"100%"}
+                        bgcolor={"secondary.dark"}
                         sx={{
                             borderRadius: "10px",
-                            backgroundColor: "#7f8cd6",
                             p: 1.5,
                             overflow: "auto"
                         }}
@@ -88,7 +89,7 @@ export default async function MatchCard(props: MatchCardProps) {
                             <Tooltip title={"リーグ"} placement={"top"} arrow>
                                 <Chip
                                     sx={{px: 0.5}}
-                                    color="info"
+                                    color="secondary"
                                     label={game.name ?? "不明"}
                                     icon={<HiTableCells/>}
                                 />
@@ -97,7 +98,7 @@ export default async function MatchCard(props: MatchCardProps) {
                             <Tooltip title={"審判のチーム"} placement={"top"} arrow>
                                 <Chip
                                     sx={{px: 0.5}}
-                                    color="info"
+                                    color="secondary"
                                     label={judgeTeam?.name ?? "未登録"}
                                     icon={<HiFlag/>}
                                 />
@@ -112,7 +113,7 @@ export default async function MatchCard(props: MatchCardProps) {
                             <Tooltip title={"対戦するチーム"} placement={"top"} arrow>
                                 <Chip
                                     sx={{px: 0.5}}
-                                    color="info"
+                                    color="secondary"
                                     label={`${leftTeam?.name ?? "未登録"} vs ${rightTeam?.name ?? "未登録"}`}
                                     icon={<HiUserGroup/>}
                                 />

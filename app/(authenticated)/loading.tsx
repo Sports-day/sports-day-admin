@@ -12,7 +12,7 @@ export default function Loading() {
 
     return(
         <>
-            <Backdrop open={backdropOpen} sx={{backgroundColor:"rgba(239,240,248, 0.4)", zIndex: 1}}/>
+            <Backdrop open={backdropOpen} sx={{backgroundColor:"rgba(45,52,98,0.3)", zIndex: 1}}/>
             <Stack spacing={2} mx={2} my={3}>
                 <Skeleton animation="wave" variant="text" width={300} height={18} />
                 <CardBackground>

@@ -33,6 +33,7 @@ import Link from "next/link"
 import dayjs, {Dayjs} from "dayjs";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import Grid from "@mui/material/Grid";
 
 export type MatchEditorProps = {
     sport: Sport
@@ -212,7 +213,10 @@ export default function MatchEditor(props: MatchEditorProps) {
                       variant={"outlined"}>
                     <Stack mx={2} my={2} spacing={2} direction={"column"}>
 
-                        <Stack direction={"row"} spacing={1} overflow={"scrollable"}>
+                        <Stack
+                            direction={"row"} spacing={1}
+                            sx={{overflow:"auto"}}
+                        >
                             <Chip
                                 label={`審判：${judgeTeamName}`}
                                 avatar={<Avatar><HiFlag/></Avatar>} color={"secondary"}
@@ -229,91 +233,102 @@ export default function MatchEditor(props: MatchEditorProps) {
 
                         <Divider/>
 
-                        <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} spacing={1}
-                               alignItems={"end"}>
-                            <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
-                                   sx={{
-                                       borderRadius: "12px",
-                                       backgroundColor: "rgba(49,119,44,0.05)",
-                                       p: 2
-                                   }}
-                            >
-                                <Typography fontWeight={"600"}>{leftTeamName}のスコア</Typography>
-                                <TextField
-                                    fullWidth
-                                    color={"success"}
-                                    hiddenLabel={true}
-                                    id="outlined-size-small"
-                                    placeholder="左チームのスコア"
-                                    inputRef={leftScoreRef}
-                                    defaultValue={props.match.leftScore}
-                                    onChange={handleCompare}
-                                    error={scoreError}
-                                    helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
-                                />
-                            </Stack>
-                            <Typography pb={2}>
-                                VS
-                            </Typography>
-                            <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
-                                   sx={{
-                                       borderRadius: "12px",
-                                       backgroundColor: "rgba(162,31,31,0.05)",
-                                       p: 2
-                                   }}
-                            >
-                                <Typography fontWeight={"600"}>{rightTeamName}のスコア</Typography>
-                                <TextField
-                                    fullWidth
-                                    color={"error"}
-                                    hiddenLabel={true}
-                                    id="outlined-size-small"
-                                    placeholder="右チームのスコア"
-                                    inputRef={rightScoreRef}
-                                    defaultValue={props.match.rightScore}
-                                    onChange={handleCompare}
-                                    error={scoreError}
-                                    helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
-                                />
-                            </Stack>
-                        </Stack>
+                        <Grid container spacing={0}>
+                            <Grid item xs={12} sm={5.5}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
+                                       sx={{
+                                           borderRadius: "12px",
+                                           backgroundColor: "rgba(49,119,44,0.05)",
+                                           p: 2
+                                       }}
+                                >
+                                    <Typography fontWeight={"600"}>{leftTeamName}のスコア</Typography>
+                                    <TextField
+                                        fullWidth
+                                        color={"success"}
+                                        hiddenLabel={true}
+                                        id="outlined-size-small"
+                                        placeholder="左チームのスコア"
+                                        inputRef={leftScoreRef}
+                                        defaultValue={props.match.leftScore}
+                                        onChange={handleCompare}
+                                        error={scoreError}
+                                        helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
+                                    />
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} sm={1}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
+                                    <Typography py={2}>
+                                        VS
+                                    </Typography>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={12} sm={5.5}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}
+                                       sx={{
+                                           borderRadius: "12px",
+                                           backgroundColor: "rgba(162,31,31,0.05)",
+                                           p: 2
+                                       }}
+                                >
+                                    <Typography fontWeight={"600"}>{rightTeamName}のスコア</Typography>
+                                    <TextField
+                                        fullWidth
+                                        color={"error"}
+                                        hiddenLabel={true}
+                                        id="outlined-size-small"
+                                        placeholder="右チームのスコア"
+                                        inputRef={rightScoreRef}
+                                        defaultValue={props.match.rightScore}
+                                        onChange={handleCompare}
+                                        error={scoreError}
+                                        helperText={scoreError ? "スコアを半角数字で入力してください" : ""}
+                                    />
+                                </Stack>
+                            </Grid>
+                        </Grid>
 
                         <Divider/>
 
-                        <Stack width={"100%"} maxWidth={"md"} direction={"row"} m={2} pb={3} spacing={1}
-                               alignItems={"end"}>
-                            <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
-                                <Typography>勝ったのは</Typography>
-                                <ToggleButtonGroup
-                                    fullWidth
-                                    color={"info"}
-                                    value={matchResult}
-                                    exclusive
-                                    onChange={handleResultChange}
-                                    aria-label="Platform"
-                                >
-                                    <ToggleButton value="left_win" color={"success"}>{leftTeamName}</ToggleButton>
-                                    <ToggleButton value="draw">引き分け</ToggleButton>
-                                    <ToggleButton value="right_win" color={"error"}>{rightTeamName}</ToggleButton>
-                                </ToggleButtonGroup>
-                            </Stack>
-                            <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
-                                <Typography>試合の状態</Typography>
-                                <ToggleButtonGroup
-                                    fullWidth
-                                    color={"primary"}
-                                    value={matchStatus}
-                                    exclusive
-                                    onChange={handleStatusChange}
-                                    aria-label="Platform"
-                                >
-                                    <ToggleButton value={"cancelled"} color={"error"}>中止</ToggleButton>
-                                    <ToggleButton value="standby" color={"success"}>スタンバイ</ToggleButton>
-                                    <ToggleButton value="in_progress" color={"warning"}>進行中</ToggleButton>
-                                    <ToggleButton value="finished" color={"info"}>完了</ToggleButton>
-                                </ToggleButtonGroup>
-                            </Stack>
-                        </Stack>
+                        <Grid container>
+                            <Grid item xs={12} sm={5.8}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"} mb={1}>
+                                    <Typography>勝ったのは</Typography>
+                                    <ToggleButtonGroup
+                                        fullWidth
+                                        color={"info"}
+                                        value={matchResult}
+                                        exclusive
+                                        onChange={handleResultChange}
+                                        aria-label="Platform"
+                                    >
+                                        <ToggleButton value="left_win" color={"success"}>{leftTeamName}</ToggleButton>
+                                        <ToggleButton value="draw">引き分け</ToggleButton>
+                                        <ToggleButton value="right_win" color={"error"}>{rightTeamName}</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Stack>
+                            </Grid>
+                            <Grid item xs={0} sm={0.4}></Grid>
+                            <Grid item xs={12} sm={5.8}>
+                                <Stack width={"100%"} direction={"column"} spacing={1} alignItems={"center"}>
+                                    <Typography>試合の状態</Typography>
+                                    <ToggleButtonGroup
+                                        fullWidth
+                                        color={"primary"}
+                                        value={matchStatus}
+                                        exclusive
+                                        onChange={handleStatusChange}
+                                        aria-label="Platform"
+                                    >
+                                        <ToggleButton value={"cancelled"} color={"error"}>中止</ToggleButton>
+                                        <ToggleButton value="standby" color={"success"}>スタンバイ</ToggleButton>
+                                        <ToggleButton value="in_progress" color={"warning"}>進行中</ToggleButton>
+                                        <ToggleButton value="finished" color={"info"}>完了</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Stack>
+                            </Grid>
+                        </Grid>
 
                         <Stack
                             direction={"row"}

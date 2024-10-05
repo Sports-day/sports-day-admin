@@ -19,6 +19,8 @@ export default function TeamCell(props: TeamCellProps) {
             alignItems={"center"}
             justifyContent={"center"}
             display={"flex"}
+            color={"text.primary"}
+            bgcolor={"secondary.main"}
         >
             <Typography>
                 {props.team.name}

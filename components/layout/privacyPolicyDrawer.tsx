@@ -49,7 +49,7 @@ const PrivacyPolicyDrawer = () => {
         <>
             <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 sx={{py:1.5, width:"100%"}}
                 disableElevation
                 onClick={toggleDrawer(true)}
