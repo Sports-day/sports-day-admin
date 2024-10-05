@@ -1,6 +1,6 @@
 import {Game, gameFactory} from "@/src/models/GameModel";
 import {Sport} from "@/src/models/SportModel";
-import {Alert, Stack} from "@mui/material";
+import {Alert, Box, Container, Stack, Typography} from "@mui/material";
 import {ReactNode} from "react";
 import TeamCell from "@/components/league/table/teamCell";
 import SlashCell from "@/components/league/table/slashCell";
@@ -161,13 +161,12 @@ export default async function LeagueTable(props: LeagueTableProps) {
                 )
             }
 
-            <Stack
-                spacing={0}
-                direction={"row"}
-                overflow={"auto"}
-            >
-                {cells}
-            </Stack>
+            <Box width={"100%"} maxWidth={"100%"} sx={{overflow:"scroll"}}>
+                {/*maxWidth=1pxでなぜ動くかわからない*/}
+                <Stack direction={"row"} maxWidth={"1px"}>
+                    {cells}
+                </Stack>
+            </Box>
         </Stack>
     )
 }
