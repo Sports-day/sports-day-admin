@@ -4,6 +4,7 @@ import {Match} from "@/src/models/MatchModel";
 import {Sport} from "@/src/models/SportModel";
 import {Game} from "@/src/models/GameModel";
 import {Team} from "@/src/models/TeamModel";
+import NextLink from "next/link";
 
 
 export type MatchCellProps = {
@@ -41,7 +42,7 @@ export default function MatchCell(props: MatchCellProps) {
             height={100}
             width={200}
             border={1}
-            component={Link}
+            component={NextLink}
             href={`/sports/${props.sport.id}/games/${props.game.id}/matches/${props.match.id}`}
             alignItems={"center"}
             justifyContent={"center"}

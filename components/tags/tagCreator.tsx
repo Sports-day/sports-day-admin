@@ -3,6 +3,7 @@ import {Button, Stack, TextField, TextFieldProps} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {useRef} from "react";
 import {tagFactory} from "@/src/models/TagModel";
+import NextLink from "next/link";
 
 export default function TagCreator() {
     const router = useRouter()
@@ -53,6 +54,7 @@ export default function TagCreator() {
 
                 <Button
                     href="/tags"
+                    component={NextLink}
                     variant="contained"
                 >
                     キャンセル

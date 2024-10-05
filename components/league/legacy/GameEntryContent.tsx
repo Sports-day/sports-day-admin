@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import {Game, gameFactory} from "@/src/models/GameModel";
 import {Team} from "@/src/models/TeamModel";
 import {ConfirmDialog} from "@/components/league/legacy/ConfirmDialog";
+import NextLink from "next/link";
 
 export type GameEntryContentProps = {
     game: Game
@@ -33,6 +34,7 @@ export function GameEntryContent(props: GameEntryContentProps) {
                 <TableCell>
                     <Link
                             href={`/admin/teams/${props.entryTeam.id}`}
+                            component={NextLink}
                     >
                         {props.entryTeam.id}
                     </Link>

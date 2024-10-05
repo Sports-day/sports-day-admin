@@ -2,6 +2,7 @@ import {Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
 import CardBackground from "@/components/layout/cardBackground";
 import SportsList from "@/components/sports/sportsList";
 import {sportFactory} from "@/src/models/SportModel";
+import NextLink from "next/link";
 
 export default async function SportsPage() {
     const sports = await sportFactory().index()
@@ -9,7 +10,12 @@ export default async function SportsPage() {
     return (
         <Stack spacing={2} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl:2}}>
-                <Link underline="hover" color="inherit" href="/">
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href="/"
+                    component={NextLink}
+                >
                     管理者のダッシュボード
                 </Link>
                 <Typography color="text.primary">競技管理</Typography>

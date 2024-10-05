@@ -21,6 +21,7 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {HiArrowPath, HiCheck} from "react-icons/hi2";
 import MatchEditorStatus from "@/components/automation/matchEditorStatus";
+import NextLink from "next/link";
 
 export type AutomaticMatchEditorProps = {
     game: Game
@@ -347,6 +348,7 @@ export function AutomaticMatchEditor(props: AutomaticMatchEditorProps) {
                     color={"error"}
                     startIcon={<HiArrowPath/>}
                     href={`/sports/${props.game.sportId}/games/${props.game.id}`}
+                    component={NextLink}
                 >
                     戻る
                 </Button>

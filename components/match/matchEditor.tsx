@@ -34,6 +34,7 @@ import dayjs, {Dayjs} from "dayjs";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import Grid from "@mui/material/Grid";
+import NextLink from "next/link";
 
 export type MatchEditorProps = {
     sport: Sport
@@ -207,8 +208,11 @@ export default function MatchEditor(props: MatchEditorProps) {
 
     return (
         <Stack spacing={2} pb={10}>
-            <CardBackground title={`試合 ${leftTeamName} vs ${rightTeamName} の結果を登録`}
-                            button={"リーグに戻る"} link={`/sports/${props.sport.id}/${props.game.id}`}>
+            <CardBackground
+                title={`試合 ${leftTeamName} vs ${rightTeamName} の結果を登録`}
+                button={"リーグに戻る"}
+                link={`/sports/${props.sport.id}/games/${props.game.id}`}
+            >
                 <Card sx={{backgroundColor: "e1e4f6", color: "primary", mb: 2, maxWidth: "md"}}
                       variant={"outlined"}>
                     <Stack mx={2} my={2} spacing={2} direction={"column"}>
@@ -506,7 +510,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                         <Button
                             variant={"contained"}
                             color={"info"}
-                            component={Link}
+                            component={NextLink}
                             href={`/sports/${props.sport.id}/${props.game.id}`}
                             sx={{border: "1px solid #5f6dc2", py: 2}}
                         >
@@ -538,7 +542,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                         <Button
                             variant={"contained"}
                             color={"info"}
-                            component={Link}
+                            component={NextLink}
                             href={`/sports/${props.sport.id}/${props.game.id}`}
                             sx={{border: "1px solid #5f6dc2", py: 2}}
                         >
