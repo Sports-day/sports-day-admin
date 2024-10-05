@@ -22,20 +22,14 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="ja">
-        <body className={noto.className}>
-        <AppRouterCacheProvider>
-            <ColorModeProvider>
-                <CssBaseline/>
-                <Box sx={{ display: 'flex' }}>
-                    <Navigation/>
-                    <Stack minHeight="100lvh-8" width="100%" mt={8}>
-                        {children}
-                    </Stack>
-                </Box>
-            </ColorModeProvider>
-        </AppRouterCacheProvider>
-        </body>
-        </html>
+        <>
+            <CssBaseline/>
+            <Box sx={{ display: 'flex' }}>
+                <Navigation/>
+                <Stack minHeight="100lvh-8" width="100%" mt={8}>
+                    {children}
+                </Stack>
+            </Box>
+        </>
     )
 }

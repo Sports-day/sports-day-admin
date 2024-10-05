@@ -23,10 +23,8 @@ export default function RootLayout({
         <html lang="ja">
         <body className={noto.className}>
         <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
                 <CssBaseline/>
                 {children}
-            </ThemeProvider>
         </AppRouterCacheProvider>
         </body>
         </html>
