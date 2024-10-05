@@ -1,9 +1,8 @@
 'use client'
 import * as React from 'react'
 import {AppBar, Box, Button, Drawer, IconButton, Stack, SvgIcon, Toolbar, Tooltip, Typography} from "@mui/material";
-import {createTheme} from "@mui/material/styles";
-
-import Image from "next/image";
+import {useTheme} from "@mui/material/styles";
+import Logo from "@/public/logo/logo.svg";
 import {
     HiHome,
     HiMegaphone,
@@ -21,7 +20,7 @@ import LogoutButton from "@/components/auth/LogoutButton";
 
 
 export const Navigation = () => {
-    const theme = createTheme();
+    const theme = useTheme();
     const drawerWidth = 303;
     const buttonPadding = 1.3;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -41,8 +40,7 @@ export const Navigation = () => {
     };
 
     const drawer = (
-        <Box px={2} my={8} sx={{overflow: 'auto'}}>
-
+        <Box px={2} mt={8} sx={{overflow: 'auto'}}>
             <Stack spacing={1} py={3}>
                 <Typography sx={{pl: 2.5}}>全体</Typography>
                 <Button
@@ -212,7 +210,7 @@ export const Navigation = () => {
                 <LogoutButton/>
                 <Tooltip title={"GitHub"} arrow>
                     <IconButton href={"https://github.com/Sports-day/sports-day-admin"} target={"_blank"}>
-                        <SiGithub color={"text.primary"}/>
+                        <SiGithub color={theme.palette.text.secondary}/>
                     </IconButton>
                 </Tooltip>
                 <NavPrivacyPolicyDrawer/>
@@ -233,19 +231,37 @@ export const Navigation = () => {
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                     background: "rgba(62,78,179,0.2)",
                     backdropFilter: 'blur(30px)',
+                    color: theme.palette.text.primary,
                 }}>
                 <Toolbar>
                     <IconButton
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{mr: 2, display: {sm: 'none'}}}
+                        sx={{mx: 0, display: {sm: 'none'}}}
                     >
-                        <HiBars2 color={"text.primary"}/>
+                        <HiBars2 color={theme.palette.text.primary}/>
                     </IconButton>
-                    <Link href={"/"}>
-                        <Image src={"/logo/logo_admin.png"} height={"20"} width={"252"}  alt={"SPORTSDAY Admin"}/>
-                    </Link>
+                    <Button href={"/"}>
+                        <Stack
+                            direction={"row"}
+                            spacing={1}
+                            sx={{
+                                cursor: "pointer",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                color: theme.palette.text.primary,
+                                textDecoration: "none"
+                            }}
+                        >
+                            <Logo width={16 * 8.45} height={16} fill={theme.palette.text.primary}/>
+                            <Typography
+                                color={"text.primary"} fontWeight={"bold"} pt={0.15}
+                                sx={{textTransform: "none"}}
+                            >Admin
+                            </Typography>
+                        </Stack>
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Box
