@@ -1,6 +1,6 @@
 import {Game, gameFactory} from "@/src/models/GameModel";
 import {Sport} from "@/src/models/SportModel";
-import {Alert, Box, Container, Stack, Typography} from "@mui/material";
+import {Alert, Box, Stack} from "@mui/material";
 import {ReactNode} from "react";
 import TeamCell from "@/components/league/table/teamCell";
 import SlashCell from "@/components/league/table/slashCell";

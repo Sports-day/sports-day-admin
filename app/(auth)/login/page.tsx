@@ -1,9 +1,7 @@
 'use client'
 import {Button, Stack, Typography} from "@mui/material";
 import LoginButton from "@/components/auth/LoginButton";
-import Image from "next/image";
 import WiderLogo from "@/components/svg/wider";
-import Link from "next/link";
 import PrivacyPolicyDrawer from "@/components/layout/privacyPolicyDrawer";
 import {useTheme} from "@mui/material/styles";
 import Logo from "@/public/logo/logo.svg";
