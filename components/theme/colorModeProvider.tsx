@@ -128,35 +128,35 @@ const lightPalette = {
     divider: '#7f8cd6',
 };
 
-const darkPalette = {
-    mode: 'dark' as PaletteMode, // 型キャストを追加
-    primary: {
-        main: '#8d95c9',
-        dark: '#050925',
-        light: '#373e6e',
-    },
-    secondary: {
-        main: '#303560',
-        contrastText: '#eff0f8',
-        dark: '#262b57',
-        light: '#373e6e',
-    },
-    background: {
-        paper: '#22284F',
-        default: '#181D3C',
-    },
-    text: {
-        primary: '#eff0f8',
-        secondary: '#99a5d6',
-        disabled: '#5c628a',
-    },
-    warning: {
-        main: '#b9891a',
-        contrastText: 'rgba(253,252,252,0.87)',
-    },
-    info: { main: '#3a468f' },
-    divider: '#373e6e',
-};
+// const darkPalette = {
+//     mode: 'dark' as PaletteMode, // 型キャストを追加
+//     primary: {
+//         main: '#8d95c9',
+//         dark: '#050925',
+//         light: '#373e6e',
+//     },
+//     secondary: {
+//         main: '#303560',
+//         contrastText: '#eff0f8',
+//         dark: '#262b57',
+//         light: '#373e6e',
+//     },
+//     background: {
+//         paper: '#22284F',
+//         default: '#181D3C',
+//     },
+//     text: {
+//         primary: '#eff0f8',
+//         secondary: '#99a5d6',
+//         disabled: '#5c628a',
+//     },
+//     warning: {
+//         main: '#b9891a',
+//         contrastText: 'rgba(253,252,252,0.87)',
+//     },
+//     info: { main: '#3a468f' },
+//     divider: '#373e6e',
+// };
 
 export default function ColorModeProvider({ children }: ColorModeProviderProps) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');

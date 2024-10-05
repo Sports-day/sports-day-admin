@@ -1,5 +1,5 @@
 'use client'
-import {Container, Button, AppBar, Box, SwipeableDrawer, IconButton, Tooltip, BottomNavigation,} from "@mui/material";
+import {Container, Button, Box, SwipeableDrawer, IconButton, Tooltip, BottomNavigation,} from "@mui/material";
 import React from 'react';
 import {HiBuildingLibrary, HiXMark} from "react-icons/hi2";
 import PrivacyPolicy from "@/components/layout/privacyPolicy";
