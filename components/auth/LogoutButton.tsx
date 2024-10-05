@@ -3,9 +3,11 @@ import {IconButton, Tooltip} from "@mui/material";
 import Cookies from "js-cookie";
 import {useRouter} from "next/navigation";
 import {HiArrowRightOnRectangle} from "react-icons/hi2";
+import {useTheme} from "@mui/material/styles";
 
 export default function LogoutButton() {
     const router = useRouter()
+    const theme = useTheme()
 
     return (
         <Tooltip title={"ログアウト"}>
@@ -18,7 +20,7 @@ export default function LogoutButton() {
                 }}
                 sx={{width:"fit-content"}}
             >
-                <HiArrowRightOnRectangle color={"text.primary"}/>
+                <HiArrowRightOnRectangle color={theme.palette.text.secondary}/>
             </IconButton>
         </Tooltip>
     );

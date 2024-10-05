@@ -3,9 +3,11 @@ import {Container, Button, AppBar, Box, SwipeableDrawer, IconButton, Tooltip, Bo
 import React from 'react';
 import {HiBuildingLibrary, HiXMark} from "react-icons/hi2";
 import PrivacyPolicy from "@/components/layout/privacyPolicy";
+import {useTheme} from "@mui/material/styles";
 
 const NavPrivacyPolicyDrawer = () => {
     const [open, setOpen] = React.useState(false);
+    const theme = useTheme()
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
@@ -59,7 +61,7 @@ const NavPrivacyPolicyDrawer = () => {
                 <IconButton
                     onClick={toggleDrawer(true)}
                 >
-                    <HiBuildingLibrary color={"text.primary"}/>
+                    <HiBuildingLibrary color={theme.palette.text.secondary}/>
                 </IconButton>
             </Tooltip>
             <SwipeableDrawer

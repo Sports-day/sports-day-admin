@@ -26,6 +26,8 @@ export default function MatchCell(props: MatchCellProps) {
                 alignItems={"center"}
                 justifyContent={"center"}
                 display={"flex"}
+                color={"text.primary"}
+                bgcolor={"secondary.main"}
             >
                 <Typography>
                     エラー
@@ -44,6 +46,8 @@ export default function MatchCell(props: MatchCellProps) {
             alignItems={"center"}
             justifyContent={"center"}
             display={"flex"}
+            color={"text.primary"}
+            bgcolor={"secondary.main"}
         >
             <Typography>
                 {leftTeam.name} vs {rightTeam.name}
