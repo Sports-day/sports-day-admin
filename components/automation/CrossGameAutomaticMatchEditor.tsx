@@ -21,6 +21,7 @@ import MatchEditorStatus from "@/components/automation/matchEditorStatus";
 import {HiArrowPath, HiCheck} from "react-icons/hi2";
 import {useRouter} from "next/navigation";
 import {useAsync} from "react-use";
+import NextLink from "next/link";
 
 export type CrossGameAutomaticMatchEditorProps = {
     games: Game[]
@@ -391,6 +392,7 @@ export function CrossGameAutomaticMatchEditor(props: CrossGameAutomaticMatchEdit
                     color={"error"}
                     startIcon={<HiArrowPath/>}
                     href={`/sports/${props.games[0].sportId}`}
+                    component={NextLink}
                 >
                     戻る
                 </Button>

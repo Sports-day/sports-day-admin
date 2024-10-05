@@ -4,6 +4,7 @@ import UsersAgGrid from "@/components/users/usersAgGrid";
 import {userFactory} from "@/src/models/UserModel";
 import {classFactory} from "@/src/models/ClassModel";
 import {teamFactory} from "@/src/models/TeamModel";
+import NextLink from "next/link";
 
 export default async function UsersPage() {
     const users = await userFactory().index()
@@ -13,7 +14,12 @@ export default async function UsersPage() {
     return (
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl: 2}}>
-                <Link underline="hover" color="inherit" href="/">
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href="/"
+                    component={NextLink}
+                >
                     管理者のダッシュボード
                 </Link>
                 <Typography color="text.primary">ユーザー管理</Typography>

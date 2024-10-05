@@ -12,6 +12,7 @@ import {
 import {useRef, useState} from "react";
 import {HiArrowPath, HiCheck} from "react-icons/hi2";
 import TeamRenameStatus from "@/components/teams/automatic-rename/teamRenameStatus";
+import NextLink from "next/link";
 
 export type AutomaticRenameProps = {
     teams: Team[]
@@ -179,6 +180,7 @@ export default function AutomaticRename(props: AutomaticRenameProps) {
                     color={"error"}
                     startIcon={<HiArrowPath/>}
                     href={"/teams"}
+                    component={NextLink}
                 >
                     戻る
                 </Button>

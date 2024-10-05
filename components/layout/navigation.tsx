@@ -14,10 +14,9 @@ import {
 } from "react-icons/hi2";
 import {SiGithub} from "react-icons/si";
 import WiderLogo from "@/components/svg/wider";
-import Link from "next/link"
 import NavPrivacyPolicyDrawer from "@/components/layout/navPrivacyPolicyDrawer";
 import LogoutButton from "@/components/auth/LogoutButton";
-
+import NextLink from "next/link";
 
 export const Navigation = () => {
     const theme = useTheme();
@@ -47,7 +46,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/"}
                     onClick={handleDrawerToggle}
                 >
@@ -64,7 +63,7 @@ export const Navigation = () => {
                     disabled={true}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/"}
                     onClick={handleDrawerToggle}
                 >
@@ -81,7 +80,7 @@ export const Navigation = () => {
                     disabled={true}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/"}
                     onClick={handleDrawerToggle}
                 >
@@ -101,7 +100,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/sports"}
                     onClick={handleDrawerToggle}
                 >
@@ -117,7 +116,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/locations"}
                     onClick={handleDrawerToggle}
                 >
@@ -137,7 +136,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/users"}
                     onClick={handleDrawerToggle}
                 >
@@ -153,7 +152,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/teams"}
                     onClick={handleDrawerToggle}
                 >
@@ -169,7 +168,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/roles"}
                     onClick={handleDrawerToggle}
                 >
@@ -185,7 +184,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/tags"}
                     onClick={handleDrawerToggle}
                 >
@@ -201,7 +200,7 @@ export const Navigation = () => {
                     color={"secondary"}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
-                    component={Link}
+                    component={NextLink}
                     href={"/images"}
                     onClick={handleDrawerToggle}
                 >
@@ -252,7 +251,10 @@ export const Navigation = () => {
                     >
                         <HiBars2 color={theme.palette.text.primary}/>
                     </IconButton>
-                    <Button href={"/"}>
+                    <Button
+                        href={"/"}
+                        component={NextLink}
+                    >
                         <Stack
                             direction={"row"}
                             spacing={1}

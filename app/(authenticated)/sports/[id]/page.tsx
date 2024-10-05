@@ -5,6 +5,7 @@ import SportEditor from "@/components/sports/sportEditor";
 import LeagueList from "@/components/sports/leagueList";
 import {gameFactory} from "@/src/models/GameModel";
 import SportInProgressMatchList from "@/components/match/sportInProgressMatchList";
+import NextLink from "next/link";
 
 export default async function SportPage({params}: { params: { id: string } }) {
     const sportId = parseInt(params.id, 10)
@@ -17,10 +18,20 @@ export default async function SportPage({params}: { params: { id: string } }) {
     return (
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl: 2}}>
-                <Link underline="hover" color="inherit" href="/">
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href="/"
+                    component={NextLink}
+                >
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href={"/sports"}>
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href={"/sports"}
+                    component={NextLink}
+                >
                     競技管理
                 </Link>
                 <Typography color="text.primary">{sport.name}</Typography>

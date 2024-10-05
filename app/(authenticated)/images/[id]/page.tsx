@@ -2,6 +2,7 @@ import {Alert, Breadcrumbs, Button, Link, Stack, Typography} from "@mui/material
 import CardBackground from "@/components/layout/cardBackground";
 import {imageFactory} from "@/src/models/ImageModel";
 import ImageEditor from "@/components/images/imageEditor";
+import NextLink from "next/link";
 
 export default async function ImageEditPage({params}: { params: { id: string } }) {
     const imageId = parseInt(params.id, 10)
@@ -14,7 +15,11 @@ export default async function ImageEditPage({params}: { params: { id: string } }
                     <Typography>画像が削除されました。</Typography>
                 </Alert>
 
-                <Button variant="contained" href="/images/">
+                <Button
+                    variant="contained"
+                    href="/images/"
+                    component={NextLink}
+                >
                     画像管理に戻る
                 </Button>
             </Stack>
@@ -24,10 +29,20 @@ export default async function ImageEditPage({params}: { params: { id: string } }
     return (
         <Stack spacing={1} mx={2} my={3}>
             <Breadcrumbs aria-label="breadcrumb" sx={{pl: 2}}>
-                <Link underline="hover" color="inherit" href="/">
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href="/"
+                    component={NextLink}
+                >
                     管理者のダッシュボード
                 </Link>
-                <Link underline="hover" color="inherit" href={"/images/"}>
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href={"/images/"}
+                    component={NextLink}
+                >
                     画像管理
                 </Link>
                 <Typography color="text.primary">{image.id}</Typography>
