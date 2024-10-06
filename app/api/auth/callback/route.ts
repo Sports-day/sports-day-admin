@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
     console.log("Code is ", code)
 
     //  pass code to the backend
-    const loginEndpoint = process.env.NEXT_PUBLIC_API_URL + '/login'
+    const backendURL = process.env.NEXT_PUBLIC_API_INTERNAL_URL ? process.env.NEXT_PUBLIC_API_INTERNAL_URL : process.env.NEXT_PUBLIC_API_URL
+    const loginEndpoint = backendURL + '/login'
 
     console.log("Login Endpoint ", loginEndpoint)
 
