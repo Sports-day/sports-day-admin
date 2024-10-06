@@ -1,27 +1,17 @@
 import {NextRequest} from "next/server"
 
 export async function POST(request: NextRequest) {
-    console.log("Auth Endpoint.")
-
     //  form data
     const form = await request.formData()
     //  get state and code
     const code = form.get('code')
 
-    console.log("Code is ", code)
-
     //  pass code to the backend
     const backendURL = process.env.NEXT_PUBLIC_API_INTERNAL_URL ? process.env.NEXT_PUBLIC_API_INTERNAL_URL : process.env.NEXT_PUBLIC_API_URL
     const loginEndpoint = backendURL + '/login'
 
-    console.log("Login Endpoint ", loginEndpoint)
-
     //  redirect uri
     const redirectUri = process.env.NEXT_PUBLIC_OIDC_REDIRECT_URL
-
-    console.log("Redirect URL ", redirectUri)
-
-    console.log("Post Backend API")
 
     //  post code to the backend using fetch
     const response = await fetch(loginEndpoint, {
@@ -35,15 +25,9 @@ export async function POST(request: NextRequest) {
         }),
     })
 
-    console.log("Fetch done")
-
     //  get cookie from response
     const cookie = response.headers.get('set-cookie')
-
-    console.log("cookie", cookie)
-
     const subDirectory = process.env.SUB_DIRECTORY ? process.env.SUB_DIRECTORY : "/"
-
     if (cookie) {
         // redirect to root page
         return new Response(null, {
