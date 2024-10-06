@@ -42,12 +42,14 @@ export async function POST(request: NextRequest) {
 
     console.log("cookie", cookie)
 
+    const subDirectory = process.env.SUB_DIRECTORY ? process.env.SUB_DIRECTORY : "/"
+
     if (cookie) {
         // redirect to root page
         return new Response(null, {
             status: 301,
             headers: {
-                "Location": '/',
+                "Location": subDirectory,
                 "Set-Cookie": cookie,
             },
         })
@@ -57,7 +59,7 @@ export async function POST(request: NextRequest) {
     return new Response(null, {
         status: 301,
         headers: {
-            "Location": '/',
+            "Location": subDirectory,
         },
     })
 }
