@@ -1,6 +1,6 @@
-import {Button, Card, Stack, Typography} from "@mui/material";
+import {Button, Card, Stack, Typography, useTheme} from "@mui/material";
 import React, {ReactNode} from 'react';
-import NextLink from "next/link";
+import {red} from "@mui/material/colors";
 
 type CardProps = {
     title?: string;
