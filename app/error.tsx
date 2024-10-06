@@ -2,6 +2,7 @@
 import {useEffect} from "react";
 import {Stack, Typography, Button} from "@mui/material";
 import WiderLogo from "@/components/svg/wider";
+import NextLink from "next/link";
 
 export default function Error({
                                   error,
@@ -27,6 +28,7 @@ export default function Error({
                     href={"/"}
                     sx={{py:1.5, width:"100%"}}
                     disableElevation
+                    component={NextLink}
                 >
                     トップに戻る
                 </Button>

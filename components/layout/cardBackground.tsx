@@ -1,6 +1,6 @@
-import {Button, Card, Stack, Typography, useTheme} from "@mui/material";
+import {Button, Card, Stack, Typography} from "@mui/material";
 import React, {ReactNode} from 'react';
-import {red} from "@mui/material/colors";
+import NextLink from "next/link";
 
 type CardProps = {
     title?: string;
@@ -22,11 +22,23 @@ const CardBackground: React.FC<CardProps> = ({title, button, link, children, onC
             >
                 <Stack pb={2} spacing={1} direction={"row"} justifyContent={"flex-start"} alignItems="center">
                     {title && <Typography color={"text.primary"}>{title}</Typography>}
-                    {button &&
+                    {button && link &&
                         <Button
                             color={"secondary"}
                             variant={"contained"}
                             href={link}
+                            component={NextLink}
+                            onClick={onClick}
+                        >
+                            <Typography fontSize={"inherit"} color={"text.primary"}>
+                                {button}
+                            </Typography>
+                        </Button>
+                    }
+                    {button && !link &&
+                        <Button
+                            color={"secondary"}
+                            variant={"contained"}
                             onClick={onClick}
                         >
                             <Typography fontSize={"inherit"} color={"text.primary"}>

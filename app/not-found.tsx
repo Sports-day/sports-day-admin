@@ -1,5 +1,6 @@
 import {Stack, Typography, Button} from "@mui/material";
 import WiderLogo from "@/components/svg/wider";
+import NextLink from "next/link";
 
 export default function NotFound(){
     return (
@@ -12,6 +13,7 @@ export default function NotFound(){
                     variant="contained"
                     color="primary"
                     href={"/"}
+                    component={NextLink}
                     sx={{py:1.5, width:"100%"}}
                     disableElevation
                 >

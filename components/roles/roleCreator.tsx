@@ -3,6 +3,7 @@ import {Button, Stack, TextField, TextFieldProps} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {useRef} from "react";
 import {roleFactory} from "@/src/models/RoleModel";
+import NextLink from "next/link";
 
 export default function RoleCreator() {
     const router = useRouter()
@@ -66,6 +67,7 @@ export default function RoleCreator() {
 
                 <Button
                     href="/roles"
+                    component={NextLink}
                     variant="contained"
                 >
                     キャンセル

@@ -5,6 +5,7 @@ import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
 import {locationFactory} from "@/src/models/LocationModel";
 import {teamFactory} from "@/src/models/TeamModel";
+import NextLink from "next/link";
 
 type MatchCardProps = {
     match: Match
@@ -32,6 +33,7 @@ export default async function MatchCard(props: MatchCardProps) {
                     px: 2
                 }}
                 href={`/sports/${props.match.sportId}/games/${props.match.gameId}/matches/${props.match.id}`}
+                component={NextLink}
             >
                 <Stack
                     width={"100%"}
