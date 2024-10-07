@@ -21,7 +21,7 @@ export default async function ImagesPage() {
                 <Typography color="text.primary">画像管理</Typography>
             </Breadcrumbs>
             <CardBackground
-                title={"すべてのタグ"}
+                title={"すべての画像"}
                 button={"作成"}
                 link={"/images/create"}
             >
@@ -33,6 +33,7 @@ export default async function ImagesPage() {
                             href={`/images/${image.id}`}
                             component={NextLink}
                             key={image.id}
+                            color={"secondary"}
                         >
                             <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{width:"100%"}}>
                                 <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
