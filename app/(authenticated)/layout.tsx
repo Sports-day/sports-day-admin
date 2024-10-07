@@ -16,7 +16,7 @@ export default function RootLayout({
             <CssBaseline/>
             <Box sx={{ display: 'flex' }}>
                 <Navigation/>
-                <Stack minHeight="100lvh-8" width="100%" mt={8}>
+                <Stack minHeight="100lvh-8" width="100%" mt={8} overflow={"scrollable"}>
                     {children}
                 </Stack>
             </Box>
