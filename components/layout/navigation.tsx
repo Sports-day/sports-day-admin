@@ -26,8 +26,10 @@ export const Navigation = () => {
     const [isClosing, setIsClosing] = React.useState(false);
 
     const handleDrawerClose = () => {
-        setIsClosing(true);
-        setMobileOpen(false);
+        if (mobileOpen) {
+            setIsClosing(true);
+            setMobileOpen(false);
+        }
     }
     const handleDrawerTransitionEnd = () => {
         setIsClosing(false);
@@ -48,7 +50,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={NextLink}
                     href={"/"}
-                    onClick={handleDrawerToggle}
+                    onClick={handleDrawerClose}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -65,7 +67,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={NextLink}
                     href={"/"}
-                    onClick={handleDrawerToggle}
+                    onClick={handleDrawerClose}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -102,7 +104,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={NextLink}
                     href={"/sports"}
-                    onClick={handleDrawerToggle}
+                    onClick={handleDrawerClose}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">
@@ -170,7 +172,7 @@ export const Navigation = () => {
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={NextLink}
                     href={"/roles"}
-                    onClick={handleDrawerToggle}
+                    onClick={handleDrawerClose}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
                            alignItems="center">

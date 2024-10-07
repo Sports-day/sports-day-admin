@@ -18,7 +18,7 @@ export default async function CreateSport() {
                 <Link
                     underline="hover"
                     color="inherit"
-                    href="../../sports"
+                    href="/sports"
                     component={NextLink}
                 >
                     競技管理
