@@ -216,21 +216,22 @@ export default function MatchEditor(props: MatchEditorProps) {
                     <Stack mx={2} my={2} spacing={2} direction={"column"}>
 
                         <Stack
-                            direction={"row"} spacing={1}
-                            sx={{overflow:"auto"}}
+                            sx={{width:"100%", overflow:"auto"}}
                         >
-                            <Chip
-                                label={`審判：${judgeTeamName}`}
-                                avatar={<Avatar><HiFlag/></Avatar>} color={"secondary"}
-                            />
-                            <Chip
-                                label={`試合場所：${locationName}`}
-                                avatar={<Avatar><HiMapPin/></Avatar>} color={"secondary"}
-                            />
-                            <Chip
-                                label={`試合開始：${formattedDate}`}
-                                avatar={<Avatar><HiClock/></Avatar>} color={"secondary"}
-                            />
+                            <Stack width={"100%"} direction={"row"} >
+                                <Chip
+                                    label={`審判：${judgeTeamName}`}
+                                    avatar={<Avatar><HiFlag/></Avatar>} color={"secondary"}
+                                />
+                                <Chip
+                                    label={`試合場所：${locationName}`}
+                                    avatar={<Avatar><HiMapPin/></Avatar>} color={"secondary"}
+                                />
+                                <Chip
+                                    label={`試合開始：${formattedDate}`}
+                                    avatar={<Avatar><HiClock/></Avatar>} color={"secondary"}
+                                />
+                            </Stack>
                         </Stack>
 
                         <Divider/>
