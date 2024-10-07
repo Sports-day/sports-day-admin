@@ -21,16 +21,14 @@ export default function RootLayout({
 }) {
     return (
         <html lang="ja">
-        <body className={noto.className}>
-
-        <AppRouterCacheProvider>
-                <ColorModeProvider>
-                    <CssBaseline/>
-                    {children}
-                </ColorModeProvider>
-        </AppRouterCacheProvider>
-
-        </body>
+            <body className={noto.className}>
+                <AppRouterCacheProvider>
+                    <ColorModeProvider>
+                        <CssBaseline/>
+                        {children}
+                    </ColorModeProvider>
+                </AppRouterCacheProvider>
+            </body>
         </html>
     )
 }

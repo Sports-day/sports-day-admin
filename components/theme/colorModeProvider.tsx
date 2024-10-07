@@ -45,11 +45,11 @@ const baseTheme = {
                 },
                 'body::-webkit-scrollbar': {
                     width: '5px',
-                    height: '8px'
+                    height: '10px'
                 },
                 '::-webkit-scrollbar': {
                     width: '5px',
-                    height: '3px'
+                    height: '7px'
                 },
                 '::-webkit-scrollbar-track': {
                     background: "rgba(47,57,118,0)",
