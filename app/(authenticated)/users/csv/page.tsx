@@ -3,6 +3,8 @@ import CardBackground from "@/components/layout/cardBackground";
 import {classFactory} from "@/src/models/ClassModel";
 import UserCreatingAutomation from "@/components/users/csv/userCreatingAutomation";
 import NextLink from "next/link";
+import UserCreatingAutomationWithoutClassSelection
+    from "@/components/users/csv/userCreatingAutomationWithoutClassSelection";
 
 export default async function UsersCsv() {
     const classes = await classFactory().index()
@@ -30,7 +32,8 @@ export default async function UsersCsv() {
             </Breadcrumbs>
 
             <CardBackground title={"ユーザーのCSV一括作成"} >
-                <UserCreatingAutomation classes={classes} />
+                {/*<UserCreatingAutomation classes={classes} />*/}
+                <UserCreatingAutomationWithoutClassSelection classes={classes} />
             </CardBackground>
         </Stack>
     );

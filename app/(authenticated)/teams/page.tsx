@@ -45,6 +45,14 @@ export default async function TeamPage() {
                     >
                         一括名前変更
                     </Button>
+
+                    <Button
+                        variant={"contained"}
+                        href={"/teams/team-creating-automation"}
+                        component={NextLink}
+                    >
+                        (一時的)射水チーム作成
+                    </Button>
                 </Stack>
                 <TeamsAgGrid
                     classes={classes}

@@ -34,12 +34,23 @@ export default function AddGameEntryAutomation(props: AddGameEntryAutomationProp
 
         //  get data
         const data = dataRef.current.value as string
-        const splitData = data.split("\t")
+        // const splitData = data.split("\t")
+        //  separate with space and \t
+        const splitData = data.split(/[\s\t]+/)
 
         console.log(splitData)
 
         //  find teams
         const selectedTeams = props.teams.filter((team) => splitData.includes(team.name))
+
+        //  ファインドできなかった残りのチーム
+        const notFoundTeams = splitData
+            .filter((teamName) => !selectedTeams.some((team) => team.name === teamName))
+            .filter((teamName) => !props.entries.some((entry) => entry.name === teamName))
+        if (notFoundTeams.length > 0) {
+            alert(`${notFoundTeams.join(", ")} が見つかりませんでした`)
+            return
+        }
 
         if (selectedTeams.length === 0
         ) {

@@ -4,6 +4,7 @@ import {sportFactory} from "@/src/models/SportModel";
 import {gameFactory} from "@/src/models/GameModel";
 import {AutomaticMatchEditor} from "@/components/automation/AutomaticMatchEditor";
 import NextLink from "next/link";
+import {AutomaticMatchEditorForImizu} from "@/components/automation/AutomaticMatchEditorForImizu";
 
 export default async function AutomaticMatchEditorPage({params}: { params: { gameId:string, id: string } }) {
     const gameId = parseInt(params.gameId, 10)
@@ -49,7 +50,8 @@ export default async function AutomaticMatchEditorPage({params}: { params: { gam
                 <Typography color="text.primary">試合一括編集</Typography>
             </Breadcrumbs>
             <CardBackground title={`試合一括編集`}>
-                <AutomaticMatchEditor game={game} />
+                {/*<AutomaticMatchEditor game={game} />*/}
+                <AutomaticMatchEditorForImizu game={game} />
             </CardBackground>
         </Stack>
     )

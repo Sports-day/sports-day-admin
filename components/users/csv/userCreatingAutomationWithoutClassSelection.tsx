@@ -4,39 +4,40 @@ import {Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typ
 import {ChangeEvent, useState} from "react";
 import UserCreatingStatus from "./userCreatingStatus";
 import {Gender, userFactory} from "@/src/models/UserModel";
+import UserCreatingStatusWithoutClassSelection from "@/components/users/csv/userCreatingStatusWithoutClassSelection";
 
 export type UserCreatingAutomationProps = {
     classes: Class[],
 }
 
-export type UserCreatingState = "created" | "pending" | "error" | "invalid_gender" | "invalid_csv"
+export type UserCreatingStateWithoutClassSelection = "created" | "pending" | "error" | "invalid_gender" | "invalid_csv" | "invalid_class"
 
-export type UserCreatingData = {
+export type UserCreatingDataWithoutClassSelection = {
     username?: string,
     email?: string,
     gender?: string,
-    state: UserCreatingState
+    className?: string,
+    state: UserCreatingStateWithoutClassSelection
 }
 
-export default function UserCreatingAutomation(props: UserCreatingAutomationProps) {
-    const [selectedClassId, setSelectedClassId] = useState<string>("")
+export default function UserCreatingAutomationWithoutClassSelection(props: UserCreatingAutomationProps) {
     const [csvInput, setCsvInput] = useState<string>("")
-    const [userCreatingDataList, setUserCreatingDataList] = useState<UserCreatingData[]>([])
+    const [userCreatingDataList, setUserCreatingDataList] = useState<UserCreatingDataWithoutClassSelection[]>([])
 
     const handleCSVChange = (event: ChangeEvent<HTMLInputElement>) => {
         const csv = event.target.value
 
         //  parse csv
         const lines = csv.split("\n")
-        const newUserCreatingDataList: UserCreatingData[] = []
+        const newUserCreatingDataList: UserCreatingDataWithoutClassSelection[] = []
 
         for (const line of lines) {
             const elements = line.split(",")
 
-            let state: UserCreatingState = "pending"
+            let state: UserCreatingStateWithoutClassSelection = "pending"
 
             //  invalid csv
-            if (elements.length !== 3) {
+            if (elements.length !== 4) {
                 state = "invalid_csv"
             }
 
@@ -45,10 +46,16 @@ export default function UserCreatingAutomation(props: UserCreatingAutomationProp
                 state = "invalid_gender"
             }
 
+            //  class name
+            if (!props.classes.some(v => v.name === elements[3])) {
+                state = "invalid_class"
+            }
+
             newUserCreatingDataList.push({
                 username: elements[0] === "" ? undefined : elements[0],
                 email: elements[1] === "" ? undefined : elements[1],
                 gender: elements[2] === "" ? undefined : elements[2],
+                className: elements[3] === "" ? undefined : elements[3],
                 state: state
             })
         }
@@ -58,13 +65,6 @@ export default function UserCreatingAutomation(props: UserCreatingAutomationProp
     }
 
     const handleCreateUsers = async () => {
-        //  get class
-        const classModel = props.classes.find((c) => c.id === +selectedClassId)
-        if (classModel === undefined) {
-            alert("クラスを指定してください")
-            return
-        }
-
         //  get pending users
         const users = userCreatingDataList.filter((data) => data.state === "pending")
 
@@ -74,7 +74,9 @@ export default function UserCreatingAutomation(props: UserCreatingAutomationProp
                 const gender: Gender = user.gender == "male" ? "male" : "female"
                 const username = user.username
                 const email = user.email
-                if (username === undefined || email === undefined) {
+                //  class
+                const classModel = props.classes.find(v => v.name === user.className)
+                if (username === undefined || email === undefined || classModel === undefined) {
                     continue
                 }
 
@@ -113,31 +115,6 @@ export default function UserCreatingAutomation(props: UserCreatingAutomationProp
                 所属クラスを指定してください。
             </Typography>
 
-            <FormControl sx={{m: 1, minWidth: 80}}>
-                <InputLabel id="class-select-label">Class</InputLabel>
-                <Select
-                    value={selectedClassId}
-                    labelId={"class-select-label"}
-                    id={"class-select"}
-                    label="Class"
-                    onChange={(event) => {
-                        setSelectedClassId(event.target.value)
-                    }}
-                    sx={{
-                        width: "200px",
-                    }}
-                >
-                    {props.classes.map((c) => (
-                        <MenuItem
-                            key={c.id}
-                            value={c.id}
-                        >
-                            {c.name}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-
             <Typography>
                 CSVを入力してください
             </Typography>
@@ -150,7 +127,7 @@ export default function UserCreatingAutomation(props: UserCreatingAutomationProp
                 value={csvInput}
             />
 
-            <UserCreatingStatus dataList={userCreatingDataList}/>
+            <UserCreatingStatusWithoutClassSelection dataList={userCreatingDataList}/>
 
             <Button
                 variant={"contained"}

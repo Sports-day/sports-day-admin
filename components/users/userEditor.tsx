@@ -8,7 +8,7 @@ import {
 import {HiCheck, HiTrash} from "react-icons/hi2";
 import React, {useState} from "react";
 import {Gender, User, userFactory} from "@/src/models/UserModel";
-import { Class } from "@/src/models/ClassModel";
+import {Class} from "@/src/models/ClassModel";
 import {Role} from "@/src/models/RoleModel";
 import {useRouter} from "next/navigation";
 
@@ -31,7 +31,6 @@ export default function UserEditor(props: UserEditorProps) {
             name: props.user.name,
             email: props.user.email,
             gender: gender as Gender,
-            pictureId: props.user.pictureId,
             classId: classId,
         })
 
@@ -46,22 +45,9 @@ export default function UserEditor(props: UserEditorProps) {
     return (
         <>
             <Stack mx={0} my={2} spacing={2} direction={"column"}>
-
-                <Stack
-                    direction={"row"}
-                    spacing={2}
-                    alignItems={"center"}
-                >
-                    <Avatar
-                        alt={props.user.name}
-                        src={props.user.pictureId ? `${process.env.NEXT_PUBLIC_API_URL}/images/${props.user.pictureId}/file`: undefined}
-                        sx={{ width: 56, height: 56 }}
-                    />
-
-                    <Typography>
-                        {props.user.name}
-                    </Typography>
-                </Stack>
+                <Typography>
+                    {props.user.name}
+                </Typography>
 
                 <FormControl fullWidth>
                     <InputLabel id="gender-select-label">性別</InputLabel>
