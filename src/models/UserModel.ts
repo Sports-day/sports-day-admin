@@ -7,7 +7,6 @@ export type User = {
     name: string,
     email: string,
     gender: Gender,
-    pictureId: number | null,
     classId: number,
     teamIds: number[],
     createdAt: string,
