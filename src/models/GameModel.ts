@@ -16,7 +16,7 @@ export type Game = {
 }
 
 export type GameType = "tournament" | "league"
-export type GameCalculationType = "total_score" | "diff_score"
+export type GameCalculationType = "total_score" | "diff_score" | "win_score"
 
 export type TournamentResult = {
     gameId: number,
