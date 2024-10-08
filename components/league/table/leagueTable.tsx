@@ -126,9 +126,16 @@ export default async function LeagueTable(props: LeagueTableProps) {
                         )
                     }
                 } else {
-                    rows.push(
-                        <TextCell text={`${result.rank.toString()} 位`} key={`result_${i}_${j}`}/>
-                    )
+                    if (results.teams.some(r => r.rank === result.rank && r.teamId !== result.teamId)) {
+                        rows.push(
+                            <TextCell text={`同率 ${result.rank.toString()} 位`} key={`result_${i}_${j}`}/>
+                        )
+                    } else {
+                        rows.push(
+                            <TextCell text={`${result.rank.toString()} 位`} key={`result_${i}_${j}`}/>
+                        )
+                    }
+
                 }
             }
         }

@@ -42,8 +42,8 @@ export default function GameForm(props: GameFormProps) {
         }
 
         //  calculationType invalid
-        if (calculationTypeState !== "total_score" && calculationTypeState !== "diff_score") {
-            alert("合計得点もしくは得失点差が選択可能です。")
+        if (calculationTypeState !== "total_score" && calculationTypeState !== "diff_score" && calculationTypeState !== "win_score") {
+            alert("勝ち点、合計得点もしくは得失点差が選択可能です。")
             return
         }
 

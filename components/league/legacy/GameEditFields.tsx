@@ -138,6 +138,11 @@ export default function GameEditFields(props: GameEditFieldsProps) {
                     >
                         得失点
                     </MenuItem>
+                    <MenuItem
+                        value={"win_score"}
+                    >
+                        勝ち点
+                    </MenuItem>
                 </Select>
             </FormControl>
 
