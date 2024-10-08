@@ -62,11 +62,10 @@ export const Navigation = () => {
                 </Button>
                 <Button
                     color={"secondary"}
-                    disabled={true}
                     variant={"contained"}
                     sx={{py: buttonPadding, width: "100%", fontWeight: "600"}}
                     component={NextLink}
-                    href={"/"}
+                    href={"/information"}
                     onClick={handleDrawerClose}
                 >
                     <Stack spacing={1} mx={1} width={"100%"} direction={"row"} justifyContent={"flex-start"}
