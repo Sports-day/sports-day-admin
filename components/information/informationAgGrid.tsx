@@ -13,6 +13,7 @@ ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export type InformationAgGridProps = {
     informationList: Information[]
+    dashboard?: boolean
 }
 
 // Row Data Interface
@@ -24,7 +25,7 @@ type IRow = {
 
 // Create new GridExample component
 export default function InformationAgGrid(props: InformationAgGridProps) {
-    const height = 'calc(100vh - 230px)';
+    const height = props.dashboard ? '200px' : 'calc(100vh - 230px)';
     const router = useRouter()
     // Row Data: The data to be displayed.
     const [rowData, setRowData] = useState<IRow[]>([])

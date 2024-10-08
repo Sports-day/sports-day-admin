@@ -19,7 +19,7 @@ export default function InformationCreatePage() {
                 <Link
                     underline="hover"
                     color="inherit"
-                    href={"/tags/"}
+                    href={"/information/"}
                     component={NextLink}
                 >
                     お知らせ管理
