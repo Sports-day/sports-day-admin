@@ -1,7 +1,7 @@
 'use client'
 import {Game, gameFactory} from "@/src/models/GameModel";
-import {FormEvent, useRef, useState} from "react";
-import {Button, Stack, TextFieldProps} from "@mui/material";
+import React, {FormEvent, useRef, useState} from "react";
+import {Alert, Button, Snackbar, Stack, TextFieldProps} from "@mui/material";
 import {Tag} from "@/src/models/TagModel";
 import {useRouter} from "next/navigation";
 import GameEditFields from "@/components/league/legacy/GameEditFields";
@@ -22,6 +22,7 @@ export default function GameForm(props: GameFormProps) {
     const descriptionRef = useRef<TextFieldProps>(null)
     const wightRef = useRef<TextFieldProps>(null)
     //  state
+    const [snackOpen, setSnackOpen] = React.useState<boolean>(false)
     const [typeState, setTypeState] = useState<string>(props.game?.type ?? '')
     const [calculationTypeState, setCalculationTypeState] = useState<string>(props.game?.calculationType ?? '')
     const [tag, setTag] = useState<string>(props.game?.tagId?.toString() ?? '')
@@ -52,7 +53,6 @@ export default function GameForm(props: GameFormProps) {
             alert("タグを指定してください。")
             return
         }
-
 
 
         if (props.formType === "create") {
@@ -87,40 +87,61 @@ export default function GameForm(props: GameFormProps) {
 
         //  refresh list
         router.refresh()
+        setSnackOpen(true)
     }
 
+    const handleSnackClose = () => {
+        setSnackOpen(false)
+    }
 
     return (
-        <Stack
-            spacing={1}
-            direction={"column"}
-        >
-            <GameEditFields
-                nameRef={nameRef}
-                descriptionRef={descriptionRef}
-                wightRef={wightRef}
-                typeState={typeState}
-                setTypeState={setTypeState}
-                calculationTypeState={calculationTypeState}
-                setCalculationTypeState={setCalculationTypeState}
-                tags={props.tags}
-                tag={tag}
-                setTag={setTag}
-                game={props.game}
-            />
-
-
-            <Button
-                type={"submit"}
-                variant={"contained"}
-                onClick={handleSubmit}
+        <>
+            <Stack
+                spacing={1}
+                direction={"column"}
             >
-                {
-                    props.formType == "create" ?
-                        "作成" :
-                        "編集"
-                }
-            </Button>
-        </Stack>
+                <GameEditFields
+                    nameRef={nameRef}
+                    descriptionRef={descriptionRef}
+                    wightRef={wightRef}
+                    typeState={typeState}
+                    setTypeState={setTypeState}
+                    calculationTypeState={calculationTypeState}
+                    setCalculationTypeState={setCalculationTypeState}
+                    tags={props.tags}
+                    tag={tag}
+                    setTag={setTag}
+                    game={props.game}
+                />
+
+
+                <Button
+                    type={"submit"}
+                    variant={"contained"}
+                    onClick={handleSubmit}
+                >
+                    {
+                        props.formType == "create" ?
+                            "作成" :
+                            "編集"
+                    }
+                </Button>
+            </Stack>
+            <Snackbar
+                open={snackOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackClose}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+            >
+                <Alert
+                    onClose={handleSnackClose}
+                    severity="success"
+                    variant="filled"
+                    sx={{width: '100%'}}
+                >
+                    変更が保存されました
+                </Alert>
+            </Snackbar>
+        </>
     )
 }
