@@ -510,7 +510,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                             variant={"contained"}
                             color={"info"}
                             component={NextLink}
-                            href={`/sports/${props.sport.id}/${props.game.id}`}
+                            href={`/sports/${props.sport.id}/games/${props.game.id}`}
                             sx={{border: "1px solid #5f6dc2", py: 2}}
                         >
                             リーグに戻る
@@ -542,7 +542,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                             variant={"contained"}
                             color={"info"}
                             component={NextLink}
-                            href={`/sports/${props.sport.id}/${props.game.id}`}
+                            href={`/sports/${props.sport.id}/games/${props.game.id}`}
                             sx={{border: "1px solid #5f6dc2", py: 2}}
                         >
                             リーグに戻る
