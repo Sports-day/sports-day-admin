@@ -92,7 +92,7 @@ export default function SportCreator() {
                             >
                                 {images.map((image) => (
                                     <MenuItem key={image.id} value={image.id}>
-                                        <Avatar src={image.data}/>
+                                        <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
                                         {image.id}
                                     </MenuItem>
                                 ))}
