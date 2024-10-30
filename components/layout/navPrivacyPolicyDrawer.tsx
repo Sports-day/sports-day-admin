@@ -20,7 +20,7 @@ const NavPrivacyPolicyDrawer = () => {
                     position: "fixed",
                     bottom: 0, left: 0, right: 0,
                     zIndex: "128",
-                    background:"rgba(62,78,179,0.8)",
+                    background:"${theme.palette.background.paper}",
                     backdropFilter: 'blur(4px)',
                 }}
             >
@@ -32,7 +32,7 @@ const NavPrivacyPolicyDrawer = () => {
                     <Container maxWidth={"xl"}>
                         <Button
                             sx={{width:"100%"}}
-                            color="secondary"
+                            color="primary"
                             onClick={toggleDrawer(false)}
                             aria-label="close"
                             startIcon={<HiXMark/>}

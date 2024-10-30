@@ -14,7 +14,7 @@ async function fetchWithToken(url: string, options: RequestInit | undefined = {}
     }
 
     const mergedOptions: RequestInit = {
-        cache: "no-cache",
+        cache: "no-store",
         credentials: "include",
         ...options,
         headers: {

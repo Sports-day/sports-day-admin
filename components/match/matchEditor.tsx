@@ -399,6 +399,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                             <FormControl fullWidth size={"small"}>
                                 <InputLabel id="demo-simple-select-label">審判</InputLabel>
                                 <Select
+                                    variant={"outlined"}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={judgeTeamId}
@@ -420,6 +421,7 @@ export default function MatchEditor(props: MatchEditorProps) {
                             <FormControl fullWidth size={"small"}>
                                 <InputLabel id="demo-simple-select-label">場所</InputLabel>
                                 <Select
+                                    variant={"outlined"}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={locationId}

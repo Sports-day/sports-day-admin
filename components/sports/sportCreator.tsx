@@ -81,6 +81,7 @@ export default function SportCreator() {
                         <FormControl fullWidth size={"small"}>
                             <InputLabel id="demo-simple-select-label">アイコン</InputLabel>
                             <Select
+                                variant={"outlined"}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={iconId}
@@ -91,8 +92,10 @@ export default function SportCreator() {
                             >
                                 {images.map((image) => (
                                     <MenuItem key={image.id} value={image.id}>
-                                        <Avatar src={image.data}/>
-                                        {image.id}
+                                        <Stack direction={"row"} alignItems={"center"}>
+                                            <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
+                                            <Typography ml={2}>{image.id}</Typography>
+                                        </Stack>
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -101,6 +104,7 @@ export default function SportCreator() {
                         <FormControl fullWidth size={"small"}>
                             <InputLabel id="demo-simple-select-label">タグ</InputLabel>
                             <Select
+                                variant={"outlined"}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={tagId}

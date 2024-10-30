@@ -253,6 +253,7 @@ export function AutomaticMatchEditorForImizu(props: AutomaticMatchEditorProps) {
             <FormControl fullWidth size={"small"}>
                 <InputLabel id="location-select">開催場所</InputLabel>
                 <Select
+                    variant={"outlined"}
                     labelId={"location-select"}
                     id={"location"}
                     label={"開催場所"}
