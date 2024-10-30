@@ -33,6 +33,7 @@ export default function InformationCreator() {
 
         //  redirect to role page
         router.push('/information')
+        router.refresh()
     }
 
     return (
