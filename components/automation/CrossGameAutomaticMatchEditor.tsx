@@ -255,6 +255,7 @@ export function CrossGameAutomaticMatchEditor(props: CrossGameAutomaticMatchEdit
             <FormControl fullWidth size={"small"}>
                 <InputLabel id="game-select">リーグ・トーナメント選択</InputLabel>
                 <Select
+                    variant={"outlined"}
                     labelId={"game-select"}
                     id={"game"}
                     placeholder={"リーグ・トーナメント選択"}
@@ -312,6 +313,7 @@ export function CrossGameAutomaticMatchEditor(props: CrossGameAutomaticMatchEdit
 
             <InputLabel id="location-select">開催場所</InputLabel>
             <Select
+                variant={"outlined"}
                 labelId={"location-select"}
                 id={"location"}
                 label={"開催場所"}

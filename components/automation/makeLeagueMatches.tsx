@@ -56,6 +56,7 @@ export default function MakeLeagueMatches(props: MakeLeagueMatchesProps) {
             <FormControl>
                 <InputLabel id="location-select">場所(後から変更できます)</InputLabel>
                 <Select
+                    variant={"outlined"}
                     labelId={"location-select"}
                     id={"location"}
                     label={"場所"}

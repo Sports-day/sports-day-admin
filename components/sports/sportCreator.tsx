@@ -81,6 +81,7 @@ export default function SportCreator() {
                         <FormControl fullWidth size={"small"}>
                             <InputLabel id="demo-simple-select-label">アイコン</InputLabel>
                             <Select
+                                variant={"outlined"}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={iconId}
@@ -101,6 +102,7 @@ export default function SportCreator() {
                         <FormControl fullWidth size={"small"}>
                             <InputLabel id="demo-simple-select-label">タグ</InputLabel>
                             <Select
+                                variant={"outlined"}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={tagId}
