@@ -92,8 +92,10 @@ export default function SportCreator() {
                             >
                                 {images.map((image) => (
                                     <MenuItem key={image.id} value={image.id}>
-                                        <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
-                                        {image.id}
+                                        <Stack direction={"row"} alignItems={"center"}>
+                                            <Avatar src={`${process.env.NEXT_PUBLIC_API_URL}/images/${image.id}/file`}/>
+                                            <Typography ml={2}>{image.id}</Typography>
+                                        </Stack>
                                     </MenuItem>
                                 ))}
                             </Select>
