@@ -47,7 +47,10 @@ export default async function MatchCard(props: MatchCardProps) {
                             <Chip
                                 color="secondary"
                                 size={"small"}
-                                avatar={<Avatar><HiTrophy/></Avatar>}
+                                avatar={
+                                    <Avatar src={sport.iconId ? `${process.env.NEXT_PUBLIC_API_URL}/images/${sport.iconId}/file` : undefined}>
+                                        {!sport.iconId && <HiTrophy />}
+                                    </Avatar>}
                             />
                         </Tooltip>
 
