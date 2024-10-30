@@ -2,6 +2,7 @@ import {Information} from "@/src/models/InformationModel";
 import {Stack, Typography, IconButton, Button} from "@mui/material";
 import {HiOutlineInformationCircle} from "react-icons/hi";
 import React from "react";
+import NextLink from "next/link";
 
 export type InformationListProps = {
     informationList: Information[]
@@ -10,7 +11,12 @@ export type InformationListProps = {
 export default function InformationList(props: InformationListProps) {
     const list = props.informationList.map((information) => {
         return (
-            <Button href={`/information/${information.id}`} sx={{py:1.5, px:2,mb:1, width:"100%", backgroundColor:"secondary.main", color:"text.primary"}} key={information.id}>
+            <Button
+                component={NextLink}
+                href={`/information/${information.id}`}
+                sx={{py:1.5, px:2,mb:1, width:"100%", backgroundColor:"secondary.main", color:"text.primary"}}
+                key={information.id}
+            >
                 <Stack spacing={1} direction={"row"} width={"100%"} justifyContent={"flex-start"} alignItems="center">
                     <Typography
                         color={"text.primary"}
