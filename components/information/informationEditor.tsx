@@ -30,7 +30,6 @@ export default function InformationEditor(props: InformationEditorProps) {
 
         //  reload
         router.push("/information")
-        router.refresh()
     }
 
     const handleDelete = async () => {
@@ -38,7 +37,6 @@ export default function InformationEditor(props: InformationEditorProps) {
 
         //  reload
         router.push("/information")
-        router.refresh()
     }
 
     return (

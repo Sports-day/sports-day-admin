@@ -71,8 +71,6 @@ export default function ImageCreator() {
         // Clear the states after upload
         setFile(null);
         setBase64(null);
-
-        router.refresh()
     };
 
     return (

@@ -14,7 +14,6 @@ export default function ImageEditor(props: ImageEditorProps) {
     const handleSubmit = async () => {
         await imageFactory().delete(props.image.id);
         router.back()
-        router.refresh()
     };
 
     return (
